@@ -16,8 +16,9 @@ theme = 'LoveIt'
       # title shown in home page (HTML format is supported)
       title = "Ciro Lucio Tecce"
       # subtitle shown in home page (HTML format is supported)
-      subtitle = "During my studies, I learned that no matter the subject, the field nor the dimension of the problem, just the possibility to face new challenges is important to me. I am trying to let my career be led by this awareness, looking for the opportunity to test my capabilities and skills in challenging and rapidly evolving scenarios. I am conscious that I have to study, learn and experience so much before becoming the person I would like to be, but this does not scare me, quite the opposite, it is pushing me further to go beyond my limits."
-      # whether to use typeit animation for subtitle
+      #subtitle = "During my studies, I learned that no matter the subject, the field nor the dimension of the problem, just the possibility to face new challenges is important to me. I am trying to let my career be led by this awareness, looking for the opportunity to test my capabilities and skills in challenging and rapidly evolving scenarios. I am conscious that I have to study, learn and experience so much before becoming the person I would like to be, but this does not scare me, quite the opposite, it is pushing me further to go beyond my limits."
+      subtitle = "Software Engineer"
+# whether to use typeit animation for subtitle
       typeit = false
       # whether to show social links
       social = true
