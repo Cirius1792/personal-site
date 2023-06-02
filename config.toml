@@ -1,0 +1,33 @@
+baseURL = 'http://example.org/'
+languageCode = 'en-us'
+title = "My Personal Website"
+theme = 'LoveIt'
+
+[params]
+  [params.header.title]
+    name = "My Personal page"
+  [params.home]
+    [params.home.profile]
+      enable = true
+      # Gravatar Email for preferred avatar in home page
+      gravatarEmail = ""
+      # URL of avatar shown in home page
+      avatarURL = "https://media.licdn.com/dms/image/C4D03AQHa5_BCYbOLFA/profile-displayphoto-shrink_800_800/0/1630404291817?e=1691020800&v=beta&t=fD4rXcfjMrsKJ9Lx9Hv8mS6diZIonC_a3nAE7iwYNaE"
+      # title shown in home page (HTML format is supported)
+      title = "CLT"
+      # subtitle shown in home page (HTML format is supported)
+      # 主页显示的网站副标题 (允许 HTML 格式)
+      subtitle = "Hi! I'm Ciro"
+      # whether to use typeit animation for subtitle
+      typeit = false
+      # whether to show social links
+      social = true
+      # disclaimer (HTML format is supported)
+      disclaimer = ""
+  [params.social]
+    GitHub = "Cirius1792"
+    Linkedin = "ciro-lucio-tecce-3bb628175/"
+    Instagram = "clt92/"
+    Steam = ""
+    Googlescholar = ""
+    Email = "cirolucio.tecce@gmail.com"
