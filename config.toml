@@ -12,7 +12,7 @@ theme = 'LoveIt'
       # Gravatar Email for preferred avatar in home page
       gravatarEmail = ""
       # URL of avatar shown in home page
-      avatarURL = "https://media.licdn.com/dms/image/C4D03AQHa5_BCYbOLFA/profile-displayphoto-shrink_800_800/0/1630404291817?e=1691020800&v=beta&t=fD4rXcfjMrsKJ9Lx9Hv8mS6diZIonC_a3nAE7iwYNaE"
+      avatarURL = "https://i.ibb.co/stHb5GS/job-profile-pic.jpg"
       # title shown in home page (HTML format is supported)
       title = "Ciro Lucio Tecce"
       # subtitle shown in home page (HTML format is supported)
