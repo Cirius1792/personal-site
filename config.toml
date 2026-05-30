@@ -3,6 +3,9 @@ languageCode = 'en-us'
 title = "Ciro Lucio Tecce"
 theme = 'LoveIt'
 
+[outputs]
+  home = ["HTML"]
+
 [params]
   [params.header.title]
     name = "Ciro Lucio Tecce"
