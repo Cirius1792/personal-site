@@ -11,6 +11,7 @@
 
 ```
 config.toml          ← single source of truth (profile, bio, socials, baseURL)
+.pi/agents/          ← project-local Pi agent definitions (worker agent, etc.)
 static/              ← served as-is (avatar images, profile pics)
 themes/LoveIt/       ← git submodule (the Hugo theme)
 public/              ← built output (committed, deployed by Firebase)
@@ -84,6 +85,7 @@ theme = 'LoveIt'
 
 - **Images:** Put in `static/`. Reference by filename only (e.g., `avatarURL = "photo.jpg"`). Hugo serves them at the root.
 - **Built files:** `public/` is committed. It's the deployment artifact. Don't edit files in `public/` directly — always edit `config.toml` or `static/` and rebuild.
+- **Pi project-local agents:** `.pi/agents/` contains Pi agent definitions for this repository. Currently includes `worker.md` — a delegated implementation worker that uses the `llama-cpp-cltec/Qwen3.6-35B-A3B-thinking` model. See the design spec at `docs/superpowers/specs/2026-05-30-worker-agent-design.md` before making prompt changes.
 - **Resources cache:** `resources/_gen/` contains Hugo's SCSS compilation cache. Safe to delete if you have build issues.
 - **`.hugo_build.lock`:** Create artifact from `hugo server`. Safe to delete.
 
@@ -138,6 +140,11 @@ hugo
 3. Update `theme = '...'` in `config.toml`
 4. Adjust config keys if the new theme uses different settings
 
+### Reference the Pi worker agent from another agent
+1. Set `agent: worker` and include the full task payload using the input contract documented in the design spec
+2. Include context, constraints/acceptance criteria, and working directory
+3. The worker returns a structured report with one of: `DONE`, `DONE_WITH_CONCERNS`, `BLOCKED`, `NEEDS_CONTEXT`
+
 ## Keeping AGENTS.md up to date
 
 This file is a living document. **Update it whenever the project structure or conventions change.** Specifically, after any of these events:
@@ -147,6 +154,7 @@ This file is a living document. **Update it whenever the project structure or co
 | Adding content pages (blog posts, etc.) | Add a "Content structure" section; remove "no content pages" from the architecture and "What NOT to do" |
 | Changing the Hugo theme | Update theme name, submodule URL, version requirements, and config key references |
 | Adding new static assets or directories | Update the file structure diagram and conventions |
+| Adding or changing project-local Pi agents | Update the file structure diagram, file conventions, common tasks, and reference the relevant design spec in `docs/superpowers/specs/` |
 | Changing the hosting/deploy setup | Update the Deploy section (new CLI flags, new secrets, new workflows) |
 | Adding new configuration keys | Document them in the `config.toml` walkthrough |
 | New or removed GitHub Actions | Update the Deploy section and secrets list |
