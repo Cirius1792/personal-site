@@ -11,6 +11,7 @@
 
 ```
 config.toml          ← single source of truth (profile, bio, socials, baseURL)
+content/             ← homepage narrative content (_index.md)
 .pi/agents/          ← project-local Pi agent definitions (worker agent, etc.)
 static/              ← served as-is (avatar images, profile pics)
 themes/LoveIt/       ← git submodule (the Hugo theme)
@@ -19,7 +20,7 @@ public/              ← built output (committed, deployed by Firebase)
 firebase.json        ← tells Firebase to serve public/
 ```
 
-**Critical:** There are **no** `content/` directories or `.md` content files. Everything is configured in `config.toml`. The `archetypes/` directory exists but is unused.
+**Critical:** The site has one content file: `content/_index.md` for the homepage narrative. Everything else is configured in `config.toml`. The `archetypes/` directory exists but is unused.
 
 ## Hugo specifics
 
@@ -76,6 +77,7 @@ theme = 'LoveIt'
 |---|---|
 | Name / title | `[params.header.title].name` and `[params.home.profile].title` |
 | Bio / description | `[params.home.profile].subtitle` |
+| Homepage narrative text | Edit `content/_index.md` |
 | Avatar photo | Replace file in `static/`, update `avatarURL` |
 | Social links | `[params.social]` section |
 | Domain | `baseURL` |
@@ -108,7 +110,7 @@ firebase deploy --only hosting
 
 ## What NOT to do
 
-- ❌ Don't create `content/` pages — the site has none and the theme is configured for a single profile page
+- ❌ Don't add extra `content/` pages beyond `_index.md` — the site is designed for a single profile page
 - ❌ Don't edit files in `public/` — they get overwritten on every build
 - ❌ Don't delete `themes/LoveIt/` — it's a submodule and the site won't build without it
 - ❌ Don't remove `public/` from git — it's the deployment artifact Firebase serves
