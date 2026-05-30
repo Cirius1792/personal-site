@@ -94,7 +94,7 @@ Engineering Manager at Core Reply | Software Architect
 Draft direction:
 
 ```text
-I lead engineering teams, shape software architecture, and stay close to backend delivery in distributed, event-driven systems.
+I lead engineering teams, shape software architecture, and stay close to business needs while delivering great quality software for modern architectures.
 ```
 
 This line should remain short and scannable.
