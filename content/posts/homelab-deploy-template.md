@@ -30,7 +30,7 @@ toc:
   enable: true
 ---
 
-## Introduzione — il pesce rosso e il mini rack
+## Introduzione — Perchè avere un piccolo server domestico è una buona idea e come gestirlo
 
 Un paio di anni fa sono caduto nel rabbit hole dell'homelabbing. Da buon nerd quale sono, non ho saputo resistere alla tentazione di costruire il mio piccolo server personale. Sono sempre stato affascinato dalle configurazioni compatte e silenziose — non necessariamente le più potenti, ma le più adatte allo scopo, così dopo aver letto decine e decine di post su [r/homelab](https://www.reddit.com/r/homelab/) e guardato più o meno ogni video della serie [TyniMiniMicro](https://www.servethehome.com/introducing-project-tinyminimicro-home-lab-revolution/) mi sono finalmente deciso.
 

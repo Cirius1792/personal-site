@@ -35,7 +35,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/ciroluciotecce.it\/en\/posts\/homelab-deploy-template\/"
-        },"genre": "posts","keywords": "homelab, devops, automation, cookiecutter","wordcount":  1192 ,
+        },"genre": "posts","keywords": "homelab, devops, automation, cookiecutter","wordcount":  1200 ,
         "url": "https:\/\/ciroluciotecce.it\/en\/posts\/homelab-deploy-template\/","datePublished": "2026-06-02T00:00:00+00:00","dateModified": "2026-06-02T00:00:00+00:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -83,7 +83,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">From SSH to git push: how I automated deployments on my homelab</h1><h2 class="single-subtitle">A Cookiecutter template to turn git push into container running — without touching a terminal</h2><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://ciroluciotecce.it" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Ciro Lucio Tecce</a></span>&nbsp;<span class="post-category">included in <a href="/en/categories/homelab/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Homelab</a>&nbsp;<a href="/en/categories/devops/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>DevOps</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2026-06-02">2026-06-02</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1192 words&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2026-06-02">2026-06-02</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1200 words&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;6 minutes&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
@@ -92,7 +92,7 @@
                 </div>
                 <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
-    <li><a href="#introduction--the-goldfish-and-the-mini-rack">Introduction — the goldfish and the mini rack</a></li>
+    <li><a href="#introduction---why-having-a-home-server-is-a-good-idea-and-how-to-manage-it">Introduction - Why having a home server is a good idea and how to manage it</a></li>
     <li><a href="#explanation--the-infrastructure-at-a-glance">Explanation — the infrastructure at a glance</a></li>
     <li><a href="#practical-case--the-deployment-flow">Practical case — the deployment flow</a>
       <ul>
@@ -103,7 +103,7 @@
     <li><a href="#conclusion">Conclusion</a></li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><h2 id="introduction--the-goldfish-and-the-mini-rack">Introduction — the goldfish and the mini rack</h2>
+            </div><div class="content" id="content"><h2 id="introduction---why-having-a-home-server-is-a-good-idea-and-how-to-manage-it">Introduction - Why having a home server is a good idea and how to manage it</h2>
 <p>A couple of years ago I fell down the homelab rabbit hole. Like any self-respecting nerd, I couldn&rsquo;t resist the temptation of building my own little server. I&rsquo;ve always been fascinated by compact, quiet setups — not necessarily the most powerful, but the ones best suited to the job. After reading dozens of posts on <a href="https://www.reddit.com/r/homelab/" target="_blank" rel="noopener noreffer ">r/homelab</a> and watching pretty much every video of the <a href="https://www.servethehome.com/introducing-project-tinyminimicro-home-lab-revolution/" target="_blank" rel="noopener noreffer ">TinyMiniMicro</a> series, I finally took the plunge.</p>
 <p>I started with an HP ProDesk 600 G3, an old PC picked up for next to nothing on eBay — the perfect balance of cost, performance, and power consumption. Along with the computer I bought six second-hand 2.5″ hard drives and a SATA expansion card. After a few hours in CAD and a bit of patience, I 3D-printed everything needed to fit the drives inside the original case.</p>
 <figure><a class="lightgallery" href="/homelab-hp-prodesk.webp" title="/homelab-hp-prodesk.webp" data-thumbnail="/homelab-hp-prodesk.webp" data-sub-html="<h2>My first homelab — HP ProDesk 600 G3 with 6 3D-printed 2.5″ hard drive bays</h2>">

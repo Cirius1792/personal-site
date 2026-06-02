@@ -30,7 +30,7 @@ toc:
   enable: true
 ---
 
-## Introduction — the goldfish and the mini rack
+## Introduction - Why having a home server is a good idea and how to manage it
 
 A couple of years ago I fell down the homelab rabbit hole. Like any self-respecting nerd, I couldn't resist the temptation of building my own little server. I've always been fascinated by compact, quiet setups — not necessarily the most powerful, but the ones best suited to the job. After reading dozens of posts on [r/homelab](https://www.reddit.com/r/homelab/) and watching pretty much every video of the [TinyMiniMicro](https://www.servethehome.com/introducing-project-tinyminimicro-home-lab-revolution/) series, I finally took the plunge.
 
