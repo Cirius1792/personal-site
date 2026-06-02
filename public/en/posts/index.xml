@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>All Posts - Ciro Lucio Tecce</title>
+        <link>https://ciroluciotecce.it/en/posts/</link>
+        <description>All Posts | Ciro Lucio Tecce</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Tue, 02 Jun 2026 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://ciroluciotecce.it/en/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>From SSH to git push: how I automated deployments on my homelab</title>
+    <link>https://ciroluciotecce.it/en/posts/homelab-deploy-template/</link>
+    <pubDate>Tue, 02 Jun 2026 00:00:00 &#43;0000</pubDate>
+    <author>Ciro Lucio Tecce</author>
+    <guid>https://ciroluciotecce.it/en/posts/homelab-deploy-template/</guid>
+    <description><![CDATA[<h2 id="introduction--the-goldfish-and-the-mini-rack">Introduction — the goldfish and the mini rack</h2>
+<p>A couple of years ago I fell down the homelab rabbit hole. Like any self-respecting nerd, I couldn&rsquo;t resist the temptation of building my own little server. I&rsquo;ve always been fascinated by compact, quiet setups — not necessarily the most powerful, but the ones best suited to the job. After reading dozens of posts on <a href="https://www.reddit.com/r/homelab/" target="_blank" rel="noopener noreffer ">r/homelab</a> and watching pretty much every video of the <a href="https://www.servethehome.com/introducing-project-tinyminimicro-home-lab-revolution/" target="_blank" rel="noopener noreffer ">TinyMiniMicro</a> series, I finally took the plunge.</p>]]></description>
+</item>
+</channel>
+</rss>

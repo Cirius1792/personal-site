@@ -10,8 +10,13 @@
 ## Architecture
 
 ```
-config.toml          ← single source of truth (profile, bio, socials, baseURL)
-content/             ← homepage narrative content (_index.md)
+config.toml          ← single source of truth (profile, bio, socials, baseURL, languages)
+content/             ← Italian content (default language)
+  _index.md          ← Italian homepage
+  posts/             ← Italian blog posts
+content/en/          ← English content (second language)
+  _index.md          ← English homepage
+  posts/             ← English blog posts
 .pi/agents/          ← project-local Pi agent definitions (worker agent, etc.)
 static/              ← served as-is (avatar images, profile pics)
 themes/LoveIt/       ← git submodule (the Hugo theme)
@@ -20,7 +25,7 @@ public/              ← built output (committed, deployed by Firebase)
 firebase.json        ← tells Firebase to serve public/
 ```
 
-**Critical:** The site has one content file: `content/_index.md` for the homepage narrative. Everything else is configured in `config.toml`. The `archetypes/` directory exists but is unused.
+**Critical:** The site is bilingual (Italian default, English second). Homepage content lives in `content/_index.md` (IT) and `content/en/_index.md` (EN). Blog posts go in `content/posts/` (IT) and `content/en/posts/` (EN). Everything else is configured in `config.toml`. The `archetypes/` directory exists but is unused.
 
 ## Hugo specifics
 
@@ -41,47 +46,71 @@ cd themes/LoveIt && git pull && cd ../..
 
 ## Configuration — config.toml
 
-This is the only file you'll edit for content changes. Structure:
+This is the only file you'll edit for content changes. Structure (multilingual):
 
 ```toml
 baseURL = 'https://ciroluciotecce.it'          # ← change if migrating domains
+defaultContentLanguage = "it"                   # Italian is default
 theme = 'LoveIt'
+
+# Shared params — inherited by all languages
+[params.author]
+  name = "Ciro Lucio Tecce"
+  email = ""
+  link = "https://ciroluciotecce.it"
 
 [params]
   [params.header.title]
     name = "Ciro Lucio Tecce"
-
-  [params.home]
-    [params.home.profile]
-      enable = true
-      gravatarEmail = ""
-      avatarURL = "job-profile-pic.jpg"         # ← file in static/
-      title = "Ciro Lucio Tecce"
-      subtitle = "..."                          # ← bio text
-      typeit = false
-      social = true
-      disclaimer = ""
-
   [params.social]
     GitHub = "Cirius1792"
     Linkedin = "ciro-lucio-tecce-3bb628175/"
-    Instagram = "clt92/"
-    Steam = ""
-    Googlescholar = ""
-    Email = "cirolucio.tecce@gmail.com"
+    ...
+
+[languages]
+  [languages.it]
+    weight = 1
+    languageCode = "it"
+    languageName = "Italiano"
+    # Menu items translated, subtitle/disclaimer in Italian
+    [languages.it.params.home.profile]
+      subtitle = "..."
+      disclaimer = "..."
+    [languages.it.menu]
+      [[languages.it.menu.main]]
+        name = "Articoli"
+        url = "/posts/"
+
+  [languages.en]
+    weight = 2
+    languageCode = "en"
+    languageName = "English"
+    contentDir = "content/en"                    # ← REQUIRED for non-default language
+    # Menu items translated, subtitle/disclaimer in English
+    [languages.en.params.home.profile]
+      subtitle = "..."
+      disclaimer = "..."
+    [languages.en.menu]
+      [[languages.en.menu.main]]
+        name = "Posts"
+        url = "/posts/"
 ```
+
+**Important:** The non-default language must have `contentDir` set explicitly (e.g., `contentDir = "content/en"`). Without it, Hugo treats the directory as a site section instead of language content, causing incorrect `<html lang>` and OG locale metadata.
 
 ### Common edits
 
 | Want to change | Where |
 |---|---|
-| Name / title | `[params.header.title].name` and `[params.home.profile].title` |
-| Bio / description | `[params.home.profile].subtitle` |
-| Homepage narrative text | Edit `content/_index.md` |
-| Avatar photo | Replace file in `static/`, update `avatarURL` |
-| Social links | `[params.social]` section |
+| Name / title | `[params.header.title].name` (shared) |
+| Bio / description (IT) | `[languages.it.params.home.profile].subtitle` |
+| Bio / description (EN) | `[languages.en.params.home.profile].subtitle` |
+| Homepage narrative text (IT) | Edit `content/_index.md` |
+| Homepage narrative text (EN) | Edit `content/en/_index.md` |
+| Avatar photo | Replace file in `static/`, update `avatarURL` in each `[languages.xx.params.home.profile]` |
+| Social links | `[params.social]` (shared across languages) |
 | Domain | `baseURL` |
-| Subtitle animation | `typeit = true` |
+| Subtitle animation | `typeit = true` per-language |
 
 ## File conventions
 
@@ -134,6 +163,9 @@ firebase deploy --only hosting
 ```bash
 rm -rf public/ resources/_gen/
 hugo
+# Check html lang attributes
+head -1 public/*/index.html
+head -1 public/en/index.html
 ```
 
 ### Switch Hugo theme

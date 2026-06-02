@@ -1,51 +1,20 @@
 baseURL = 'https://ciroluciotecce.it'
-languageCode = 'en-us'
+defaultContentLanguage = "it"
 title = "Ciro Lucio Tecce"
 theme = 'LoveIt'
 
 [outputs]
   home = ["HTML"]
 
+# Shared params — inherited by all languages unless overridden
 [params.author]
   name = "Ciro Lucio Tecce"
   email = ""
   link = "https://ciroluciotecce.it"
 
-[menu]
-  [[menu.main]]
-    weight = 1
-    identifier = "posts"
-    name = "Posts"
-    url = "/posts/"
-    title = ""
-  [[menu.main]]
-    weight = 2
-    identifier = "tags"
-    name = "Tags"
-    url = "/tags/"
-    title = ""
-
 [params]
   [params.header.title]
     name = "Ciro Lucio Tecce"
-  [params.home]
-    [params.home.profile]
-      enable = true
-      # Gravatar Email for preferred avatar in home page
-      gravatarEmail = ""
-      # URL of avatar shown in home page
-      avatarURL = "job-profile-pic.jpg"
-      # title shown in home page (HTML format is supported)
-      title = "Ciro Lucio Tecce"
-      # subtitle shown in home page (HTML format is supported)
-      #subtitle = "During my studies, I learned that no matter the subject, the field nor the dimension of the problem, just the possibility to face new challenges is important to me. I am trying to let my career be led by this awareness, looking for the opportunity to test my capabilities and skills in challenging and rapidly evolving scenarios. I am conscious that I have to study, learn and experience so much before becoming the person I would like to be, but this does not scare me, quite the opposite, it is pushing me further to go beyond my limits."
-      subtitle = "Engineering Manager at Core Reply | Software Architect"
-# whether to use typeit animation for subtitle
-      typeit = false
-      # whether to show social links
-      social = true
-      # disclaimer (HTML format is supported)
-      disclaimer = "I lead engineering teams, shape software architecture, and stay close to business needs while delivering great quality software for modern architectures."
   [params.social]
     GitHub = "Cirius1792"
     Linkedin = "ciro-lucio-tecce-3bb628175/"
@@ -53,3 +22,63 @@ theme = 'LoveIt'
     Steam = ""
     Googlescholar = ""
     Email = "cirolucio.tecce@gmail.com"
+
+[languages]
+  [languages.it]
+    weight = 1
+    languageCode = "it"
+    languageName = "Italiano"
+    [languages.it.menu]
+      [[languages.it.menu.main]]
+        weight = 1
+        identifier = "posts"
+        name = "Articoli"
+        url = "/posts/"
+        title = ""
+      [[languages.it.menu.main]]
+        weight = 2
+        identifier = "tags"
+        name = "Tag"
+        url = "/tags/"
+        title = ""
+    [languages.it.params]
+      [languages.it.params.home]
+        [languages.it.params.home.profile]
+          enable = true
+          gravatarEmail = ""
+          avatarURL = "job-profile-pic.jpg"
+          title = "Ciro Lucio Tecce"
+          subtitle = "Engineering Manager at Core Reply | Software Architect"
+          typeit = false
+          social = true
+          disclaimer = "Guido team di ingegneria, definisco architetture software e resto vicino alle esigenze di business, fornendo software di alta qualità per architetture moderne."
+
+  [languages.en]
+    weight = 2
+    languageCode = "en"
+    languageName = "English"
+    contentDir = "content/en"
+    [languages.en.menu]
+      [[languages.en.menu.main]]
+        weight = 1
+        identifier = "posts"
+        name = "Posts"
+        url = "/posts/"
+        title = ""
+      [[languages.en.menu.main]]
+        weight = 2
+        identifier = "tags"
+        name = "Tags"
+        url = "/tags/"
+        title = ""
+    [languages.en.params]
+      [languages.en.params.home]
+        [languages.en.params.home.profile]
+          enable = true
+          gravatarEmail = ""
+          avatarURL = "job-profile-pic.jpg"
+          title = "Ciro Lucio Tecce"
+          subtitle = "Engineering Manager at Core Reply | Software Architect"
+          typeit = false
+          social = true
+          disclaimer = "I lead engineering teams, shape software architecture, and stay close to business needs while delivering great quality software for modern architectures."

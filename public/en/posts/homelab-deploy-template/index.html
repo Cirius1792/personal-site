@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>From SSH to git push: how I automated deployments on my homelab - Ciro Lucio Tecce</title><meta name="Description" content="How I automated service deployments on my homelab using Cookiecutter, cruft, and CI/CD."><meta property="og:url" content="https://ciroluciotecce.it/en/posts/homelab-deploy-template/">
+  <meta property="og:site_name" content="Ciro Lucio Tecce">
+  <meta property="og:title" content="From SSH to git push: how I automated deployments on my homelab">
+  <meta property="og:description" content="How I automated service deployments on my homelab using Cookiecutter, cruft, and CI/CD.">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2026-06-02T00:00:00+00:00">
+    <meta property="article:modified_time" content="2026-06-02T00:00:00+00:00">
+    <meta property="article:tag" content="Homelab">
+    <meta property="article:tag" content="Devops">
+    <meta property="article:tag" content="Automation">
+    <meta property="article:tag" content="Cookiecutter">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="From SSH to git push: how I automated deployments on my homelab">
+  <meta name="twitter:description" content="How I automated service deployments on my homelab using Cookiecutter, cruft, and CI/CD.">
+<meta name="application-name" content="My cool site">
+<meta name="apple-mobile-web-app-title" content="My cool site"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://ciroluciotecce.it/en/posts/homelab-deploy-template/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "From SSH to git push: how I automated deployments on my homelab",
+        "inLanguage": "en",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/ciroluciotecce.it\/en\/posts\/homelab-deploy-template\/"
+        },"genre": "posts","keywords": "homelab, devops, automation, cookiecutter","wordcount":  1192 ,
+        "url": "https:\/\/ciroluciotecce.it\/en\/posts\/homelab-deploy-template\/","datePublished": "2026-06-02T00:00:00+00:00","dateModified": "2026-06-02T00:00:00+00:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "Ciro Lucio Tecce"
+            },"description": "How I automated service deployments on my homelab using Cookiecutter, cruft, and CI/CD."
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/en/" title="Ciro Lucio Tecce">Ciro Lucio Tecce</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/en/posts/"> Posts </a><a class="menu-item" href="/en/tags/"> Tags </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a><a href="javascript:void(0);" class="menu-item language" title="Select Language">
+                    <i class="fa fa-globe" aria-hidden="true"></i>                      
+                    <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/posts/homelab-deploy-template/">Italiano</option><option value="/en/posts/homelab-deploy-template/" selected>English</option></select>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/en/" title="Ciro Lucio Tecce">Ciro Lucio Tecce</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/en/posts/" title="">Posts</a><a class="menu-item" href="/en/tags/" title="">Tags</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="Select Language">
+                    <i class="fa fa-globe fa-fw" aria-hidden="true"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/posts/homelab-deploy-template/">Italiano</option><option value="/en/posts/homelab-deploy-template/" selected>English</option></select>
+                </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">From SSH to git push: how I automated deployments on my homelab</h1><h2 class="single-subtitle">A Cookiecutter template to turn git push into container running — without touching a terminal</h2><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://ciroluciotecce.it" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Ciro Lucio Tecce</a></span>&nbsp;<span class="post-category">included in <a href="/en/categories/homelab/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Homelab</a>&nbsp;<a href="/en/categories/devops/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>DevOps</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2026-06-02">2026-06-02</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1192 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;6 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#introduction--the-goldfish-and-the-mini-rack">Introduction — the goldfish and the mini rack</a></li>
+    <li><a href="#explanation--the-infrastructure-at-a-glance">Explanation — the infrastructure at a glance</a></li>
+    <li><a href="#practical-case--the-deployment-flow">Practical case — the deployment flow</a>
+      <ul>
+        <li><a href="#how-the-template-works">How the template works</a></li>
+        <li><a href="#concrete-benefits">Concrete benefits</a></li>
+      </ul>
+    </li>
+    <li><a href="#conclusion">Conclusion</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="introduction--the-goldfish-and-the-mini-rack">Introduction — the goldfish and the mini rack</h2>
+<p>A couple of years ago I fell down the homelab rabbit hole. Like any self-respecting nerd, I couldn&rsquo;t resist the temptation of building my own little server. I&rsquo;ve always been fascinated by compact, quiet setups — not necessarily the most powerful, but the ones best suited to the job. After reading dozens of posts on <a href="https://www.reddit.com/r/homelab/" target="_blank" rel="noopener noreffer ">r/homelab</a> and watching pretty much every video of the <a href="https://www.servethehome.com/introducing-project-tinyminimicro-home-lab-revolution/" target="_blank" rel="noopener noreffer ">TinyMiniMicro</a> series, I finally took the plunge.</p>
+<p>I started with an HP ProDesk 600 G3, an old PC picked up for next to nothing on eBay — the perfect balance of cost, performance, and power consumption. Along with the computer I bought six second-hand 2.5″ hard drives and a SATA expansion card. After a few hours in CAD and a bit of patience, I 3D-printed everything needed to fit the drives inside the original case.</p>
+<figure><a class="lightgallery" href="/homelab-hp-prodesk.webp" title="/homelab-hp-prodesk.webp" data-thumbnail="/homelab-hp-prodesk.webp" data-sub-html="<h2>My first homelab — HP ProDesk 600 G3 with 6 3D-printed 2.5″ hard drive bays</h2>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="/homelab-hp-prodesk.webp"
+            data-srcset="/homelab-hp-prodesk.webp, /homelab-hp-prodesk.webp 1.5x, /homelab-hp-prodesk.webp 2x"
+            data-sizes="auto"
+            alt="/homelab-hp-prodesk.webp" />
+    </a><figcaption class="image-caption">My first homelab — HP ProDesk 600 G3 with 6 3D-printed 2.5″ hard drive bays</figcaption>
+    </figure>
+<p>The setup has evolved since then. The HP has been retired, two new mini PCs have joined the fleet, and after a few dozen more hours of printing, they found a home in a dedicated <a href="https://www.youtube.com/watch?v=ZTmmEv9irbM" target="_blank" rel="noopener noreffer ">mini rack</a>.
+Not only did the machines multiply, but so did the number of deployed services — and with them, the complexity of managing everything.</p>
+<p>At first it was simple: SSH into the machine, write the docker-compose.yml by hand, configure the reverse proxy, create config files, wrestle a bit with permissions, and off the service went. Nothing complicated — until something went wrong: <strong>a configuration error and there was no going back</strong>. I&rsquo;d have to hope I had saved a working version somewhere. Moving a service from one machine to another? An ordeal.</p>
+<figure><a class="lightgallery" href="/homelab-mini-rack.jpeg" title="/homelab-mini-rack.jpeg" data-thumbnail="/homelab-mini-rack.jpeg" data-sub-html="<h2>The current setup — mini rack with two nodes, reverse proxy, and dedicated network</h2>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="/homelab-mini-rack.jpeg"
+            data-srcset="/homelab-mini-rack.jpeg, /homelab-mini-rack.jpeg 1.5x, /homelab-mini-rack.jpeg 2x"
+            data-sizes="auto"
+            alt="/homelab-mini-rack.jpeg" />
+    </a><figcaption class="image-caption">The current setup — mini rack with two nodes, reverse proxy, and dedicated network</figcaption>
+    </figure>
+<p>So I decided to combine two of my passions: homelabbing and continuous delivery (I&rsquo;m one of the signatories of <a href="https://minimumcd.org/#signatories" target="_blank" rel="noopener noreffer ">minimumcd.org</a>). After all, why spend half an hour doing manually what you can automate in tens and tens of hours?!?
+Jokes aside, it was a valuable learning experience for me, and that&rsquo;s really what drives anyone who decides to build their own homelab — it&rsquo;s not about saving money, often it&rsquo;s not even about privacy, but about the desire to experiment and learn something new.</p>
+<hr>
+<h2 id="explanation--the-infrastructure-at-a-glance">Explanation — the infrastructure at a glance</h2>
+<p>Before I talk about the solution, let me step back and give some context. Here&rsquo;s what my infrastructure looks like today:</p>
+<ol>
+<li><strong>Two machines</strong> in total, both configured automatically via Ansible scripts</li>
+<li><strong>Docker services</strong> orchestrated through Portainer, installed on both machines</li>
+<li><strong>A reverse proxy</strong> (<a href="https://docs.linuxserver.io/general/swag/" target="_blank" rel="noopener noreffer ">SWAG</a>) on one of the machines, exposed to the outside for everything that needs to be reachable from the internet</li>
+<li><strong><a href="https://gethomepage.dev/" target="_blank" rel="noopener noreffer ">Homepage</a></strong> — a dashboard showing all services, updated automatically</li>
+</ol>
+<p>Plus another dozen or so services that I won&rsquo;t mention for brevity.</p>
+<blockquote>
+<p><strong>Portainer</strong> is a graphical interface for Docker. <strong>SWAG</strong> is a LinuxServer container that bundles nginx, Certbot (SSL certificates), Fail2ban, and a pre-configured reverse proxy structure. <strong>Homepage</strong> is a service aggregator with automatic discovery via Docker labels.</p>
+</blockquote>
+<p>The infrastructure was already working well. The problem wasn&rsquo;t <em>what</em> ran the services, but <em>how</em> I set them up.</p>
+<hr>
+<h2 id="practical-case--the-deployment-flow">Practical case — the deployment flow</h2>
+<p>Here&rsquo;s what happens today when I want to launch a new service:</p>
+<ol>
+<li>Open a terminal</li>
+<li>Run <code>cruft create https://github.com/Cirius1792/hs-service-template.git</code></li>
+<li>Answer a few questions: service name, group, icon, domain</li>
+<li>Edit the generated <code>docker-compose.yml</code> with the service&rsquo;s image</li>
+<li>Fill in the environment variables in <code>stack.env</code></li>
+<li><code>git push</code> to main — the repositories live on a <a href="https://about.gitea.com/" target="_blank" rel="noopener noreffer ">Gitea</a> instance directly on one of the machines</li>
+</ol>
+<p>The rest is automatic. Here&rsquo;s the flow:</p>
+<div class="mermaid" id="id-1"></div>
+<h3 id="how-the-template-works">How the template works</h3>
+<p>The core of the solution is a <strong>Cookiecutter template</strong>, managed with <a href="https://cruft.github.io/cruft/" target="_blank" rel="noopener noreffer ">cruft</a> to keep generated repositories in sync with template updates.</p>
+<p>When a new project is generated, you get a fully structured repository with:</p>
+<ul>
+<li><strong>docker-compose.yml</strong> — service definition with Homepage labels (group, icon, URL)</li>
+<li><strong>stack.env</strong> — service environment variables (TZ, PUID, PGID&hellip;)</li>
+<li><strong>SWAG config</strong> — nginx configuration for the reverse proxy (optional)</li>
+<li><strong>configurations/ folder</strong> — version-controlled service config files with a remote destination map</li>
+<li><strong>5 pre-built CI/CD workflows</strong>:
+<ul>
+<li><strong><code>deploy-stack.yml</code></strong> — validates the compose, creates/updates the stack in Portainer</li>
+<li><strong><code>deploy-swag-config.yml</code></strong> — uploads nginx config to the SWAG host via SSH, validates with <code>nginx -t</code>, and reloads the service</li>
+<li><strong><code>deploy-configurations.yml</code></strong> — distributes config files to target machines</li>
+<li><strong><code>cruft-update.yml</code></strong> — weekly check for template updates, opens a PR with changes already applied</li>
+</ul>
+</li>
+<li><strong>Renovate</strong> configured — when a new version of a service is available, it automatically opens a PR. All I have to do is review and approve.</li>
+</ul>
+<blockquote>
+<p><strong>Git is the source of truth.</strong> Every commit is a restore point. Every push is a deploy. Mess something up? Go back to the previous commit and try again.</p>
+</blockquote>
+<h3 id="concrete-benefits">Concrete benefits</h3>
+<ul>
+<li><strong>No more SSH</strong> to install a service</li>
+<li><strong>Instant rollback</strong>: wrong config → <code>git revert</code> → push → the previous deployment is live again</li>
+<li><strong>Move a service</strong> from one machine to another? Change the <code>PORTAINER_ENVIRONMENT_ID</code> secret and push</li>
+<li><strong>Automatic updates</strong> with Renovate: when a new version is available, a PR arrives</li>
+<li><strong>The template updates itself</strong> with cruft: if you improve the template, all existing services receive a PR</li>
+</ul>
+<p>All the technical details — secrets, environment variables, SSH commands, file formats — are in the <a href="https://github.com/Cirius1792/hs-service-template" target="_blank" rel="noopener noreffer ">repository README</a>.</p>
+<hr>
+<h2 id="conclusion">Conclusion</h2>
+<p>When I started, setting up a service meant 30 minutes of SSH, manual file copying, and a silent prayer that everything would work on the first try. Today it&rsquo;s a <code>cruft create</code>, a few edits to the compose file, and a push.</p>
+<p>At the end of this journey, what I&rsquo;m left with isn&rsquo;t just a working template or pipelines that do the dirty work for me. It&rsquo;s the confirmation that having a small server in a closet, in the basement, or tucked away on some shelf — where you can break things without consequences, where you can try a different tech stack when you have time, where every problem is an opportunity to understand something new — is one of the most effective learning experiences out there.</p>
+<p>That old HP ProDesk, with its 3D-printed drive bays and fans held together with a bit of glue, wasn&rsquo;t just a server. It was a testing ground where I got my hands dirty with Ansible for the first time, where I really understood how a reverse proxy and certificate management work, where I saw with my own eyes the difference a well-built CI/CD pipeline makes and learned what works and what doesn&rsquo;t, how to do things and, most importantly, how not to do them. Every problem I encountered — a container that wouldn&rsquo;t start, an expired certificate, a forgotten config file, an unreachable service — was a lesson.</p>
+<p>The template is <a href="https://github.com/Cirius1792/hs-service-template" target="_blank" rel="noopener noreffer ">public</a>, designed to work with Gitea but adaptable to GitHub with minimal changes. Maybe it&rsquo;s not for everyone, maybe someone else&rsquo;s setup is completely different. But if there&rsquo;s one thing I&rsquo;ve learned, it&rsquo;s that it&rsquo;s always worth investing time to learn something new, even if just for the sake of it. Even if the final solution is a &ldquo;work in progress&rdquo;. Which, after all, is true of any self-respecting homelab.</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2026-06-02</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://ciroluciotecce.it/en/posts/homelab-deploy-template/" data-title="From SSH to git push: how I automated deployments on my homelab" data-hashtags="homelab,devops,automation,cookiecutter"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://ciroluciotecce.it/en/posts/homelab-deploy-template/" data-hashtag="homelab"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://ciroluciotecce.it/en/posts/homelab-deploy-template/" data-title="From SSH to git push: how I automated deployments on my homelab"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://ciroluciotecce.it/en/posts/homelab-deploy-template/" data-title="From SSH to git push: how I automated deployments on my homelab"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://ciroluciotecce.it/en/posts/homelab-deploy-template/" data-title="From SSH to git push: how I automated deployments on my homelab"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/en/tags/homelab/">Homelab</a>,&nbsp;<a href="/en/tags/devops/">Devops</a>,&nbsp;<a href="/en/tags/automation/">Automation</a>,&nbsp;<a href="/en/tags/cookiecutter/">Cookiecutter</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/en/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.157.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2026</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://ciroluciotecce.it" target="_blank">Ciro Lucio Tecce</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mermaid@9.1.3/dist/mermaid.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"data":{"id-1":"flowchart TD\n    A[\"📦 git push\"] --\u003e B[\"Workflow: \u003cb\u003eDeploy Stack\u003c/b\u003e\"]\n    A --\u003e C[\"Workflow: \u003cb\u003eDeploy SWAG Config\u003c/b\u003e\"]\n    A --\u003e D[\"Workflow: \u003cb\u003eDeploy Config Files\u003c/b\u003e\"]\n\n    B --\u003e B1{\"Relevant files\u003cbr/\u003echanged?\"}\n    B1 --\u003e|Yes| B2[\"🧪 docker compose config\u003cbr/\u003e—quiet\"]\n    B1 --\u003e|No| B3[\"✅ Skipped\"]\n    B2 --\u003e B4{Valid?}\n    B4 --\u003e|No| B5[\"❌ Fails\"]\n    B4 --\u003e|Yes| B6[\"☸️ Portainer API\u003cbr/\u003eCreate/update stack\"]\n    B6 --\u003e B7[\"🔄 Webhook redeploy\"]\n    B7 --\u003e B8[\"✅ Done\"]\n    B3 --\u003e B8\n\n    C --\u003e C1{\"Relevant files\u003cbr/\u003echanged?\"}\n    C1 --\u003e|Yes| C2[\"📤 SCP → Remote host\u003cbr/\u003eCopy SWAG config\"]\n    C1 --\u003e|No| C3[\"✅ Skipped\"]\n    C2 --\u003e C4[\"🧪 nginx -t\u003cbr/\u003einside SWAG container\"]\n    C4 --\u003e C5{Valid?}\n    C5 --\u003e|No| C6[\"↩️ Rollback backup\"]\n    C5 --\u003e|Yes| C7[\"🔄 Reload nginx\"]\n    C7 --\u003e C8[\"✅ Done\"]\n    C6 --\u003e C8\n    C3 --\u003e C8\n\n    D --\u003e D1{\"Relevant files\u003cbr/\u003echanged?\"}\n    D1 --\u003e|Yes| D2[\"📤 SCP per file\u003cbr/\u003econfigurations/data/\"]\n    D1 --\u003e|No| D3[\"✅ Skipped\"]\n    D2 --\u003e D4{Errors?}\n    D4 --\u003e|Yes| D5[\"↩️ Rollback all files\"]\n    D4 --\u003e|No| D6[\"⚡ Redeploy Portainer\u003cbr/\u003e(if needed)\"]\n    D6 --\u003e D7[\"✅ Done\"]\n    D5 --\u003e D7\n    D3 --\u003e D7\n\n    B8 --\u003e E[\"🏠 Homepage auto-discovery\u003cbr/\u003evia Docker labels\"]\n    C8 --\u003e E\n    D7 --\u003e E\n\n    style A fill:#e1f5fe,stroke:#0288d1\n    style B fill:#fff3e0,stroke:#e65100\n    style C fill:#e8f5e9,stroke:#2e7d32\n    style D fill:#fce4ec,stroke:#c62828\n    style B5 fill:#ffebee,stroke:#c62828\n    style B8 fill:#e8f5e9,stroke:#2e7d32\n    style C8 fill:#e8f5e9,stroke:#2e7d32\n    style D7 fill:#e8f5e9,stroke:#2e7d32\n    style E fill:#f3e5f5,stroke:#7b1fa2"},"lightgallery":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

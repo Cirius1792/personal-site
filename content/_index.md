@@ -1,7 +1,7 @@
-## About me
+## Chi sono
 
-I'm an Engineering Manager at Core Reply, where I lead engineering teams, shape software architecture, and drive delivery across complex projects. My background spans backend engineering, distributed systems, and platform architecture — with a focus on building reliable, scalable systems that serve real business needs.
+Sono Engineering Manager in Core Reply, dove guido team di ingegneria, definisco architetture software e gestisco la delivery di progetti complessi. La mia esperienza spazia dal backend engineering ai sistemi distribuiti e all'architettura di piattaforme — con l'obiettivo di costruire sistemi affidabili e scalabili che rispondano a reali esigenze di business.
 
-Over the years I've worked extensively in financial platforms and enterprise environments, balancing hands-on technical involvement with team leadership. I care deeply about connecting technical execution with team growth, and I believe great software comes from clear thinking, honest collaboration, and disciplined engineering.
+Negli anni ho lavorato in piattaforme finanziarie e ambienti enterprise, bilanciando il coinvolgimento tecnico diretto con la leadership del team. Credo fermamente che connessione tra esecuzione tecnica e crescita del team sia la chiave, e che un buon software nasca da idee chiare, collaborazione onesta e ingegneria disciplinata.
 
-**Leadership · System Architecture · Backend Engineering · Distributed Systems**
+**Leadership · Architettura Software · Backend Engineering · Sistemi Distribuiti**

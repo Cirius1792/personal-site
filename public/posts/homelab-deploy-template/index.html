@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="en-us">
-    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+<html lang="it">
+    <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
-        <title>Da SSH a git push: come ho automatizzato i deploy sul mio homelab - Ciro Lucio Tecce</title><meta name="Description" content="Come ho automatizzato il deploy di servizi sul mio homelab usando Cookiecutter, cruft, e CI/CD."><meta property="og:url" content="http://localhost:1313/posts/homelab-deploy-template/">
+        <title>Da SSH a git push: come ho automatizzato i deploy sul mio homelab - Ciro Lucio Tecce</title><meta name="Description" content="Come ho automatizzato il deploy di servizi sul mio homelab usando Cookiecutter, cruft, e CI/CD."><meta property="og:url" content="https://ciroluciotecce.it/posts/homelab-deploy-template/">
   <meta property="og:site_name" content="Ciro Lucio Tecce">
   <meta property="og:title" content="Da SSH a git push: come ho automatizzato i deploy sul mio homelab">
   <meta property="og:description" content="Come ho automatizzato il deploy di servizi sul mio homelab usando Cookiecutter, cruft, e CI/CD.">
-  <meta property="og:locale" content="en_us">
+  <meta property="og:locale" content="it">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
     <meta property="article:published_time" content="2026-06-02T00:00:00+00:00">
@@ -24,19 +24,19 @@
 <meta name="application-name" content="My cool site">
 <meta name="apple-mobile-web-app-title" content="My cool site"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://localhost:1313/posts/homelab-deploy-template/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://ciroluciotecce.it/posts/homelab-deploy-template/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
         "headline": "Da SSH a git push: come ho automatizzato i deploy sul mio homelab",
-        "inLanguage": "en-us",
+        "inLanguage": "it",
         "mainEntityOfPage": {
             "@type": "WebPage",
-            "@id": "http:\/\/localhost:1313\/posts\/homelab-deploy-template\/"
+            "@id": "https:\/\/ciroluciotecce.it\/posts\/homelab-deploy-template\/"
         },"genre": "posts","keywords": "homelab, devops, automation, cookiecutter","wordcount":  1220 ,
-        "url": "http:\/\/localhost:1313\/posts\/homelab-deploy-template\/","datePublished": "2026-06-02T00:00:00+00:00","dateModified": "2026-06-02T00:00:00+00:00","publisher": {
+        "url": "https:\/\/ciroluciotecce.it\/posts\/homelab-deploy-template\/","datePublished": "2026-06-02T00:00:00+00:00","dateModified": "2026-06-02T00:00:00+00:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
                 "@type": "Person",
@@ -52,8 +52,11 @@
             <a href="/" title="Ciro Lucio Tecce">Ciro Lucio Tecce</a>
         </div>
         <div class="menu">
-            <div class="menu-inner"><a class="menu-item" href="/posts/"> Posts </a><a class="menu-item" href="/tags/"> Tags </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> Articoli </a><a class="menu-item" href="/tags/"> Tag </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Cambiare il tema">
                     <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a><a href="javascript:void(0);" class="menu-item language" title="Scegliere la lingua">
+                    <i class="fa fa-globe" aria-hidden="true"></i>                      
+                    <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/posts/homelab-deploy-template/" selected>Italiano</option><option value="/en/posts/homelab-deploy-template/">English</option></select>
                 </a></div>
         </div>
     </div>
@@ -67,21 +70,24 @@
                 <span></span><span></span><span></span>
             </div>
         </div>
-        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">Posts</a><a class="menu-item" href="/tags/" title="">Tags</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">Articoli</a><a class="menu-item" href="/tags/" title="">Tag</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Cambiare il tema">
                 <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
-            </a></div>
+            </a><a href="javascript:void(0);" class="menu-item" title="Scegliere la lingua">
+                    <i class="fa fa-globe fa-fw" aria-hidden="true"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/posts/homelab-deploy-template/" selected>Italiano</option><option value="/en/posts/homelab-deploy-template/">English</option></select>
+                </a></div>
     </div>
 </header><main class="main">
                 <div class="container"><div class="toc" id="toc-auto">
-            <h2 class="toc-title">Contents</h2>
+            <h2 class="toc-title">Contenuti</h2>
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Da SSH a git push: come ho automatizzato i deploy sul mio homelab</h1><h2 class="single-subtitle">Un template Cookiecutter per trasformare git push in container running — senza toccare un terminale</h2><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="https://ciroluciotecce.it" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Ciro Lucio Tecce</a></span>&nbsp;<span class="post-category">included in <a href="/categories/homelab/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Homelab</a>&nbsp;<a href="/categories/devops/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>DevOps</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2026-06-02">2026-06-02</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1220 words&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;6 minutes&nbsp;</div>
+            <div class="post-meta-line"><span class="post-author"><a href="https://ciroluciotecce.it" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Ciro Lucio Tecce</a></span>&nbsp;<span class="post-category">incluso in <a href="/categories/homelab/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Homelab</a>&nbsp;<a href="/categories/devops/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>DevOps</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2026-06-02">2026-06-02</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1220 parole&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;6 minuti&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
-                    <span>Contents</span>
+                    <span>Contenuti</span>
                     <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
                 </div>
                 <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
@@ -192,12 +198,12 @@ Scherzi a parte, per me è stata un&rsquo;interessante esperienza formativa e do
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
-                <span>Updated on 2026-06-02</span>
+                <span>Aggiornato il 2026-06-02</span>
             </div></div>
         <div class="post-info-line">
             <div class="post-info-md"></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://localhost:1313/posts/homelab-deploy-template/" data-title="Da SSH a git push: come ho automatizzato i deploy sul mio homelab" data-hashtags="homelab,devops,automation,cookiecutter"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://localhost:1313/posts/homelab-deploy-template/" data-hashtag="homelab"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://localhost:1313/posts/homelab-deploy-template/" data-title="Da SSH a git push: come ho automatizzato i deploy sul mio homelab"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://localhost:1313/posts/homelab-deploy-template/" data-title="Da SSH a git push: come ho automatizzato i deploy sul mio homelab"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://localhost:1313/posts/homelab-deploy-template/" data-title="Da SSH a git push: come ho automatizzato i deploy sul mio homelab"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+                <span><a href="javascript:void(0);" title="Condividi su Twitter" data-sharer="twitter" data-url="https://ciroluciotecce.it/posts/homelab-deploy-template/" data-title="Da SSH a git push: come ho automatizzato i deploy sul mio homelab" data-hashtags="homelab,devops,automation,cookiecutter"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Condividi su Facebook" data-sharer="facebook" data-url="https://ciroluciotecce.it/posts/homelab-deploy-template/" data-hashtag="homelab"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Condividi su Hacker News" data-sharer="hackernews" data-url="https://ciroluciotecce.it/posts/homelab-deploy-template/" data-title="Da SSH a git push: come ho automatizzato i deploy sul mio homelab"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Condividi su Line" data-sharer="line" data-url="https://ciroluciotecce.it/posts/homelab-deploy-template/" data-title="Da SSH a git push: come ho automatizzato i deploy sul mio homelab"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Condividi su 微博" data-sharer="weibo" data-url="https://ciroluciotecce.it/posts/homelab-deploy-template/" data-title="Da SSH a git push: come ho automatizzato i deploy sul mio homelab"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
             </div>
         </div>
     </div>
@@ -205,7 +211,7 @@ Scherzi a parte, per me è stata un&rsquo;interessante esperienza formativa e do
     <div class="post-info-more">
         <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/homelab/">Homelab</a>,&nbsp;<a href="/tags/devops/">Devops</a>,&nbsp;<a href="/tags/automation/">Automation</a>,&nbsp;<a href="/tags/cookiecutter/">Cookiecutter</a></section>
         <section>
-            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Indietro</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
         </section>
     </div>
 
@@ -213,15 +219,15 @@ Scherzi a parte, per me è stata un&rsquo;interessante esperienza formativa e do
 </div>
 </article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.157.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+        <div class="footer-container"><div class="footer-line">Realizzato da <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.157.0">Hugo</a> | Tema - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
                 </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2026</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://ciroluciotecce.it" target="_blank">Ciro Lucio Tecce</a></span></div>
         </div>
     </footer></div>
 
-        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Torna all&#39;inizio">
                 <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
-            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+            </a><a href="#" id="view-comments" class="fixed-button" title="Vedi commenti">
                 <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
             </a>
-        </div><link rel="stylesheet" href="/lib/lightgallery/css/lightgallery-bundle.min.css"><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/mermaid/mermaid.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"data":{"id-1":"flowchart TD\n    A[\"📦 git push\"] --\u003e B[\"Workflow: \u003cb\u003eDeploy Stack\u003c/b\u003e\"]\n    A --\u003e C[\"Workflow: \u003cb\u003eDeploy SWAG Config\u003c/b\u003e\"]\n    A --\u003e D[\"Workflow: \u003cb\u003eDeploy Config Files\u003c/b\u003e\"]\n\n    B --\u003e B1{\"File rilevanti\u003cbr/\u003emodificati?\"}\n    B1 --\u003e|Sì| B2[\"🧪 docker compose config\u003cbr/\u003e—quiet\"]\n    B1 --\u003e|No| B3[\"✅ Skippato\"]\n    B2 --\u003e B4{Valido?}\n    B4 --\u003e|No| B5[\"❌ Fallisce\"]\n    B4 --\u003e|Sì| B6[\"☸️ Portainer API\u003cbr/\u003eCrea/aggiorna stack\"]\n    B6 --\u003e B7[\"🔄 Webhook redeploy\"]\n    B7 --\u003e B8[\"✅ Completato\"]\n    B3 --\u003e B8\n\n    C --\u003e C1{\"File rilevanti\u003cbr/\u003emodificati?\"}\n    C1 --\u003e|Sì| C2[\"📤 SCP → Host remoto\u003cbr/\u003eCopia config SWAG\"]\n    C1 --\u003e|No| C3[\"✅ Skippato\"]\n    C2 --\u003e C4[\"🧪 nginx -t\u003cbr/\u003edentro container SWAG\"]\n    C4 --\u003e C5{Valido?}\n    C5 --\u003e|No| C6[\"↩️ Rollback backup\"]\n    C5 --\u003e|Sì| C7[\"🔄 Ricarica nginx\"]\n    C7 --\u003e C8[\"✅ Completato\"]\n    C6 --\u003e C8\n    C3 --\u003e C8\n\n    D --\u003e D1{\"File rilevanti\u003cbr/\u003emodificati?\"}\n    D1 --\u003e|Sì| D2[\"📤 SCP per ogni file\u003cbr/\u003econfigurations/data/\"]\n    D1 --\u003e|No| D3[\"✅ Skippato\"]\n    D2 --\u003e D4{Errori?}\n    D4 --\u003e|Sì| D5[\"↩️ Rollback tutti i file\"]\n    D4 --\u003e|No| D6[\"⚡ Redeploy Portainer\u003cbr/\u003e(se necessario)\"]\n    D6 --\u003e D7[\"✅ Completato\"]\n    D5 --\u003e D7\n    D3 --\u003e D7\n\n    B8 --\u003e E[\"🏠 Homepage auto-discovery\u003cbr/\u003evia label Docker\"]\n    C8 --\u003e E\n    D7 --\u003e E\n\n    style A fill:#e1f5fe,stroke:#0288d1\n    style B fill:#fff3e0,stroke:#e65100\n    style C fill:#e8f5e9,stroke:#2e7d32\n    style D fill:#fce4ec,stroke:#c62828\n    style B5 fill:#ffebee,stroke:#c62828\n    style B8 fill:#e8f5e9,stroke:#2e7d32\n    style C8 fill:#e8f5e9,stroke:#2e7d32\n    style D7 fill:#e8f5e9,stroke:#2e7d32\n    style E fill:#f3e5f5,stroke:#7b1fa2"},"lightgallery":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mermaid@9.1.3/dist/mermaid.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copia negli appunti","maxShownLines":50},"comment":{},"data":{"id-1":"flowchart TD\n    A[\"📦 git push\"] --\u003e B[\"Workflow: \u003cb\u003eDeploy Stack\u003c/b\u003e\"]\n    A --\u003e C[\"Workflow: \u003cb\u003eDeploy SWAG Config\u003c/b\u003e\"]\n    A --\u003e D[\"Workflow: \u003cb\u003eDeploy Config Files\u003c/b\u003e\"]\n\n    B --\u003e B1{\"File rilevanti\u003cbr/\u003emodificati?\"}\n    B1 --\u003e|Sì| B2[\"🧪 docker compose config\u003cbr/\u003e—quiet\"]\n    B1 --\u003e|No| B3[\"✅ Skippato\"]\n    B2 --\u003e B4{Valido?}\n    B4 --\u003e|No| B5[\"❌ Fallisce\"]\n    B4 --\u003e|Sì| B6[\"☸️ Portainer API\u003cbr/\u003eCrea/aggiorna stack\"]\n    B6 --\u003e B7[\"🔄 Webhook redeploy\"]\n    B7 --\u003e B8[\"✅ Completato\"]\n    B3 --\u003e B8\n\n    C --\u003e C1{\"File rilevanti\u003cbr/\u003emodificati?\"}\n    C1 --\u003e|Sì| C2[\"📤 SCP → Host remoto\u003cbr/\u003eCopia config SWAG\"]\n    C1 --\u003e|No| C3[\"✅ Skippato\"]\n    C2 --\u003e C4[\"🧪 nginx -t\u003cbr/\u003edentro container SWAG\"]\n    C4 --\u003e C5{Valido?}\n    C5 --\u003e|No| C6[\"↩️ Rollback backup\"]\n    C5 --\u003e|Sì| C7[\"🔄 Ricarica nginx\"]\n    C7 --\u003e C8[\"✅ Completato\"]\n    C6 --\u003e C8\n    C3 --\u003e C8\n\n    D --\u003e D1{\"File rilevanti\u003cbr/\u003emodificati?\"}\n    D1 --\u003e|Sì| D2[\"📤 SCP per ogni file\u003cbr/\u003econfigurations/data/\"]\n    D1 --\u003e|No| D3[\"✅ Skippato\"]\n    D2 --\u003e D4{Errori?}\n    D4 --\u003e|Sì| D5[\"↩️ Rollback tutti i file\"]\n    D4 --\u003e|No| D6[\"⚡ Redeploy Portainer\u003cbr/\u003e(se necessario)\"]\n    D6 --\u003e D7[\"✅ Completato\"]\n    D5 --\u003e D7\n    D3 --\u003e D7\n\n    B8 --\u003e E[\"🏠 Homepage auto-discovery\u003cbr/\u003evia label Docker\"]\n    C8 --\u003e E\n    D7 --\u003e E\n\n    style A fill:#e1f5fe,stroke:#0288d1\n    style B fill:#fff3e0,stroke:#e65100\n    style C fill:#e8f5e9,stroke:#2e7d32\n    style D fill:#fce4ec,stroke:#c62828\n    style B5 fill:#ffebee,stroke:#c62828\n    style B8 fill:#e8f5e9,stroke:#2e7d32\n    style C8 fill:#e8f5e9,stroke:#2e7d32\n    style D7 fill:#e8f5e9,stroke:#2e7d32\n    style E fill:#f3e5f5,stroke:#7b1fa2"},"lightgallery":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
 </html>
