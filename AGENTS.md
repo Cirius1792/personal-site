@@ -110,7 +110,7 @@ firebase deploy --only hosting
 
 ## What NOT to do
 
-- ❌ Don't add extra `content/` pages beyond `_index.md` — the site is designed for a single profile page
+- ❌ Don't delete `content/posts/` — blog posts are now part of the site
 - ❌ Don't edit files in `public/` — they get overwritten on every build
 - ❌ Don't delete `themes/LoveIt/` — it's a submodule and the site won't build without it
 - ❌ Don't remove `public/` from git — it's the deployment artifact Firebase serves
