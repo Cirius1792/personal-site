@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Da SSH a git push: come ho automatizzato i deploy sul mio homelab - Ciro Lucio Tecce</title><meta name="Description" content="Come ho automatizzato il deploy di servizi sul mio homelab usando Cookiecutter, cruft, e CI/CD."><meta property="og:url" content="http://localhost:1313/posts/homelab-deploy-template/">
+  <meta property="og:site_name" content="Ciro Lucio Tecce">
+  <meta property="og:title" content="Da SSH a git push: come ho automatizzato i deploy sul mio homelab">
+  <meta property="og:description" content="Come ho automatizzato il deploy di servizi sul mio homelab usando Cookiecutter, cruft, e CI/CD.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2026-06-02T00:00:00+00:00">
+    <meta property="article:modified_time" content="2026-06-02T00:00:00+00:00">
+    <meta property="article:tag" content="Homelab">
+    <meta property="article:tag" content="Devops">
+    <meta property="article:tag" content="Automation">
+    <meta property="article:tag" content="Cookiecutter">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Da SSH a git push: come ho automatizzato i deploy sul mio homelab">
+  <meta name="twitter:description" content="Come ho automatizzato il deploy di servizi sul mio homelab usando Cookiecutter, cruft, e CI/CD.">
+<meta name="application-name" content="My cool site">
+<meta name="apple-mobile-web-app-title" content="My cool site"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://localhost:1313/posts/homelab-deploy-template/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Da SSH a git push: come ho automatizzato i deploy sul mio homelab",
+        "inLanguage": "en-us",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/localhost:1313\/posts\/homelab-deploy-template\/"
+        },"genre": "posts","keywords": "homelab, devops, automation, cookiecutter","wordcount":  1220 ,
+        "url": "http:\/\/localhost:1313\/posts\/homelab-deploy-template\/","datePublished": "2026-06-02T00:00:00+00:00","dateModified": "2026-06-02T00:00:00+00:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "Ciro Lucio Tecce"
+            },"description": "Come ho automatizzato il deploy di servizi sul mio homelab usando Cookiecutter, cruft, e CI/CD."
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Ciro Lucio Tecce">Ciro Lucio Tecce</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> Posts </a><a class="menu-item" href="/tags/"> Tags </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Ciro Lucio Tecce">Ciro Lucio Tecce</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">Posts</a><a class="menu-item" href="/tags/" title="">Tags</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Da SSH a git push: come ho automatizzato i deploy sul mio homelab</h1><h2 class="single-subtitle">Un template Cookiecutter per trasformare git push in container running — senza toccare un terminale</h2><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://ciroluciotecce.it" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Ciro Lucio Tecce</a></span>&nbsp;<span class="post-category">included in <a href="/categories/homelab/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Homelab</a>&nbsp;<a href="/categories/devops/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>DevOps</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2026-06-02">2026-06-02</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1220 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;6 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#introduzione--il-pesce-rosso-e-il-mini-rack">Introduzione — il pesce rosso e il mini rack</a></li>
+    <li><a href="#spiegazione--linfrastruttura-in-sintesi">Spiegazione — l&rsquo;infrastruttura in sintesi</a></li>
+    <li><a href="#caso-pratico--il-flusso-di-deploy">Caso pratico — il flusso di deploy</a>
+      <ul>
+        <li><a href="#come-funziona-il-template">Come funziona il template</a></li>
+        <li><a href="#benefici-nel-concreto">Benefici nel concreto</a></li>
+      </ul>
+    </li>
+    <li><a href="#conclusione">Conclusione</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="introduzione--il-pesce-rosso-e-il-mini-rack">Introduzione — il pesce rosso e il mini rack</h2>
+<p>Un paio di anni fa sono caduto nel rabbit hole dell&rsquo;homelabbing. Da buon nerd quale sono, non ho saputo resistere alla tentazione di costruire il mio piccolo server personale. Sono sempre stato affascinato dalle configurazioni compatte e silenziose — non necessariamente le più potenti, ma le più adatte allo scopo, così dopo aver letto decine e decine di post su <a href="https://www.reddit.com/r/homelab/" target="_blank" rel="noopener noreffer ">r/homelab</a> e guardato più o meno ogni video della serie <a href="https://www.servethehome.com/introducing-project-tinyminimicro-home-lab-revolution/" target="_blank" rel="noopener noreffer ">TyniMiniMicro</a> mi sono finalmente deciso.</p>
+<p>Ho iniziato con un HP ProDesk 600 G3, un vecchio PC preso per quattro soldi su eBay, il giusto compromesso fra costo, prestazioni e consumi. Insieme al computer ho comprato sei hard disk di seconda mano da 2.5″ e una scheda di espansione SATA. Dopo qualche ora al CAD e un po&rsquo; di pazienza, ho stampato tutto il necessario per far stare i dischi dentro il case originale.</p>
+<figure><a class="lightgallery" href="/homelab-hp-prodesk.webp" title="/homelab-hp-prodesk.webp" data-thumbnail="/homelab-hp-prodesk.webp" data-sub-html="<h2>Il mio primo homelab — HP ProDesk 600 G3 con 6 hard disk da 2.5″ stampati in 3D</h2>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="/homelab-hp-prodesk.webp"
+            data-srcset="/homelab-hp-prodesk.webp, /homelab-hp-prodesk.webp 1.5x, /homelab-hp-prodesk.webp 2x"
+            data-sizes="auto"
+            alt="/homelab-hp-prodesk.webp" />
+    </a><figcaption class="image-caption">Il mio primo homelab — HP ProDesk 600 G3 con 6 hard disk da 2.5″ stampati in 3D</figcaption>
+    </figure>
+<p>Da allora il setup si è evoluto. L&rsquo;HP è andato in pensione, due nuovi mini PC sono entrati in servizio e qualche decina di ore di stampa più tardi, hanno trovato casa in un mini rack dedicato <a href="https://www.youtube.com/watch?v=ZTmmEv9irbM" target="_blank" rel="noopener noreffer ">questo</a>.
+Non solo le macchine si sono moltiplicate, ma anche il numero dei servizi deployati al loro interno, e con essi anche la complessità nel gestirli.</p>
+<p>All&rsquo;inizio era semplice: SSH sulla macchina, creavo il docker-compose.yml a mano, configuravo il reverse proxy, creavo i file di configurazione, lottavo un po&rsquo; con i permessi e via, il servizio era su. Niente di complicato, finchè qualcosa non andava storto: <strong>un errore di configurazione e tornare indietro non era possibile</strong>. Dovevo sperare di aver salvato una versione funzionante da qualche parte. Spostare un servizio da una macchina all&rsquo;altra? Un&rsquo;impresa.</p>
+<figure><a class="lightgallery" href="/homelab-mini-rack.jpeg" title="/homelab-mini-rack.jpeg" data-thumbnail="/homelab-mini-rack.jpeg" data-sub-html="<h2>Il setup attuale — mini rack con due nodi, reverse proxy e rete dedicata</h2>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="/homelab-mini-rack.jpeg"
+            data-srcset="/homelab-mini-rack.jpeg, /homelab-mini-rack.jpeg 1.5x, /homelab-mini-rack.jpeg 2x"
+            data-sizes="auto"
+            alt="/homelab-mini-rack.jpeg" />
+    </a><figcaption class="image-caption">Il setup attuale — mini rack con due nodi, reverse proxy e rete dedicata</figcaption>
+    </figure>
+<p>Così ho deciso di unire le mie due passioni: l&rsquo;homelab e la continuous delivery (sono uno dei firmatari di <a href="https://minimumcd.org/#signatories" target="_blank" rel="noopener noreffer ">minimumcd.org</a>). Dopotutto, perchè perdere mezz&rsquo;ora per fare a mano qualcosa che puoi automatizzare in decine e decine di ore?!?
+Scherzi a parte, per me è stata un&rsquo;interessante esperienza formativa e dopotutto è proprio questo che muove chi decide di costruirsi un piccolo homelab, non è il risparmio, spesso non è neanche davvero la privacy che ti spinge, ma il desiderio di sperimentare e di imparare qualcosa di nuovo.</p>
+<hr>
+<h2 id="spiegazione--linfrastruttura-in-sintesi">Spiegazione — l&rsquo;infrastruttura in sintesi</h2>
+<p>Prima di parlare della soluzione, faccio un passo indietro per dare un po&rsquo; di contesto. Oggi la mia infrastruttura è fatta così:</p>
+<ol>
+<li><strong>Due macchine</strong> in totale, entrambe configurate automaticamente tramite script Ansible</li>
+<li><strong>Servizi su Docker</strong> orchestrati tramite Portainer, installato su entrambe le macchine</li>
+<li><strong>Un reverse proxy</strong> (<a href="https://docs.linuxserver.io/general/swag/" target="_blank" rel="noopener noreffer ">SWAG</a>) su una delle due macchine, esposto verso l&rsquo;esterno per tutto ciò che deve essere raggiungibile da fuori rete</li>
+<li><strong><a href="https://gethomepage.dev/" target="_blank" rel="noopener noreffer ">Homepage</a></strong> — una dashboard che mostra tutti i servizi, aggiornata automaticamente</li>
+</ol>
+<p>Più un&rsquo;altra decina di servizi che per brevità non menzionerò.</p>
+<blockquote>
+<p><strong>Portainer</strong> è un&rsquo;interfaccia grafica per Docker. <strong>SWAG</strong> è un container LinuxServer che include nginx, Certbot (certificati SSL), Fail2ban, e una struttura pre-configurata per proxy inverso. <strong>Homepage</strong> è un aggregatore di servizi con discovery automatica via label Docker.</p>
+</blockquote>
+<p>L&rsquo;infrastruttura funzionava già bene. Il problema non era <em>cosa</em> faceva girare i servizi, ma <em>come</em> li mettevo in piedi.</p>
+<hr>
+<h2 id="caso-pratico--il-flusso-di-deploy">Caso pratico — il flusso di deploy</h2>
+<p>Ecco cosa succede oggi quando voglio lanciare un nuovo servizio:</p>
+<ol>
+<li>Apro un terminale</li>
+<li>Eseguo <code>cruft create https://github.com/Cirius1792/hs-service-template.git</code></li>
+<li>Rispondo a poche domande: nome del servizio, gruppo, icona, dominio</li>
+<li>Modifico il <code>docker-compose.yml</code> generato con l&rsquo;immagine del servizio</li>
+<li>Compilo le variabili d&rsquo;ambiente in <code>stack.env</code></li>
+<li>Faccio <code>git push</code> su main, i repository sono salvati su una istanza di <a href="https://about.gitea.com/" target="_blank" rel="noopener noreffer ">Gitea</a> direttamente su una delle due macchine</li>
+</ol>
+<p>Il resto è automatico. Ecco il flusso:</p>
+<div class="mermaid" id="id-1"></div>
+<h3 id="come-funziona-il-template">Come funziona il template</h3>
+<p>Il cuore della soluzione è un <strong>template Cookiecutter</strong>, gestito con <a href="https://cruft.github.io/cruft/" target="_blank" rel="noopener noreffer ">cruft</a> per mantenere i repository generati sincronizzati con gli aggiornamenti del template.</p>
+<p>Quando viene generato un nuovo progetto, si ottiene un repository già strutturato con:</p>
+<ul>
+<li><strong>docker-compose.yml</strong> — definizione del servizio con label per Homepage (gruppo, icona, URL)</li>
+<li><strong>stack.env</strong> — variabili d&rsquo;ambiente del servizio (TZ, PUID, PGID&hellip;)</li>
+<li><strong>Config SWAG</strong> — configurazione nginx per il reverse proxy (opzionale)</li>
+<li><strong>Cartella configurations/</strong> — file di configurazione del servizio, versionati, con mappa delle destinazioni remote</li>
+<li><strong>5 workflow CI/CD</strong> già pronti:
+<ul>
+<li><strong><code>deploy-stack.yml</code></strong> — valida il compose, crea/aggiorna lo stack in Portainer</li>
+<li><strong><code>deploy-swag-config.yml</code></strong> — carica la configurazione nginx sull&rsquo;host SWAG via SSH, la valida con <code>nginx -t</code>, e ricarica il servizio</li>
+<li><strong><code>deploy-configurations.yml</code></strong> — distribuisce i file di configurazione sulle macchine target</li>
+<li><strong><code>cruft-update.yml</code></strong> — ogni settimana controlla se c&rsquo;è un aggiornamento al template e apre una PR con le modifiche già applicate</li>
+</ul>
+</li>
+<li><strong>Renovate</strong> configurato — quando una nuova versione di un servizio è disponibile, apre automaticamente una PR. Io devo solo revisionare e approvare.</li>
+</ul>
+<blockquote>
+<p><strong>Git è la source of truth.</strong> Ogni commit è un punto di restore. Ogni push è un deploy. Sbagli qualcosa? Torna al commit precedente e ripeti.</p>
+</blockquote>
+<h3 id="benefici-nel-concreto">Benefici nel concreto</h3>
+<ul>
+<li><strong>Niente più SSH</strong> per installare un servizio</li>
+<li><strong>Rollback immediato</strong>: configurazione sbagliata → <code>git revert</code> → push → il deploy precedente è di nuovo attivo</li>
+<li><strong>Spostare un servizio</strong> da una macchina all&rsquo;altra? Cambi il secret <code>PORTAINER_ENVIRONMENT_ID</code> e pushi</li>
+<li><strong>Aggiornamenti automatici</strong> con Renovate: quando una nuova versione è disponibile, arriva una PR</li>
+<li><strong>Il template si aggiorna da solo</strong> con cruft: se migliori il template, tutti i servizi esistenti ricevono una PR</li>
+</ul>
+<p>Tutti i dettagli tecnici — secrets, variabili d&rsquo;ambiente, comandi SSH, formati dei file — sono nel <a href="https://github.com/Cirius1792/hs-service-template" target="_blank" rel="noopener noreffer ">README del repository</a>.</p>
+<hr>
+<h2 id="conclusione">Conclusione</h2>
+<p>Quando ho iniziato, configurare un servizio significava 30 minuti di SSH, copia manuale di file, e una preghiera silenziosa che tutto funzionasse al primo colpo. Oggi è un <code>cruft create</code>, qualche modifica al compose, e un push.</p>
+<p>Alla fine di questo percorso, quello che mi resta non è solo un template funzionante o delle pipeline che fanno il lavoro sporco al posto mio. È la conferma che avere un piccolo server nell&rsquo;armadio, in cantina o nascosto in qualche scaffale —  dove sbagliare senza conseguenze, dove provare uno stack tecnologico diverso quando si ha tempo, dove ogni problema è un&rsquo;occasione per capire qualcosa in più — è una delle esperienze formative più efficaci che ci siano.</p>
+<p>Quel vecchio HP ProDesk, con baie per i dischi stampate in 3D e ventole fissate con un po&rsquo; di colla, non era solo un server. Era un banco di prova dove ho potuto sporcarmi le mani con Ansible per la prima volta, dove ho capito come funziona davvero un reverse proxy e la gestione dei certificati, dove ho visto con i miei occhi la differenza tra una pipeline CI/CD ben fatta e ho imparato cosa funziona e cosa no, come fare le cose e, soprattutto, come non farle. Ogni problema incontrato — un container che non parte, un certificato scaduto, un file di configurazione dimenticato, un servizio irraggiungibile — è stato una lezione.</p>
+<p>Il template è <a href="https://github.com/Cirius1792/hs-service-template" target="_blank" rel="noopener noreffer ">pubblico</a>, pensato per funzionare su Gitea ma adattabile a GitHub con poche modifiche. Magari non serve a tutti, magari il setup di qualcun altro è completamente diverso. Ma se c&rsquo;è una cosa che ho imparato è che vale sempre la pena di investire tempo per imparare qualcosa di nuovo, anche solo per il gusto di farlo. Anche se la soluzione finale è un &ldquo;work in progress&rdquo;. Come del resto lo è qualsiasi homelab che si rispetti.</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2026-06-02</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://localhost:1313/posts/homelab-deploy-template/" data-title="Da SSH a git push: come ho automatizzato i deploy sul mio homelab" data-hashtags="homelab,devops,automation,cookiecutter"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://localhost:1313/posts/homelab-deploy-template/" data-hashtag="homelab"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://localhost:1313/posts/homelab-deploy-template/" data-title="Da SSH a git push: come ho automatizzato i deploy sul mio homelab"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://localhost:1313/posts/homelab-deploy-template/" data-title="Da SSH a git push: come ho automatizzato i deploy sul mio homelab"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://localhost:1313/posts/homelab-deploy-template/" data-title="Da SSH a git push: come ho automatizzato i deploy sul mio homelab"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/homelab/">Homelab</a>,&nbsp;<a href="/tags/devops/">Devops</a>,&nbsp;<a href="/tags/automation/">Automation</a>,&nbsp;<a href="/tags/cookiecutter/">Cookiecutter</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.157.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2026</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://ciroluciotecce.it" target="_blank">Ciro Lucio Tecce</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/lightgallery/css/lightgallery-bundle.min.css"><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/mermaid/mermaid.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"data":{"id-1":"flowchart TD\n    A[\"📦 git push\"] --\u003e B[\"Workflow: \u003cb\u003eDeploy Stack\u003c/b\u003e\"]\n    A --\u003e C[\"Workflow: \u003cb\u003eDeploy SWAG Config\u003c/b\u003e\"]\n    A --\u003e D[\"Workflow: \u003cb\u003eDeploy Config Files\u003c/b\u003e\"]\n\n    B --\u003e B1{\"File rilevanti\u003cbr/\u003emodificati?\"}\n    B1 --\u003e|Sì| B2[\"🧪 docker compose config\u003cbr/\u003e—quiet\"]\n    B1 --\u003e|No| B3[\"✅ Skippato\"]\n    B2 --\u003e B4{Valido?}\n    B4 --\u003e|No| B5[\"❌ Fallisce\"]\n    B4 --\u003e|Sì| B6[\"☸️ Portainer API\u003cbr/\u003eCrea/aggiorna stack\"]\n    B6 --\u003e B7[\"🔄 Webhook redeploy\"]\n    B7 --\u003e B8[\"✅ Completato\"]\n    B3 --\u003e B8\n\n    C --\u003e C1{\"File rilevanti\u003cbr/\u003emodificati?\"}\n    C1 --\u003e|Sì| C2[\"📤 SCP → Host remoto\u003cbr/\u003eCopia config SWAG\"]\n    C1 --\u003e|No| C3[\"✅ Skippato\"]\n    C2 --\u003e C4[\"🧪 nginx -t\u003cbr/\u003edentro container SWAG\"]\n    C4 --\u003e C5{Valido?}\n    C5 --\u003e|No| C6[\"↩️ Rollback backup\"]\n    C5 --\u003e|Sì| C7[\"🔄 Ricarica nginx\"]\n    C7 --\u003e C8[\"✅ Completato\"]\n    C6 --\u003e C8\n    C3 --\u003e C8\n\n    D --\u003e D1{\"File rilevanti\u003cbr/\u003emodificati?\"}\n    D1 --\u003e|Sì| D2[\"📤 SCP per ogni file\u003cbr/\u003econfigurations/data/\"]\n    D1 --\u003e|No| D3[\"✅ Skippato\"]\n    D2 --\u003e D4{Errori?}\n    D4 --\u003e|Sì| D5[\"↩️ Rollback tutti i file\"]\n    D4 --\u003e|No| D6[\"⚡ Redeploy Portainer\u003cbr/\u003e(se necessario)\"]\n    D6 --\u003e D7[\"✅ Completato\"]\n    D5 --\u003e D7\n    D3 --\u003e D7\n\n    B8 --\u003e E[\"🏠 Homepage auto-discovery\u003cbr/\u003evia label Docker\"]\n    C8 --\u003e E\n    D7 --\u003e E\n\n    style A fill:#e1f5fe,stroke:#0288d1\n    style B fill:#fff3e0,stroke:#e65100\n    style C fill:#e8f5e9,stroke:#2e7d32\n    style D fill:#fce4ec,stroke:#c62828\n    style B5 fill:#ffebee,stroke:#c62828\n    style B8 fill:#e8f5e9,stroke:#2e7d32\n    style C8 fill:#e8f5e9,stroke:#2e7d32\n    style D7 fill:#e8f5e9,stroke:#2e7d32\n    style E fill:#f3e5f5,stroke:#7b1fa2"},"lightgallery":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

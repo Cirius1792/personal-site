@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Homelab on Ciro Lucio Tecce</title>
+    <link>http://localhost:1313/categories/homelab/</link>
+    <description>Recent content in Homelab on Ciro Lucio Tecce</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 02 Jun 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/categories/homelab/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Da SSH a git push: come ho automatizzato i deploy sul mio homelab</title>
+      <link>http://localhost:1313/posts/homelab-deploy-template/</link>
+      <pubDate>Tue, 02 Jun 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/homelab-deploy-template/</guid>
+      <description>&lt;h2 id=&#34;introduzione--il-pesce-rosso-e-il-mini-rack&#34;&gt;Introduzione — il pesce rosso e il mini rack&lt;/h2&gt;&#xA;&lt;p&gt;Un paio di anni fa sono caduto nel rabbit hole dell&amp;rsquo;homelabbing. Da buon nerd quale sono, non ho saputo resistere alla tentazione di costruire il mio piccolo server personale. Sono sempre stato affascinato dalle configurazioni compatte e silenziose — non necessariamente le più potenti, ma le più adatte allo scopo, così dopo aver letto decine e decine di post su &lt;a href=&#34;https://www.reddit.com/r/homelab/&#34; target=&#34;_blank&#34; rel=&#34;noopener noreffer &#34;&gt;r/homelab&lt;/a&gt; e guardato più o meno ogni video della serie &lt;a href=&#34;https://www.servethehome.com/introducing-project-tinyminimicro-home-lab-revolution/&#34; target=&#34;_blank&#34; rel=&#34;noopener noreffer &#34;&gt;TyniMiniMicro&lt;/a&gt; mi sono finalmente deciso.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

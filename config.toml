@@ -6,6 +6,25 @@ theme = 'LoveIt'
 [outputs]
   home = ["HTML"]
 
+[params.author]
+  name = "Ciro Lucio Tecce"
+  email = ""
+  link = "https://ciroluciotecce.it"
+
+[menu]
+  [[menu.main]]
+    weight = 1
+    identifier = "posts"
+    name = "Posts"
+    url = "/posts/"
+    title = ""
+  [[menu.main]]
+    weight = 2
+    identifier = "tags"
+    name = "Tags"
+    url = "/tags/"
+    title = ""
+
 [params]
   [params.header.title]
     name = "Ciro Lucio Tecce"
