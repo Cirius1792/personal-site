@@ -3,7 +3,17 @@
         <title>Tutti Articoli - Ciro Lucio Tecce</title>
         <link>https://ciroluciotecce.it/posts/</link>
         <description>Tutti Articoli | Ciro Lucio Tecce</description>
-        <generator>Hugo -- gohugo.io</generator><language>it</language><lastBuildDate>Tue, 02 Jun 2026 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://ciroluciotecce.it/posts/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>it</language><lastBuildDate>Wed, 03 Jun 2026 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://ciroluciotecce.it/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>La dashboard che quasi funzionava: monitoring di llama.cpp con Prometheus e Grafana</title>
+    <link>https://ciroluciotecce.it/posts/monitoring-llm-homelab/</link>
+    <pubDate>Wed, 03 Jun 2026 00:00:00 &#43;0000</pubDate>
+    <author>Ciro Lucio Tecce</author>
+    <guid>https://ciroluciotecce.it/posts/monitoring-llm-homelab/</guid>
+    <description><![CDATA[<h2 id="introduzione--il-mini-pc-che-non-si-arrende-e-il-problema-di-guardarlo">Introduzione — il mini PC che non si arrende (e il problema di guardarlo)</h2>
+<p>Da qualche mese uno dei mini PC nel mio homelab sta venendo letteralmente maltrattato. Ogni giorno gli faccio fare cose per cui non è stato progettato: caricare modelli di linguaggio, processare prompt, generare testo. Roba da GPU discreta, insomma, ma lui non ce l&rsquo;ha.</p>
+<p>Eppure, tra una scheda di espansione stampata in 3D e un docker-compose tirato su con lo scotch, questo piccolo Ryzen 5 4650G Pro con 32GB di RAM e la sua GPU integrata se la cava. Non è un fulmine di guerra — per darvi un&rsquo;idea, con Qwen3.6 35B A3B in quantizzazione a 4 bit viaggia sui 70-90 token al secondo in prefill e circa 12 token al secondo in generazione. Non proprio da gridare al miracolo.</p>]]></description>
+</item>
+<item>
     <title>Da SSH a git push: come ho automatizzato i deploy sul mio homelab</title>
     <link>https://ciroluciotecce.it/posts/homelab-deploy-template/</link>
     <pubDate>Tue, 02 Jun 2026 00:00:00 &#43;0000</pubDate>

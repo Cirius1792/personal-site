@@ -6,20 +6,27 @@
     <description>Recent content in Categories on Ciro Lucio Tecce</description>
     <generator>Hugo</generator>
     <language>it</language>
-    <lastBuildDate>Tue, 02 Jun 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 03 Jun 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://ciroluciotecce.it/categories/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>DevOps</title>
       <link>https://ciroluciotecce.it/categories/devops/</link>
-      <pubDate>Tue, 02 Jun 2026 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 03 Jun 2026 00:00:00 +0000</pubDate>
       <guid>https://ciroluciotecce.it/categories/devops/</guid>
       <description></description>
     </item>
     <item>
       <title>Homelab</title>
       <link>https://ciroluciotecce.it/categories/homelab/</link>
-      <pubDate>Tue, 02 Jun 2026 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 03 Jun 2026 00:00:00 +0000</pubDate>
       <guid>https://ciroluciotecce.it/categories/homelab/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>LLM</title>
+      <link>https://ciroluciotecce.it/categories/llm/</link>
+      <pubDate>Wed, 03 Jun 2026 00:00:00 +0000</pubDate>
+      <guid>https://ciroluciotecce.it/categories/llm/</guid>
       <description></description>
     </item>
   </channel>

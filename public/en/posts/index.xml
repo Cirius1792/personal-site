@@ -3,7 +3,17 @@
         <title>All Posts - Ciro Lucio Tecce</title>
         <link>https://ciroluciotecce.it/en/posts/</link>
         <description>All Posts | Ciro Lucio Tecce</description>
-        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Tue, 02 Jun 2026 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://ciroluciotecce.it/en/posts/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Wed, 03 Jun 2026 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://ciroluciotecce.it/en/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>The Dashboard That Almost Worked: Monitoring llama.cpp with Prometheus and Grafana</title>
+    <link>https://ciroluciotecce.it/en/posts/monitoring-llm-homelab/</link>
+    <pubDate>Wed, 03 Jun 2026 00:00:00 &#43;0000</pubDate>
+    <author>Ciro Lucio Tecce</author>
+    <guid>https://ciroluciotecce.it/en/posts/monitoring-llm-homelab/</guid>
+    <description><![CDATA[<h2 id="introduction--the-mini-pc-that-wont-give-up-and-the-problem-of-watching-it">Introduction — the mini PC that won&rsquo;t give up (and the problem of watching it)</h2>
+<p>For the past few months, one of the mini PCs in my homelab has been getting straight-up abused. Every day I make it do things it was never designed for: load language models, process prompts, generate text. This is discrete GPU territory, but it doesn&rsquo;t have one.</p>
+<p>And yet, between a 3D-printed expansion card and a docker-compose held together with duct tape, this little Ryzen 5 4650G Pro with 32GB of RAM and its integrated GPU manages to get by. It&rsquo;s no speed demon — to give you an idea, with Qwen3.6 35B A3B in 4-bit quantization it does about 70-90 tokens per second on prefill and roughly 12 tokens per second on generation. Nothing to write home about.</p>]]></description>
+</item>
+<item>
     <title>From SSH to git push: how I automated deployments on my homelab</title>
     <link>https://ciroluciotecce.it/en/posts/homelab-deploy-template/</link>
     <pubDate>Tue, 02 Jun 2026 00:00:00 &#43;0000</pubDate>

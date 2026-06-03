@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Llm on Ciro Lucio Tecce</title>
+    <link>https://ciroluciotecce.it/en/tags/llm/</link>
+    <description>Recent content in Llm on Ciro Lucio Tecce</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Wed, 03 Jun 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://ciroluciotecce.it/en/tags/llm/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>The Dashboard That Almost Worked: Monitoring llama.cpp with Prometheus and Grafana</title>
+      <link>https://ciroluciotecce.it/en/posts/monitoring-llm-homelab/</link>
+      <pubDate>Wed, 03 Jun 2026 00:00:00 +0000</pubDate>
+      <guid>https://ciroluciotecce.it/en/posts/monitoring-llm-homelab/</guid>
+      <description>&lt;h2 id=&#34;introduction--the-mini-pc-that-wont-give-up-and-the-problem-of-watching-it&#34;&gt;Introduction — the mini PC that won&amp;rsquo;t give up (and the problem of watching it)&lt;/h2&gt;&#xA;&lt;p&gt;For the past few months, one of the mini PCs in my homelab has been getting straight-up abused. Every day I make it do things it was never designed for: load language models, process prompts, generate text. This is discrete GPU territory, but it doesn&amp;rsquo;t have one.&lt;/p&gt;&#xA;&lt;p&gt;And yet, between a 3D-printed expansion card and a docker-compose held together with duct tape, this little Ryzen 5 4650G Pro with 32GB of RAM and its integrated GPU manages to get by. It&amp;rsquo;s no speed demon — to give you an idea, with Qwen3.6 35B A3B in 4-bit quantization it does about 70-90 tokens per second on prefill and roughly 12 tokens per second on generation. Nothing to write home about.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
