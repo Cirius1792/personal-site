@@ -2,24 +2,24 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Automation on Ciro Lucio Tecce</title>
-    <link>http://localhost:1313/tags/automation/</link>
+    <link>https://ciroluciotecce.it/tags/automation/</link>
     <description>Recent content in Automation on Ciro Lucio Tecce</description>
     <generator>Hugo</generator>
     <language>it</language>
     <lastBuildDate>Tue, 02 Jun 2026 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/automation/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://ciroluciotecce.it/tags/automation/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Da SSH a git push: come ho automatizzato i deploy sul mio homelab</title>
-      <link>http://localhost:1313/posts/homelab-deploy-template/</link>
+      <link>https://ciroluciotecce.it/posts/homelab-deploy-template/</link>
       <pubDate>Tue, 02 Jun 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/posts/homelab-deploy-template/</guid>
+      <guid>https://ciroluciotecce.it/posts/homelab-deploy-template/</guid>
       <description>&lt;h2 id=&#34;introduzione--perchè-avere-un-piccolo-server-domestico-è-una-buona-idea-e-come-gestirlo&#34;&gt;Introduzione — Perchè avere un piccolo server domestico è una buona idea e come gestirlo&lt;/h2&gt;&#xA;&lt;p&gt;Un paio di anni fa sono caduto nel rabbit hole dell&amp;rsquo;homelabbing. Da buon nerd quale sono, non ho saputo resistere alla tentazione di costruire il mio piccolo server personale. Sono sempre stato affascinato dalle configurazioni compatte e silenziose — non necessariamente le più potenti, ma le più adatte allo scopo, così dopo aver letto decine e decine di post su &lt;a href=&#34;https://www.reddit.com/r/homelab/&#34; target=&#34;_blank&#34; rel=&#34;noopener noreffer &#34;&gt;r/homelab&lt;/a&gt; e guardato più o meno ogni video della serie &lt;a href=&#34;https://www.servethehome.com/introducing-project-tinyminimicro-home-lab-revolution/&#34; target=&#34;_blank&#34; rel=&#34;noopener noreffer &#34;&gt;TyniMiniMicro&lt;/a&gt; mi sono finalmente deciso.&lt;/p&gt;</description>
     </item>
     <item>
       <title>From SSH to git push: how I automated deployments on my homelab</title>
-      <link>http://localhost:1313/en/posts/homelab-deploy-template/</link>
+      <link>https://ciroluciotecce.it/en/posts/homelab-deploy-template/</link>
       <pubDate>Tue, 02 Jun 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/en/posts/homelab-deploy-template/</guid>
+      <guid>https://ciroluciotecce.it/en/posts/homelab-deploy-template/</guid>
       <description>&lt;h2 id=&#34;introduction---why-having-a-home-server-is-a-good-idea-and-how-to-manage-it&#34;&gt;Introduction - Why having a home server is a good idea and how to manage it&lt;/h2&gt;&#xA;&lt;p&gt;A couple of years ago I fell down the homelab rabbit hole. Like any self-respecting nerd, I couldn&amp;rsquo;t resist the temptation of building my own little server. I&amp;rsquo;ve always been fascinated by compact, quiet setups — not necessarily the most powerful, but the ones best suited to the job. After reading dozens of posts on &lt;a href=&#34;https://www.reddit.com/r/homelab/&#34; target=&#34;_blank&#34; rel=&#34;noopener noreffer &#34;&gt;r/homelab&lt;/a&gt; and watching pretty much every video of the &lt;a href=&#34;https://www.servethehome.com/introducing-project-tinyminimicro-home-lab-revolution/&#34; target=&#34;_blank&#34; rel=&#34;noopener noreffer &#34;&gt;TinyMiniMicro&lt;/a&gt; series, I finally took the plunge.&lt;/p&gt;</description>
     </item>
   </channel>

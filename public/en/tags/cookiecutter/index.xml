@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Cookiecutter on Ciro Lucio Tecce</title>
-    <link>http://localhost:1313/en/tags/cookiecutter/</link>
+    <link>https://ciroluciotecce.it/en/tags/cookiecutter/</link>
     <description>Recent content in Cookiecutter on Ciro Lucio Tecce</description>
     <generator>Hugo</generator>
     <language>en</language>
     <lastBuildDate>Tue, 02 Jun 2026 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/en/tags/cookiecutter/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://ciroluciotecce.it/en/tags/cookiecutter/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>From SSH to git push: how I automated deployments on my homelab</title>
-      <link>http://localhost:1313/en/posts/homelab-deploy-template/</link>
+      <link>https://ciroluciotecce.it/en/posts/homelab-deploy-template/</link>
       <pubDate>Tue, 02 Jun 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/en/posts/homelab-deploy-template/</guid>
+      <guid>https://ciroluciotecce.it/en/posts/homelab-deploy-template/</guid>
       <description>&lt;h2 id=&#34;introduction---why-having-a-home-server-is-a-good-idea-and-how-to-manage-it&#34;&gt;Introduction - Why having a home server is a good idea and how to manage it&lt;/h2&gt;&#xA;&lt;p&gt;A couple of years ago I fell down the homelab rabbit hole. Like any self-respecting nerd, I couldn&amp;rsquo;t resist the temptation of building my own little server. I&amp;rsquo;ve always been fascinated by compact, quiet setups — not necessarily the most powerful, but the ones best suited to the job. After reading dozens of posts on &lt;a href=&#34;https://www.reddit.com/r/homelab/&#34; target=&#34;_blank&#34; rel=&#34;noopener noreffer &#34;&gt;r/homelab&lt;/a&gt; and watching pretty much every video of the &lt;a href=&#34;https://www.servethehome.com/introducing-project-tinyminimicro-home-lab-revolution/&#34; target=&#34;_blank&#34; rel=&#34;noopener noreffer &#34;&gt;TinyMiniMicro&lt;/a&gt; series, I finally took the plunge.&lt;/p&gt;</description>
     </item>
   </channel>

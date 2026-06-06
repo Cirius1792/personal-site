@@ -2,14 +2,14 @@
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <sitemap>
-    <loc>http://localhost:1313/it/sitemap.xml</loc>
+    <loc>https://ciroluciotecce.it/it/sitemap.xml</loc>
     
       <lastmod>2026-06-03T00:00:00+00:00</lastmod>
     
   </sitemap>
   
   <sitemap>
-    <loc>http://localhost:1313/en/sitemap.xml</loc>
+    <loc>https://ciroluciotecce.it/en/sitemap.xml</loc>
     
       <lastmod>2026-06-03T00:00:00+00:00</lastmod>
     
