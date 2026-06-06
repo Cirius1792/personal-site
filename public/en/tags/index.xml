@@ -2,73 +2,73 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on Ciro Lucio Tecce</title>
-    <link>https://ciroluciotecce.it/en/tags/</link>
+    <link>http://localhost:1313/en/tags/</link>
     <description>Recent content in Tags on Ciro Lucio Tecce</description>
     <generator>Hugo</generator>
     <language>en</language>
     <lastBuildDate>Wed, 03 Jun 2026 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://ciroluciotecce.it/en/tags/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/en/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Grafana</title>
-      <link>https://ciroluciotecce.it/en/tags/grafana/</link>
+      <link>http://localhost:1313/en/tags/grafana/</link>
       <pubDate>Wed, 03 Jun 2026 00:00:00 +0000</pubDate>
-      <guid>https://ciroluciotecce.it/en/tags/grafana/</guid>
+      <guid>http://localhost:1313/en/tags/grafana/</guid>
       <description></description>
     </item>
     <item>
       <title>Homelab</title>
-      <link>https://ciroluciotecce.it/en/tags/homelab/</link>
+      <link>http://localhost:1313/en/tags/homelab/</link>
       <pubDate>Wed, 03 Jun 2026 00:00:00 +0000</pubDate>
-      <guid>https://ciroluciotecce.it/en/tags/homelab/</guid>
+      <guid>http://localhost:1313/en/tags/homelab/</guid>
       <description></description>
     </item>
     <item>
       <title>Llama.cpp</title>
-      <link>https://ciroluciotecce.it/en/tags/llama.cpp/</link>
+      <link>http://localhost:1313/en/tags/llama.cpp/</link>
       <pubDate>Wed, 03 Jun 2026 00:00:00 +0000</pubDate>
-      <guid>https://ciroluciotecce.it/en/tags/llama.cpp/</guid>
+      <guid>http://localhost:1313/en/tags/llama.cpp/</guid>
       <description></description>
     </item>
     <item>
       <title>Llm</title>
-      <link>https://ciroluciotecce.it/en/tags/llm/</link>
+      <link>http://localhost:1313/en/tags/llm/</link>
       <pubDate>Wed, 03 Jun 2026 00:00:00 +0000</pubDate>
-      <guid>https://ciroluciotecce.it/en/tags/llm/</guid>
+      <guid>http://localhost:1313/en/tags/llm/</guid>
       <description></description>
     </item>
     <item>
       <title>Monitoring</title>
-      <link>https://ciroluciotecce.it/en/tags/monitoring/</link>
+      <link>http://localhost:1313/en/tags/monitoring/</link>
       <pubDate>Wed, 03 Jun 2026 00:00:00 +0000</pubDate>
-      <guid>https://ciroluciotecce.it/en/tags/monitoring/</guid>
+      <guid>http://localhost:1313/en/tags/monitoring/</guid>
       <description></description>
     </item>
     <item>
       <title>Prometheus</title>
-      <link>https://ciroluciotecce.it/en/tags/prometheus/</link>
+      <link>http://localhost:1313/en/tags/prometheus/</link>
       <pubDate>Wed, 03 Jun 2026 00:00:00 +0000</pubDate>
-      <guid>https://ciroluciotecce.it/en/tags/prometheus/</guid>
+      <guid>http://localhost:1313/en/tags/prometheus/</guid>
       <description></description>
     </item>
     <item>
       <title>Automation</title>
-      <link>https://ciroluciotecce.it/en/tags/automation/</link>
+      <link>http://localhost:1313/en/tags/automation/</link>
       <pubDate>Tue, 02 Jun 2026 00:00:00 +0000</pubDate>
-      <guid>https://ciroluciotecce.it/en/tags/automation/</guid>
+      <guid>http://localhost:1313/en/tags/automation/</guid>
       <description></description>
     </item>
     <item>
       <title>Cookiecutter</title>
-      <link>https://ciroluciotecce.it/en/tags/cookiecutter/</link>
+      <link>http://localhost:1313/en/tags/cookiecutter/</link>
       <pubDate>Tue, 02 Jun 2026 00:00:00 +0000</pubDate>
-      <guid>https://ciroluciotecce.it/en/tags/cookiecutter/</guid>
+      <guid>http://localhost:1313/en/tags/cookiecutter/</guid>
       <description></description>
     </item>
     <item>
       <title>Devops</title>
-      <link>https://ciroluciotecce.it/en/tags/devops/</link>
+      <link>http://localhost:1313/en/tags/devops/</link>
       <pubDate>Tue, 02 Jun 2026 00:00:00 +0000</pubDate>
-      <guid>https://ciroluciotecce.it/en/tags/devops/</guid>
+      <guid>http://localhost:1313/en/tags/devops/</guid>
       <description></description>
     </item>
   </channel>

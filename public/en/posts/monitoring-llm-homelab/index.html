@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
-        <title>The Dashboard That Almost Worked: Monitoring llama.cpp with Prometheus and Grafana - Ciro Lucio Tecce</title><meta name="Description" content="How I tried to set up a monitoring system for llama.cpp with Prometheus and Grafana — and what I learned when a llama.cpp bug brought it all down."><meta property="og:url" content="https://ciroluciotecce.it/en/posts/monitoring-llm-homelab/">
+        <title>Monitoring llama.cpp with Prometheus and Grafana... - Ciro Lucio Tecce</title><meta name="Description" content="How I tried to set up a monitoring system for llama.cpp with Prometheus and Grafana — and what happened when a llama.cpp bug forced me to back off, for now."><meta property="og:url" content="http://localhost:1313/en/posts/monitoring-llm-homelab/">
   <meta property="og:site_name" content="Ciro Lucio Tecce">
-  <meta property="og:title" content="The Dashboard That Almost Worked: Monitoring llama.cpp with Prometheus and Grafana">
-  <meta property="og:description" content="How I tried to set up a monitoring system for llama.cpp with Prometheus and Grafana — and what I learned when a llama.cpp bug brought it all down.">
+  <meta property="og:title" content="Monitoring llama.cpp with Prometheus and Grafana...">
+  <meta property="og:description" content="How I tried to set up a monitoring system for llama.cpp with Prometheus and Grafana — and what happened when a llama.cpp bug forced me to back off, for now.">
   <meta property="og:locale" content="en">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
@@ -21,29 +21,29 @@
     <meta property="article:tag" content="Prometheus">
 
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="The Dashboard That Almost Worked: Monitoring llama.cpp with Prometheus and Grafana">
-  <meta name="twitter:description" content="How I tried to set up a monitoring system for llama.cpp with Prometheus and Grafana — and what I learned when a llama.cpp bug brought it all down.">
+  <meta name="twitter:title" content="Monitoring llama.cpp with Prometheus and Grafana...">
+  <meta name="twitter:description" content="How I tried to set up a monitoring system for llama.cpp with Prometheus and Grafana — and what happened when a llama.cpp bug forced me to back off, for now.">
 <meta name="application-name" content="My cool site">
 <meta name="apple-mobile-web-app-title" content="My cool site"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://ciroluciotecce.it/en/posts/monitoring-llm-homelab/" /><link rel="prev" href="https://ciroluciotecce.it/en/posts/homelab-deploy-template/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://localhost:1313/en/posts/monitoring-llm-homelab/" /><link rel="prev" href="http://localhost:1313/en/posts/homelab-deploy-template/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
-        "headline": "The Dashboard That Almost Worked: Monitoring llama.cpp with Prometheus and Grafana",
+        "headline": "Monitoring llama.cpp with Prometheus and Grafana...",
         "inLanguage": "en",
         "mainEntityOfPage": {
             "@type": "WebPage",
-            "@id": "https:\/\/ciroluciotecce.it\/en\/posts\/monitoring-llm-homelab\/"
-        },"genre": "posts","keywords": "llm, homelab, monitoring, llama.cpp, grafana, prometheus","wordcount":  1047 ,
-        "url": "https:\/\/ciroluciotecce.it\/en\/posts\/monitoring-llm-homelab\/","datePublished": "2026-06-03T00:00:00+00:00","dateModified": "2026-06-03T00:00:00+00:00","publisher": {
+            "@id": "http:\/\/localhost:1313\/en\/posts\/monitoring-llm-homelab\/"
+        },"genre": "posts","keywords": "llm, homelab, monitoring, llama.cpp, grafana, prometheus","wordcount":  1261 ,
+        "url": "http:\/\/localhost:1313\/en\/posts\/monitoring-llm-homelab\/","datePublished": "2026-06-03T00:00:00+00:00","dateModified": "2026-06-03T00:00:00+00:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
                 "@type": "Person",
                 "name": "Ciro Lucio Tecce"
-            },"description": "How I tried to set up a monitoring system for llama.cpp with Prometheus and Grafana — and what I learned when a llama.cpp bug brought it all down."
+            },"description": "How I tried to set up a monitoring system for llama.cpp with Prometheus and Grafana — and what happened when a llama.cpp bug forced me to back off, for now."
     }
     </script></head>
     <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
@@ -83,10 +83,10 @@
                 <div class="container"><div class="toc" id="toc-auto">
             <h2 class="toc-title">Contents</h2>
             <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">The Dashboard That Almost Worked: Monitoring llama.cpp with Prometheus and Grafana</h1><h2 class="single-subtitle">Observability on a struggling homelab — between bugs, metrics, and a model that never wants to retire</h2><div class="post-meta">
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Monitoring llama.cpp with Prometheus and Grafana...</h1><h2 class="single-subtitle">An attempt that didn&#39;t quite make it</h2><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://ciroluciotecce.it" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Ciro Lucio Tecce</a></span>&nbsp;<span class="post-category">included in <a href="/en/categories/homelab/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Homelab</a>&nbsp;<a href="/en/categories/llm/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>LLM</a>&nbsp;<a href="/en/categories/devops/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>DevOps</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2026-06-03">2026-06-03</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1047 words&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;5 minutes&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2026-06-03">2026-06-03</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1261 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;6 minutes&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
                     <span>Contents</span>
@@ -94,11 +94,11 @@
                 </div>
                 <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
-    <li><a href="#introduction--the-mini-pc-that-wont-give-up-and-the-problem-of-watching-it">Introduction — the mini PC that won&rsquo;t give up (and the problem of watching it)</a></li>
-    <li><a href="#background--from-llama-swap-to-llamacpp-and-the-lost-visibility">Background — from llama-swap to llama.cpp (and the lost visibility)</a></li>
-    <li><a href="#practical-case--prometheus-grafana-and-an-unexpected-bug">Practical case — Prometheus, Grafana, and an unexpected bug</a>
+    <li><a href="#introduction--experiment-small-dream-big">Introduction — Experiment small, dream big</a></li>
+    <li><a href="#from-llama-swap-to-llamacpp">From llama-swap to llama.cpp</a></li>
+    <li><a href="#prometheus-grafana-and-software-certainly-not-yet-enterprise-ready">Prometheus, Grafana, and software certainly not yet Enterprise Ready</a>
       <ul>
-        <li><a href="#the-search-for-lost-visibility">The search for lost visibility</a></li>
+        <li><a href="#the-stack-prometheus-and-grafana">The Stack: Prometheus and Grafana</a></li>
         <li><a href="#the-scraper-problem">The scraper problem</a></li>
         <li><a href="#the-bug-that-stopped-everything">The bug that stopped everything</a></li>
       </ul>
@@ -106,27 +106,36 @@
     <li><a href="#conclusion--even-a-defeat-is-data">Conclusion — even a defeat is data</a></li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><h2 id="introduction--the-mini-pc-that-wont-give-up-and-the-problem-of-watching-it">Introduction — the mini PC that won&rsquo;t give up (and the problem of watching it)</h2>
-<p>For the past few months, one of the mini PCs in my homelab has been getting straight-up abused. Every day I make it do things it was never designed for: load language models, process prompts, generate text. This is discrete GPU territory, but it doesn&rsquo;t have one.</p>
-<p>And yet, between a 3D-printed expansion card and a docker-compose held together with duct tape, this little Ryzen 5 4650G Pro with 32GB of RAM and its integrated GPU manages to get by. It&rsquo;s no speed demon — to give you an idea, with Qwen3.6 35B A3B in 4-bit quantization it does about 70-90 tokens per second on prefill and roughly 12 tokens per second on generation. Nothing to write home about.</p>
-<p>With a lightweight coding agent like <a href="https://github.com/EarendilWorks/pi" target="_blank" rel="noopener noreffer ">pi</a> and the magic of KV caching, small tasks are manageable. For batch workflows — like the ones I&rsquo;ve set up with n8n to leverage the model&rsquo;s multimodal capabilities — no problem at all.</p>
-<p>But there&rsquo;s a problem that shows up sooner or later when you&rsquo;re dealing with experimental stuff: <strong>without data, you&rsquo;re blind</strong>.</p>
+            </div><div class="content" id="content"><h2 id="introduction--experiment-small-dream-big">Introduction — Experiment small, dream big</h2>
+<p>For the past few months, one of the mini PCs in my homelab has been getting a bit of a rough ride, or rather, it&rsquo;s been pushed a little beyond what its original specs were meant for. I&rsquo;m asking it to do things it was never designed for: load LLMs, process prompts, generate text, and analyze images. This is discrete GPU territory, but it doesn&rsquo;t know that and keeps going anyway.</p>
+<p>And yet, this little Minisforum X400 with its Ryzen 5 4650G Pro, 32GB of RAM, and its 7 CU integrated GPU manages not bad at all, all things considered. It&rsquo;s no speed demon — to give you an idea, with Qwen3.6 35B A3B in 4-bit quantization it runs about 70-80 tokens per second on prefill and roughly 12 tokens per second on generation. Nothing to write home about, but it&rsquo;s genuinely incredible to think that a machine like this can run a model with capabilities more than sufficient for small tasks in home automation, for example.</p>
+<figure><a class="lightgallery" href="/homelab-mini-rack.jpeg" title="/homelab-mini-rack.jpeg" data-thumbnail="/homelab-mini-rack.jpeg" data-sub-html="<h2>The Minisforum X400 — my testbed for local LLMs</h2>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="/homelab-mini-rack.jpeg"
+            data-srcset="/homelab-mini-rack.jpeg, /homelab-mini-rack.jpeg 1.5x, /homelab-mini-rack.jpeg 2x"
+            data-sizes="auto"
+            alt="/homelab-mini-rack.jpeg" />
+    </a><figcaption class="image-caption">The Minisforum X400 — my testbed for local LLMs</figcaption>
+    </figure>
+<p>With a lightweight coding agent like <a href="https://github.com/EarendilWorks/pi" target="_blank" rel="noopener noreffer ">pi</a> and the magic of KV caching, small tasks are handled just fine. Even for more structured batch workflows — for instance, a couple of automations built with n8n to leverage the model&rsquo;s multimodal capabilities — no problem at all, and it does its job admirably.</p>
+<p>Obviously, given the limitations, it&rsquo;s mostly useful for experimenting with configurations and infrastructure. It&rsquo;s hard to find a concrete use case with someone on the other end of the screen willing to wait 30 seconds to five minutes for an answer. Yet the idea of having a small local inference server had been on my mind for a while, so I decided to use what I had on hand to get the setup and configuration in order, choose the most suitable backend, find the best configuration for a couple of models, and then move everything to a more performant machine once one was available.</p>
+<p>One thing that particularly interests me about my setup is observability — the ability to monitor how system performance changes across different configurations, features, and models. In today&rsquo;s landscape, where new models come out frequently and you have to juggle different types of speculative decoding, model quantization, cache quantization, and attention management, having the ability to observe the impact on performance and model quality of different configurations is essential: <strong>without data, you&rsquo;re blind</strong>.</p>
 <blockquote>
-<p>Observability and data are the key to making informed decisions. Anything not backed by a number, a chart, or concrete evidence is just an impression. And as such, it can&rsquo;t drive a technical decision-making process.</p>
+<p>Observability and data are the key to making any decision in an informed way. Everything that isn&rsquo;t backed by a number, a chart, or concrete evidence is just an impression. And as such, it can&rsquo;t guide a technical decision-making process.</p>
 </blockquote>
-<p>This post is the story of how I tried to make visible what happens inside llama.cpp. A story made of metrics, dashboards, Prometheus, Grafana — and a bug that, at least for now, forced me to hit pause.</p>
+<p>This post is the story of how I tried to make visible what happens inside llama.cpp. A story made of metrics, dashboards, Prometheus, Grafana — and of a bug that, at least for now, forced me to put everything on hold.</p>
 <hr>
-<h2 id="background--from-llama-swap-to-llamacpp-and-the-lost-visibility">Background — from llama-swap to llama.cpp (and the lost visibility)</h2>
-<p>Until recently, I used <a href="https://github.com/mut-ex/llama-swap" target="_blank" rel="noopener noreffer ">llama-swap</a> to manage my models. For those unfamiliar, llama-swap is an abstraction layer on top of llama.cpp that lets you configure multiple models and automatically handles loading and unloading based on incoming requests. All of this long before llama.cpp implemented its native router mode.</p>
-<p>llama-swap had one major strength: a web interface that showed the performance of every single request — tokens processed, prompt processing speed, generation speed, average times by percentile. Everything was visible, out of the box.</p>
-<p>But over time I started hitting its limits. First: versioning. I could never figure out exactly which version of llama.cpp was bundled in llama-swap&rsquo;s Docker images. Sure, I could have built the image myself, but there was another, more substantial limitation: <strong>parallel requests on different models</strong>. Due to an implementation constraint, llama-swap can&rsquo;t emulate llama.cpp&rsquo;s native ability to handle concurrent requests across different models.</p>
-<p>In my current setup, this isn&rsquo;t really a limitation — with my compute capacity, I can barely saturate a single model. But I have new hardware on the way, and I wanted to prepare for a scale-up.</p>
-<p>So I switched to llama.cpp directly.</p>
-<p>And immediately I missed the monitoring that llama-swap provided. All that visibility, gone in one shot.</p>
+<h2 id="from-llama-swap-to-llamacpp">From llama-swap to llama.cpp</h2>
+<p>Until recently, I used <a href="https://github.com/mut-ex/llama-swap" target="_blank" rel="noopener noreffer ">llama-swap</a> to manage models. For those unfamiliar, llama-swap is an abstraction layer on top of llama.cpp that lets you configure multiple models and automatically handles their loading and idle state based on incoming requests. All of this long before llama.cpp implemented its native router mode.</p>
+<p>Llama-swap has one major strength: a web interface that shows the performance of every single request — tokens processed, prompt processing speed, generation speed, average times by percentile. All beautiful, all visible, all out of the box.</p>
+<p>But it also has some limitations. The first: versioning. I never managed to figure out exactly which version of llama.cpp was included in the Docker images distributed by llama-swap. Sure, I could have built the image myself, but there was another, more substantial limitation: <strong>handling parallel requests on different models</strong>. Due to an implementation constraint, llama-swap can&rsquo;t emulate llama.cpp&rsquo;s native ability to handle multiple requests on different models simultaneously.</p>
+<p>In my current setup, this isn&rsquo;t a limitation, but as mentioned, this configuration is just the testbed for new hardware that&rsquo;s already on the way, so I decided to move on and use llama.cpp directly. The goal was to get immediate access to the latest available versions, with clear version management this time and no intermediary layers adding potential complexity and single points of failure to the inference system. However, from the very start I missed the monitoring that llama-swap provided. Instead of having a convenient web dashboard to check, I was back to reading logs, trying to recover just a fraction of the same data I had before.</p>
 <hr>
-<h2 id="practical-case--prometheus-grafana-and-an-unexpected-bug">Practical case — Prometheus, Grafana, and an unexpected bug</h2>
-<h3 id="the-search-for-lost-visibility">The search for lost visibility</h3>
-<p>So I got to work. The goal was simple: replicate what I had with llama-swap, but with standard tools. Prometheus for collection, Grafana for visualization. Everything I later documented in <a href="https://gist.github.com/4ae126689db857cc8c2c26f1425c2692.git" target="_blank" rel="noopener noreffer ">a GitHub gist</a>.</p>
+<h2 id="prometheus-grafana-and-software-certainly-not-yet-enterprise-ready">Prometheus, Grafana, and software certainly not yet Enterprise Ready</h2>
+<h3 id="the-stack-prometheus-and-grafana">The Stack: Prometheus and Grafana</h3>
+<p>So I got to work, aiming to replicate what I had with llama-swap, but with standard tools. I wanted to avoid using another intermediary layer, like LiteLLM, to keep the system management and configuration as simple as possible. So I chose Prometheus for collection, Grafana for visualization, and a small Python script as glue between the two. Everything is documented in detail in <a href="https://gist.github.com/4ae126689db857cc8c2c26f1425c2692.git" target="_blank" rel="noopener noreffer ">this GitHub gist</a>.</p>
 <p>The final dashboard — at least in my intentions — was supposed to show:</p>
 <ul>
 <li>Prefill and generation speed trends per active model, with a per-model filter</li>
@@ -145,35 +154,31 @@
     </a><figcaption class="image-caption">The Grafana dashboard — when it worked, it was beautiful</figcaption>
     </figure>
 <h3 id="the-scraper-problem">The scraper problem</h3>
-<p>The first difficulty came right away. llama.cpp exposes a <code>/metrics</code> endpoint, but it needs to be called filtered by model. This means you can&rsquo;t just point a vanilla Prometheus at that endpoint and expect it to work. You need an intermediary layer — a dedicated scraper that handles the per-model filter logic.</p>
+<p>The first difficulty came right away. llama.cpp exposes a <code>/metrics</code> endpoint, but it needs to be called filtered by model. This means you can&rsquo;t just point a vanilla Prometheus at that endpoint and expect it to work. An intermediary layer is needed — a dedicated scraper that handles the per-model filter logic.</p>
 <p>Nothing insurmountable, but it was the first sign that the road wouldn&rsquo;t be all downhill.</p>
 <h3 id="the-bug-that-stopped-everything">The bug that stopped everything</h3>
 <p>Unfortunately, after setting up the entire infrastructure — Prometheus collecting, Grafana visualizing, the dashboard finally coming to life — I hit a wall.</p>
-<p><strong>A known bug in llama.cpp</strong> related to metrics exposure prevents loaded models from being unloaded.</p>
-<p>In plain English: every call to the <code>/metrics</code> endpoint resets the model&rsquo;s keep-alive timer. llama.cpp thinks the model is still in use, so it never unloads it when it could go idle.</p>
+<p><strong>A known bug in llama.cpp</strong> related to metrics exposure prevents loaded models from entering idle state, blocking both power savings and runtime model switching based on requests, effectively making llama.cpp&rsquo;s routing functions unusable.</p>
+<p>In plain terms: every call to the <code>/metrics</code> endpoint resets the model&rsquo;s keep-alive timer. llama.cpp thinks the model is still in use, and therefore doesn&rsquo;t free memory when it could go idle.</p>
 <p>The consequences are twofold, both painful:</p>
 <ol>
 <li><strong>resource waste</strong> — the model stays in memory even when nobody is using it</li>
-<li><strong>routing breaks</strong> — if the loaded model is perceived as in use, llama.cpp won&rsquo;t unload it to make room for a different model when a new request comes in</li>
+<li><strong>routing doesn&rsquo;t work</strong> — if the loaded model is perceived as in use, llama.cpp won&rsquo;t free it to make room for another model when a different request comes in</li>
 </ol>
 <div class="details admonition warning open">
         <div class="details-summary admonition-title">
             <i class="icon fas fa-exclamation-triangle fa-fw" aria-hidden="true"></i>Update 06/03/2026<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
         </div>
         <div class="details-content">
-            <div class="admonition-content">As of this writing, the bug is still open and I&rsquo;m monitoring developments on the llama.cpp repository. For now I&rsquo;ve disabled the Prometheus scraper and gone back to manual, sporadic monitoring — the classic furtive glance at <code>htop</code> while a model is running.</div>
+            <div class="admonition-content">As of this writing, this bug is still open and I&rsquo;m monitoring developments on the llama.cpp repository. For now I&rsquo;ve disabled the Prometheus scraper and gone back to manual monitoring.</div>
         </div>
     </div>
-<p>So for now, the solution is on hold. The dashboard is there, the data would be flowing, but I can&rsquo;t use it without breaking the memory management on my little server.</p>
+<p>So for now, the solution is on hold. The dashboard is there, the data would be flowing, but I can&rsquo;t give up the routing functionality.</p>
 <hr>
 <h2 id="conclusion--even-a-defeat-is-data">Conclusion — even a defeat is data</h2>
-<p>At the end of this story, what I&rsquo;m taking home isn&rsquo;t a working dashboard. It&rsquo;s something else.</p>
-<p>I learned that observability isn&rsquo;t optional — it&rsquo;s the foundation on which technical decisions are built. I learned that llama.cpp is a fantastic project, evolving at breakneck speed, but like any software in its growth phase, it has its cracks. And I learned that even a failed experiment produces valuable data — about the technology, about hardware limitations, and about what it really takes to make a system work.</p>
-<p>The dashboard will be back. When the bug is fixed, when the new hardware arrives, or when I find a workaround. But in the meantime, this post remains — a snapshot of a moment when I tried to make the invisible visible, and almost succeeded.</p>
-<blockquote>
-<p>In the end, even a defeat is data. And if there&rsquo;s one thing my homelab has taught me, it&rsquo;s that every problem is an opportunity to understand something more.</p>
-</blockquote>
-<p>The full setup is documented in the <a href="https://gist.github.com/4ae126689db857cc8c2c26f1425c2692.git" target="_blank" rel="noopener noreffer ">gist</a> — if anyone wants to follow the same path (or help me find a fix for the bug), it&rsquo;s all there.</p>
+<p>Llama.cpp is a fantastic project, evolving at breakneck speed, but like any software in its growth phase, it has its cracks. I&rsquo;ll keep my dashboard on the side for when the bug is fixed, when the new hardware arrives, or when I find a workaround.
+Probably, until then, I&rsquo;ll rely on LiteLLM to monitor the performance and usage of the inference engine and its various models.</p>
+<p>The full setup is documented in the <a href="https://gist.github.com/4ae126689db857cc8c2c26f1425c2692.git" target="_blank" rel="noopener noreffer ">gist</a> — if anyone wants to follow the same path (or help find a fix for the bug), it&rsquo;s all there.</p>
 </div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
@@ -183,7 +188,7 @@
         <div class="post-info-line">
             <div class="post-info-md"></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://ciroluciotecce.it/en/posts/monitoring-llm-homelab/" data-title="The Dashboard That Almost Worked: Monitoring llama.cpp with Prometheus and Grafana" data-hashtags="llm,homelab,monitoring,llama.cpp,grafana,prometheus"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://ciroluciotecce.it/en/posts/monitoring-llm-homelab/" data-hashtag="llm"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://ciroluciotecce.it/en/posts/monitoring-llm-homelab/" data-title="The Dashboard That Almost Worked: Monitoring llama.cpp with Prometheus and Grafana"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://ciroluciotecce.it/en/posts/monitoring-llm-homelab/" data-title="The Dashboard That Almost Worked: Monitoring llama.cpp with Prometheus and Grafana"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://ciroluciotecce.it/en/posts/monitoring-llm-homelab/" data-title="The Dashboard That Almost Worked: Monitoring llama.cpp with Prometheus and Grafana"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://localhost:1313/en/posts/monitoring-llm-homelab/" data-title="Monitoring llama.cpp with Prometheus and Grafana..." data-hashtags="llm,homelab,monitoring,llama.cpp,grafana,prometheus"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://localhost:1313/en/posts/monitoring-llm-homelab/" data-hashtag="llm"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://localhost:1313/en/posts/monitoring-llm-homelab/" data-title="Monitoring llama.cpp with Prometheus and Grafana..."><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://localhost:1313/en/posts/monitoring-llm-homelab/" data-title="Monitoring llama.cpp with Prometheus and Grafana..."><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://localhost:1313/en/posts/monitoring-llm-homelab/" data-title="Monitoring llama.cpp with Prometheus and Grafana..."><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
             </div>
         </div>
     </div>
@@ -209,5 +214,5 @@
             </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
                 <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
             </a>
-        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"lightgallery":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+        </div><link rel="stylesheet" href="/lib/lightgallery/css/lightgallery-bundle.min.css"><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"lightgallery":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
 </html>

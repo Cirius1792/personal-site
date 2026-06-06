@@ -2,168 +2,168 @@
     xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     ><url>
-            <loc>https://ciroluciotecce.it/</loc><lastmod>2026-06-03T00:00:00&#43;00:00</lastmod><xhtml:link
+            <loc>http://localhost:1313/</loc><lastmod>2026-06-03T00:00:00&#43;00:00</lastmod><xhtml:link
                         rel="alternate"
                         hreflang="en"
-                        href="https://ciroluciotecce.it/en/"
+                        href="http://localhost:1313/en/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="it"
-                    href="https://ciroluciotecce.it/"
+                    href="http://localhost:1313/"
                     /></url><url>
-            <loc>https://ciroluciotecce.it/en/</loc><lastmod>2026-06-03T00:00:00&#43;00:00</lastmod></url><url>
-            <loc>https://ciroluciotecce.it/categories/</loc><lastmod>2026-06-03T00:00:00&#43;00:00</lastmod><xhtml:link
+            <loc>http://localhost:1313/en/</loc><lastmod>2026-06-03T00:00:00&#43;00:00</lastmod></url><url>
+            <loc>http://localhost:1313/categories/</loc><lastmod>2026-06-03T00:00:00&#43;00:00</lastmod><xhtml:link
                         rel="alternate"
                         hreflang="en"
-                        href="https://ciroluciotecce.it/en/categories/"
+                        href="http://localhost:1313/en/categories/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="it"
-                    href="https://ciroluciotecce.it/categories/"
+                    href="http://localhost:1313/categories/"
                     /></url><url>
-            <loc>https://ciroluciotecce.it/categories/devops/</loc><lastmod>2026-06-03T00:00:00&#43;00:00</lastmod><xhtml:link
+            <loc>http://localhost:1313/categories/devops/</loc><lastmod>2026-06-03T00:00:00&#43;00:00</lastmod><xhtml:link
                         rel="alternate"
                         hreflang="en"
-                        href="https://ciroluciotecce.it/en/categories/devops/"
+                        href="http://localhost:1313/en/categories/devops/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="it"
-                    href="https://ciroluciotecce.it/categories/devops/"
+                    href="http://localhost:1313/categories/devops/"
                     /></url><url>
-            <loc>https://ciroluciotecce.it/tags/grafana/</loc><lastmod>2026-06-03T00:00:00&#43;00:00</lastmod><xhtml:link
+            <loc>http://localhost:1313/tags/grafana/</loc><lastmod>2026-06-03T00:00:00&#43;00:00</lastmod><xhtml:link
                         rel="alternate"
                         hreflang="en"
-                        href="https://ciroluciotecce.it/en/tags/grafana/"
+                        href="http://localhost:1313/en/tags/grafana/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="it"
-                    href="https://ciroluciotecce.it/tags/grafana/"
+                    href="http://localhost:1313/tags/grafana/"
                     /></url><url>
-            <loc>https://ciroluciotecce.it/categories/homelab/</loc><lastmod>2026-06-03T00:00:00&#43;00:00</lastmod><xhtml:link
+            <loc>http://localhost:1313/categories/homelab/</loc><lastmod>2026-06-03T00:00:00&#43;00:00</lastmod><xhtml:link
                         rel="alternate"
                         hreflang="en"
-                        href="https://ciroluciotecce.it/en/categories/homelab/"
+                        href="http://localhost:1313/en/categories/homelab/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="it"
-                    href="https://ciroluciotecce.it/categories/homelab/"
+                    href="http://localhost:1313/categories/homelab/"
                     /></url><url>
-            <loc>https://ciroluciotecce.it/tags/homelab/</loc><lastmod>2026-06-03T00:00:00&#43;00:00</lastmod><xhtml:link
+            <loc>http://localhost:1313/tags/homelab/</loc><lastmod>2026-06-03T00:00:00&#43;00:00</lastmod><xhtml:link
                         rel="alternate"
                         hreflang="en"
-                        href="https://ciroluciotecce.it/en/tags/homelab/"
+                        href="http://localhost:1313/en/tags/homelab/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="it"
-                    href="https://ciroluciotecce.it/tags/homelab/"
+                    href="http://localhost:1313/tags/homelab/"
                     /></url><url>
-            <loc>https://ciroluciotecce.it/posts/monitoring-llm-homelab/</loc><lastmod>2026-06-03T00:00:00&#43;00:00</lastmod><xhtml:link
+            <loc>http://localhost:1313/tags/llama.cpp/</loc><lastmod>2026-06-03T00:00:00&#43;00:00</lastmod><xhtml:link
                         rel="alternate"
                         hreflang="en"
-                        href="https://ciroluciotecce.it/en/posts/monitoring-llm-homelab/"
+                        href="http://localhost:1313/en/tags/llama.cpp/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="it"
-                    href="https://ciroluciotecce.it/posts/monitoring-llm-homelab/"
+                    href="http://localhost:1313/tags/llama.cpp/"
                     /></url><url>
-            <loc>https://ciroluciotecce.it/tags/llama.cpp/</loc><lastmod>2026-06-03T00:00:00&#43;00:00</lastmod><xhtml:link
+            <loc>http://localhost:1313/tags/llm/</loc><lastmod>2026-06-03T00:00:00&#43;00:00</lastmod><xhtml:link
                         rel="alternate"
                         hreflang="en"
-                        href="https://ciroluciotecce.it/en/tags/llama.cpp/"
+                        href="http://localhost:1313/en/tags/llm/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="it"
-                    href="https://ciroluciotecce.it/tags/llama.cpp/"
+                    href="http://localhost:1313/tags/llm/"
                     /></url><url>
-            <loc>https://ciroluciotecce.it/tags/llm/</loc><lastmod>2026-06-03T00:00:00&#43;00:00</lastmod><xhtml:link
+            <loc>http://localhost:1313/categories/llm/</loc><lastmod>2026-06-03T00:00:00&#43;00:00</lastmod><xhtml:link
                         rel="alternate"
                         hreflang="en"
-                        href="https://ciroluciotecce.it/en/tags/llm/"
+                        href="http://localhost:1313/en/categories/llm/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="it"
-                    href="https://ciroluciotecce.it/tags/llm/"
+                    href="http://localhost:1313/categories/llm/"
                     /></url><url>
-            <loc>https://ciroluciotecce.it/categories/llm/</loc><lastmod>2026-06-03T00:00:00&#43;00:00</lastmod><xhtml:link
+            <loc>http://localhost:1313/tags/monitoring/</loc><lastmod>2026-06-03T00:00:00&#43;00:00</lastmod><xhtml:link
                         rel="alternate"
                         hreflang="en"
-                        href="https://ciroluciotecce.it/en/categories/llm/"
+                        href="http://localhost:1313/en/tags/monitoring/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="it"
-                    href="https://ciroluciotecce.it/categories/llm/"
+                    href="http://localhost:1313/tags/monitoring/"
                     /></url><url>
-            <loc>https://ciroluciotecce.it/tags/monitoring/</loc><lastmod>2026-06-03T00:00:00&#43;00:00</lastmod><xhtml:link
+            <loc>http://localhost:1313/posts/monitoring-llm-homelab/</loc><lastmod>2026-06-03T00:00:00&#43;00:00</lastmod><xhtml:link
                         rel="alternate"
                         hreflang="en"
-                        href="https://ciroluciotecce.it/en/tags/monitoring/"
+                        href="http://localhost:1313/en/posts/monitoring-llm-homelab/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="it"
-                    href="https://ciroluciotecce.it/tags/monitoring/"
+                    href="http://localhost:1313/posts/monitoring-llm-homelab/"
                     /></url><url>
-            <loc>https://ciroluciotecce.it/posts/</loc><lastmod>2026-06-03T00:00:00&#43;00:00</lastmod><xhtml:link
+            <loc>http://localhost:1313/en/posts/monitoring-llm-homelab/</loc><lastmod>2026-06-03T00:00:00&#43;00:00</lastmod></url><url>
+            <loc>http://localhost:1313/posts/</loc><lastmod>2026-06-03T00:00:00&#43;00:00</lastmod><xhtml:link
                         rel="alternate"
                         hreflang="en"
-                        href="https://ciroluciotecce.it/en/posts/"
+                        href="http://localhost:1313/en/posts/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="it"
-                    href="https://ciroluciotecce.it/posts/"
+                    href="http://localhost:1313/posts/"
                     /></url><url>
-            <loc>https://ciroluciotecce.it/tags/prometheus/</loc><lastmod>2026-06-03T00:00:00&#43;00:00</lastmod><xhtml:link
+            <loc>http://localhost:1313/tags/prometheus/</loc><lastmod>2026-06-03T00:00:00&#43;00:00</lastmod><xhtml:link
                         rel="alternate"
                         hreflang="en"
-                        href="https://ciroluciotecce.it/en/tags/prometheus/"
+                        href="http://localhost:1313/en/tags/prometheus/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="it"
-                    href="https://ciroluciotecce.it/tags/prometheus/"
+                    href="http://localhost:1313/tags/prometheus/"
                     /></url><url>
-            <loc>https://ciroluciotecce.it/tags/</loc><lastmod>2026-06-03T00:00:00&#43;00:00</lastmod><xhtml:link
+            <loc>http://localhost:1313/tags/</loc><lastmod>2026-06-03T00:00:00&#43;00:00</lastmod><xhtml:link
                         rel="alternate"
                         hreflang="en"
-                        href="https://ciroluciotecce.it/en/tags/"
+                        href="http://localhost:1313/en/tags/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="it"
-                    href="https://ciroluciotecce.it/tags/"
+                    href="http://localhost:1313/tags/"
                     /></url><url>
-            <loc>https://ciroluciotecce.it/en/posts/monitoring-llm-homelab/</loc><lastmod>2026-06-03T00:00:00&#43;00:00</lastmod></url><url>
-            <loc>https://ciroluciotecce.it/tags/automation/</loc><lastmod>2026-06-02T00:00:00&#43;00:00</lastmod><xhtml:link
+            <loc>http://localhost:1313/tags/automation/</loc><lastmod>2026-06-02T00:00:00&#43;00:00</lastmod><xhtml:link
                         rel="alternate"
                         hreflang="en"
-                        href="https://ciroluciotecce.it/en/tags/automation/"
+                        href="http://localhost:1313/en/tags/automation/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="it"
-                    href="https://ciroluciotecce.it/tags/automation/"
+                    href="http://localhost:1313/tags/automation/"
                     /></url><url>
-            <loc>https://ciroluciotecce.it/tags/cookiecutter/</loc><lastmod>2026-06-02T00:00:00&#43;00:00</lastmod><xhtml:link
+            <loc>http://localhost:1313/tags/cookiecutter/</loc><lastmod>2026-06-02T00:00:00&#43;00:00</lastmod><xhtml:link
                         rel="alternate"
                         hreflang="en"
-                        href="https://ciroluciotecce.it/en/tags/cookiecutter/"
+                        href="http://localhost:1313/en/tags/cookiecutter/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="it"
-                    href="https://ciroluciotecce.it/tags/cookiecutter/"
+                    href="http://localhost:1313/tags/cookiecutter/"
                     /></url><url>
-            <loc>https://ciroluciotecce.it/posts/homelab-deploy-template/</loc><lastmod>2026-06-02T00:00:00&#43;00:00</lastmod><xhtml:link
+            <loc>http://localhost:1313/posts/homelab-deploy-template/</loc><lastmod>2026-06-02T00:00:00&#43;00:00</lastmod><xhtml:link
                         rel="alternate"
                         hreflang="en"
-                        href="https://ciroluciotecce.it/en/posts/homelab-deploy-template/"
+                        href="http://localhost:1313/en/posts/homelab-deploy-template/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="it"
-                    href="https://ciroluciotecce.it/posts/homelab-deploy-template/"
+                    href="http://localhost:1313/posts/homelab-deploy-template/"
                     /></url><url>
-            <loc>https://ciroluciotecce.it/tags/devops/</loc><lastmod>2026-06-02T00:00:00&#43;00:00</lastmod><xhtml:link
+            <loc>http://localhost:1313/tags/devops/</loc><lastmod>2026-06-02T00:00:00&#43;00:00</lastmod><xhtml:link
                         rel="alternate"
                         hreflang="en"
-                        href="https://ciroluciotecce.it/en/tags/devops/"
+                        href="http://localhost:1313/en/tags/devops/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="it"
-                    href="https://ciroluciotecce.it/tags/devops/"
+                    href="http://localhost:1313/tags/devops/"
                     /></url><url>
-            <loc>https://ciroluciotecce.it/en/posts/homelab-deploy-template/</loc><lastmod>2026-06-02T00:00:00&#43;00:00</lastmod></url></urlset>
+            <loc>http://localhost:1313/en/posts/homelab-deploy-template/</loc><lastmod>2026-06-02T00:00:00&#43;00:00</lastmod></url></urlset>
