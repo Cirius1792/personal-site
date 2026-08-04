@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 	<channel>
 		<title>Llm on Ciro Lucio Tecce</title>
-		<link>https://ciroluciotecce.it/en/tags/llm/</link>
+		<link>http://localhost:1313/en/tags/llm/</link>
 		<description>Recent content in Llm on Ciro Lucio Tecce</description>
 		<generator>Hugo</generator>
 		<language>en</language>
@@ -10,14 +10,21 @@
 		
 		
 		
-			<lastBuildDate>Wed, 03 Jun 2026 00:00:00 +0000</lastBuildDate>
+			<lastBuildDate>Tue, 04 Aug 2026 00:00:00 +0000</lastBuildDate>
 		
-			<atom:link href="https://ciroluciotecce.it/en/tags/llm/index.xml" rel="self" type="application/rss+xml" />
+			<atom:link href="http://localhost:1313/en/tags/llm/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>Local Inference on an Asrock BC250 Cluster</title>
+				<link>http://localhost:1313/en/posts/bc250-cluster-inferenza-locale/</link>
+				<pubDate>Tue, 04 Aug 2026 00:00:00 +0000</pubDate>
+				<guid>http://localhost:1313/en/posts/bc250-cluster-inferenza-locale/</guid>
+				<description>&lt;h2 id=&#34;intro&#34;&gt;Intro&lt;/h2&gt;&#xA;&lt;p&gt;I&amp;rsquo;ve always been a tech enthusiast, and a few years ago I fell into the homelabbing rabbit hole. With all the AI hype around, developing an interest in local inference felt like the next natural step.&lt;/p&gt;&#xA;&lt;p&gt;But even beyond the technical challenges and fascination this space brings, I strongly believe that the future of AI is local. This is both for practical reasons regarding the sustainability of the AI ecosystem as a whole—which currently consumes resources completely out of proportion to the actual returns companies get based on pricing—and for the democratization of access to these tools, which cannot and should not remain exclusively in the hands of big external providers.&lt;/p&gt;</description>
+			</item>
 			<item>
 				<title>Monitoring llama.cpp with Prometheus and Grafana...</title>
-				<link>https://ciroluciotecce.it/en/posts/monitoring-llm-homelab/</link>
+				<link>http://localhost:1313/en/posts/monitoring-llm-homelab/</link>
 				<pubDate>Wed, 03 Jun 2026 00:00:00 +0000</pubDate>
-				<guid>https://ciroluciotecce.it/en/posts/monitoring-llm-homelab/</guid>
+				<guid>http://localhost:1313/en/posts/monitoring-llm-homelab/</guid>
 				<description>&lt;h2 id=&#34;introduction--experiment-small-dream-big&#34;&gt;Introduction — Experiment small, dream big&lt;/h2&gt;&#xA;&lt;p&gt;For the past few months, one of the mini PCs in my homelab has been getting a bit of a rough ride, or rather, it&amp;rsquo;s been pushed a little beyond what its original specs were meant for. I&amp;rsquo;m asking it to do things it was never designed for: load LLMs, process prompts, generate text, and analyze images. This is discrete GPU territory, but it doesn&amp;rsquo;t know that and keeps going anyway.&lt;/p&gt;</description>
 			</item>
 	</channel>

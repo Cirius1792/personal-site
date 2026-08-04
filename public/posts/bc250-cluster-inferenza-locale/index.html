@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="it">
-    <head>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
-        <title>Inferenza locale su un cluster di Asrock BC250: tre nodi, meno di 1000 euro - Ciro Lucio Tecce</title><meta name="Description" content="Come ho costruito un cluster di tre Asrock BC250 per l&#39;inferenza locale di LLM: hardware ex-mining da meno di 1000 euro, 45GB di VRAM distribuita via RPC e i risultati dei benchmark di llama.cpp."><meta property="og:url" content="https://ciroluciotecce.it/posts/bc250-cluster-inferenza-locale/">
+        <title>Inferenza locale su un cluster di Asrock BC250 - Ciro Lucio Tecce</title><meta name="Description" content="Come ho costruito un cluster di tre Asrock BC250 per l&#39;inferenza locale di LLM: hardware ex-mining da meno di 1000 euro, 45GB di VRAM distribuita via RPC e i risultati dei benchmark di llama.cpp."><meta property="og:url" content="http://localhost:1313/posts/bc250-cluster-inferenza-locale/">
 	<meta property="og:site_name" content="Ciro Lucio Tecce">
-	<meta property="og:title" content="Inferenza locale su un cluster di Asrock BC250: tre nodi, meno di 1000 euro">
+	<meta property="og:title" content="Inferenza locale su un cluster di Asrock BC250">
 	<meta property="og:description" content="Come ho costruito un cluster di tre Asrock BC250 per l&#39;inferenza locale di LLM: hardware ex-mining da meno di 1000 euro, 45GB di VRAM distribuita via RPC e i risultati dei benchmark di llama.cpp.">
 	<meta property="og:locale" content="it">
 	<meta property="og:type" content="article">
@@ -21,24 +21,24 @@
 		<meta property="article:tag" content="Vulkan">
 
 	<meta name="twitter:card" content="summary">
-	<meta name="twitter:title" content="Inferenza locale su un cluster di Asrock BC250: tre nodi, meno di 1000 euro">
+	<meta name="twitter:title" content="Inferenza locale su un cluster di Asrock BC250">
 	<meta name="twitter:description" content="Come ho costruito un cluster di tre Asrock BC250 per l&#39;inferenza locale di LLM: hardware ex-mining da meno di 1000 euro, 45GB di VRAM distribuita via RPC e i risultati dei benchmark di llama.cpp.">
 <meta name="application-name" content="My cool site">
 <meta name="apple-mobile-web-app-title" content="My cool site"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://ciroluciotecce.it/posts/bc250-cluster-inferenza-locale/" /><link rel="prev" href="https://ciroluciotecce.it/posts/monitoring-llm-homelab/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://localhost:1313/posts/bc250-cluster-inferenza-locale/" /><link rel="prev" href="http://localhost:1313/posts/monitoring-llm-homelab/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
-        "headline": "Inferenza locale su un cluster di Asrock BC250: tre nodi, meno di 1000 euro",
+        "headline": "Inferenza locale su un cluster di Asrock BC250",
         "inLanguage": "it",
         "mainEntityOfPage": {
             "@type": "WebPage",
-            "@id": "https:\/\/ciroluciotecce.it\/posts\/bc250-cluster-inferenza-locale\/"
+            "@id": "http:\/\/localhost:1313\/posts\/bc250-cluster-inferenza-locale\/"
         },"genre": "posts","keywords": "homelab, llm, llama.cpp, inferenza locale, bc250, vulkan","wordcount":  5156 ,
-        "url": "https:\/\/ciroluciotecce.it\/posts\/bc250-cluster-inferenza-locale\/","datePublished": "2026-08-04T00:00:00+00:00","dateModified": "2026-08-04T00:00:00+00:00","publisher": {
+        "url": "http:\/\/localhost:1313\/posts\/bc250-cluster-inferenza-locale\/","datePublished": "2026-08-04T00:00:00+00:00","dateModified": "2026-08-04T00:00:00+00:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
                 "@type": "Person",
@@ -58,7 +58,7 @@
                     <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
                 </a><a href="javascript:void(0);" class="menu-item language" title="Scegliere la lingua">
                     <i class="fa fa-globe" aria-hidden="true"></i>                      
-                    <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/posts/bc250-cluster-inferenza-locale/" selected>Italiano</option></select>
+                    <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/posts/bc250-cluster-inferenza-locale/" selected>Italiano</option><option value="/en/posts/bc250-cluster-inferenza-locale/">English</option></select>
                 </a></div>
         </div>
     </div>
@@ -76,14 +76,14 @@
                 <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
             </a><a href="javascript:void(0);" class="menu-item" title="Scegliere la lingua">
                     <i class="fa fa-globe fa-fw" aria-hidden="true"></i>
-                    <select class="language-select" onchange="location = this.value;"><option value="/posts/bc250-cluster-inferenza-locale/" selected>Italiano</option></select>
+                    <select class="language-select" onchange="location = this.value;"><option value="/posts/bc250-cluster-inferenza-locale/" selected>Italiano</option><option value="/en/posts/bc250-cluster-inferenza-locale/">English</option></select>
                 </a></div>
     </div>
 </header><main class="main">
                 <div class="container"><div class="toc" id="toc-auto">
             <h2 class="toc-title">Contenuti</h2>
             <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Inferenza locale su un cluster di Asrock BC250: tre nodi, meno di 1000 euro</h1><h2 class="single-subtitle">45GB di VRAM distribuita e i compromessi dell&#39;inferenza distribuita su hardware ex-mining</h2><div class="post-meta">
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Inferenza locale su un cluster di Asrock BC250</h1><h2 class="single-subtitle">45GB di VRAM distribuita su 3 nodi con llama.cpp</h2><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://ciroluciotecce.it" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Ciro Lucio Tecce</a></span>&nbsp;<span class="post-category">incluso in <a href="/categories/homelab/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Homelab</a>&nbsp;<a href="/categories/llm/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>LLM</a></span></div>
             <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2026-08-04">2026-08-04</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;5156 parole&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;25 minuti&nbsp;</div>
@@ -903,7 +903,7 @@ Inoltre, lo stack software attuale — llama-swap davanti a llama.cpp — non sf
         <div class="post-info-line">
             <div class="post-info-md"></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="Condividi su Twitter" data-sharer="twitter" data-url="https://ciroluciotecce.it/posts/bc250-cluster-inferenza-locale/" data-title="Inferenza locale su un cluster di Asrock BC250: tre nodi, meno di 1000 euro" data-hashtags="homelab,llm,llama.cpp,inferenza locale,bc250,vulkan"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Condividi su Facebook" data-sharer="facebook" data-url="https://ciroluciotecce.it/posts/bc250-cluster-inferenza-locale/" data-hashtag="homelab"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Condividi su Hacker News" data-sharer="hackernews" data-url="https://ciroluciotecce.it/posts/bc250-cluster-inferenza-locale/" data-title="Inferenza locale su un cluster di Asrock BC250: tre nodi, meno di 1000 euro"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Condividi su Line" data-sharer="line" data-url="https://ciroluciotecce.it/posts/bc250-cluster-inferenza-locale/" data-title="Inferenza locale su un cluster di Asrock BC250: tre nodi, meno di 1000 euro"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Condividi su 微博" data-sharer="weibo" data-url="https://ciroluciotecce.it/posts/bc250-cluster-inferenza-locale/" data-title="Inferenza locale su un cluster di Asrock BC250: tre nodi, meno di 1000 euro"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+                <span><a href="javascript:void(0);" title="Condividi su Twitter" data-sharer="twitter" data-url="http://localhost:1313/posts/bc250-cluster-inferenza-locale/" data-title="Inferenza locale su un cluster di Asrock BC250" data-hashtags="homelab,llm,llama.cpp,inferenza locale,bc250,vulkan"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Condividi su Facebook" data-sharer="facebook" data-url="http://localhost:1313/posts/bc250-cluster-inferenza-locale/" data-hashtag="homelab"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Condividi su Hacker News" data-sharer="hackernews" data-url="http://localhost:1313/posts/bc250-cluster-inferenza-locale/" data-title="Inferenza locale su un cluster di Asrock BC250"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Condividi su Line" data-sharer="line" data-url="http://localhost:1313/posts/bc250-cluster-inferenza-locale/" data-title="Inferenza locale su un cluster di Asrock BC250"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Condividi su 微博" data-sharer="weibo" data-url="http://localhost:1313/posts/bc250-cluster-inferenza-locale/" data-title="Inferenza locale su un cluster di Asrock BC250"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
             </div>
         </div>
     </div>
@@ -929,5 +929,5 @@ Inoltre, lo stack software attuale — llama-swap davanti a llama.cpp — non sf
             </a><a href="#" id="view-comments" class="fixed-button" title="Vedi commenti">
                 <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
             </a>
-        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copia negli appunti","maxShownLines":50},"comment":{},"lightgallery":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+        </div><link rel="stylesheet" href="/lib/lightgallery/css/lightgallery-bundle.min.css"><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copia negli appunti","maxShownLines":50},"comment":{},"lightgallery":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
 </html>

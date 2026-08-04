@@ -64,3 +64,17 @@ node_modules/
 
 # dotenv environment variables file
 .env
+
+# Workspace / Environment untracked files
+.bash_profile
+.bashrc
+.claude
+.gitconfig
+.mcp.json
+.profile
+.ripgreprc
+.zprofile
+.zshrc
+notes
+handoff.md
+

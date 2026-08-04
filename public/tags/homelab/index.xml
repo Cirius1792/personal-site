@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 	<channel>
 		<title>Homelab on Ciro Lucio Tecce</title>
-		<link>https://ciroluciotecce.it/tags/homelab/</link>
+		<link>http://localhost:1313/tags/homelab/</link>
 		<description>Recent content in Homelab on Ciro Lucio Tecce</description>
 		<generator>Hugo</generator>
 		<language>it</language>
@@ -12,40 +12,47 @@
 		
 			<lastBuildDate>Tue, 04 Aug 2026 00:00:00 +0000</lastBuildDate>
 		
-			<atom:link href="https://ciroluciotecce.it/tags/homelab/index.xml" rel="self" type="application/rss+xml" />
+			<atom:link href="http://localhost:1313/tags/homelab/index.xml" rel="self" type="application/rss+xml" />
 			<item>
-				<title>Inferenza locale su un cluster di Asrock BC250: tre nodi, meno di 1000 euro</title>
-				<link>https://ciroluciotecce.it/posts/bc250-cluster-inferenza-locale/</link>
+				<title>Inferenza locale su un cluster di Asrock BC250</title>
+				<link>http://localhost:1313/posts/bc250-cluster-inferenza-locale/</link>
 				<pubDate>Tue, 04 Aug 2026 00:00:00 +0000</pubDate>
-				<guid>https://ciroluciotecce.it/posts/bc250-cluster-inferenza-locale/</guid>
+				<guid>http://localhost:1313/posts/bc250-cluster-inferenza-locale/</guid>
 				<description>&lt;h2 id=&#34;intro&#34;&gt;Intro&lt;/h2&gt;&#xA;&lt;p&gt;Sono da sempre un appassionato di tecnologia e già qualche anno fa sono entrato nel rabbit hole dell’home labbing. Con tutto questo parlare di AI, sviluppare un interesse per l&amp;rsquo;inferenza locale credo fosse il prossimo passo naturale.&lt;/p&gt;&#xA;&lt;p&gt;Ma ancora prima delle sfide e dell’interesse tecnico che questo mondo porta con se, credo fortemente nel fatto che il futuro dell’AI sia locale. Sia per ragioni pratiche di sostenibilità dell’intero ecosistema AI, che oggi divora risorse in maniera decisamente non proporzionale ai ritorni effettivi che le aziende possono trarne in base al pricing, sia per un tema di democratizzazione dell’accesso a questo tipo di strumenti che non può e non dovrebbe rimanere in mano a grandi provider esterni.&lt;/p&gt;</description>
 			</item>
 			<item>
+				<title>Local Inference on an Asrock BC250 Cluster</title>
+				<link>http://localhost:1313/en/posts/bc250-cluster-inferenza-locale/</link>
+				<pubDate>Tue, 04 Aug 2026 00:00:00 +0000</pubDate>
+				<guid>http://localhost:1313/en/posts/bc250-cluster-inferenza-locale/</guid>
+				<description>&lt;h2 id=&#34;intro&#34;&gt;Intro&lt;/h2&gt;&#xA;&lt;p&gt;I&amp;rsquo;ve always been a tech enthusiast, and a few years ago I fell into the homelabbing rabbit hole. With all the AI hype around, developing an interest in local inference felt like the next natural step.&lt;/p&gt;&#xA;&lt;p&gt;But even beyond the technical challenges and fascination this space brings, I strongly believe that the future of AI is local. This is both for practical reasons regarding the sustainability of the AI ecosystem as a whole—which currently consumes resources completely out of proportion to the actual returns companies get based on pricing—and for the democratization of access to these tools, which cannot and should not remain exclusively in the hands of big external providers.&lt;/p&gt;</description>
+			</item>
+			<item>
 				<title>Monitoring di llama.cpp con Prometheus e Grafana...</title>
-				<link>https://ciroluciotecce.it/posts/monitoring-llm-homelab/</link>
+				<link>http://localhost:1313/posts/monitoring-llm-homelab/</link>
 				<pubDate>Wed, 03 Jun 2026 00:00:00 +0000</pubDate>
-				<guid>https://ciroluciotecce.it/posts/monitoring-llm-homelab/</guid>
+				<guid>http://localhost:1313/posts/monitoring-llm-homelab/</guid>
 				<description>&lt;h2 id=&#34;introduzione--sperimenta-in-piccolo-sogna-in-grande&#34;&gt;Introduzione — Sperimenta in piccolo, sogna in grande&lt;/h2&gt;&#xA;&lt;p&gt;Da qualche mese uno dei mini PC nel mio homelab sta subendo un po&amp;rsquo; di maltrattamenti o, per meglio dire, sta venendo utilizzato un po&amp;rsquo; oltre quelle che erano le sue specifiche di utilizzo atteso. Gli faccio fare cose per cui non è stato progettato: caricare LLM, processare prompt, generare testo e analizzare immagini. Roba da PC serio, con GPU discreta insomma, ma lui non lo sa e funziona lo stesso.&lt;/p&gt;</description>
 			</item>
 			<item>
 				<title>Monitoring llama.cpp with Prometheus and Grafana...</title>
-				<link>https://ciroluciotecce.it/en/posts/monitoring-llm-homelab/</link>
+				<link>http://localhost:1313/en/posts/monitoring-llm-homelab/</link>
 				<pubDate>Wed, 03 Jun 2026 00:00:00 +0000</pubDate>
-				<guid>https://ciroluciotecce.it/en/posts/monitoring-llm-homelab/</guid>
+				<guid>http://localhost:1313/en/posts/monitoring-llm-homelab/</guid>
 				<description>&lt;h2 id=&#34;introduction--experiment-small-dream-big&#34;&gt;Introduction — Experiment small, dream big&lt;/h2&gt;&#xA;&lt;p&gt;For the past few months, one of the mini PCs in my homelab has been getting a bit of a rough ride, or rather, it&amp;rsquo;s been pushed a little beyond what its original specs were meant for. I&amp;rsquo;m asking it to do things it was never designed for: load LLMs, process prompts, generate text, and analyze images. This is discrete GPU territory, but it doesn&amp;rsquo;t know that and keeps going anyway.&lt;/p&gt;</description>
 			</item>
 			<item>
 				<title>Da SSH a git push: come ho automatizzato i deploy sul mio homelab</title>
-				<link>https://ciroluciotecce.it/posts/homelab-deploy-template/</link>
+				<link>http://localhost:1313/posts/homelab-deploy-template/</link>
 				<pubDate>Tue, 02 Jun 2026 00:00:00 +0000</pubDate>
-				<guid>https://ciroluciotecce.it/posts/homelab-deploy-template/</guid>
+				<guid>http://localhost:1313/posts/homelab-deploy-template/</guid>
 				<description>&lt;h2 id=&#34;introduzione--perchè-avere-un-piccolo-server-domestico-è-una-buona-idea-e-come-gestirlo&#34;&gt;Introduzione — Perchè avere un piccolo server domestico è una buona idea e come gestirlo&lt;/h2&gt;&#xA;&lt;p&gt;Un paio di anni fa sono caduto nel rabbit hole dell&amp;rsquo;homelabbing. Da buon nerd quale sono, non ho saputo resistere alla tentazione di costruire il mio piccolo server personale. Sono sempre stato affascinato dalle configurazioni compatte e silenziose — non necessariamente le più potenti, ma le più adatte allo scopo, così dopo aver letto decine e decine di post su &lt;a href=&#34;https://www.reddit.com/r/homelab/&#34; target=&#34;_blank&#34; rel=&#34;noopener noreffer &#34;&gt;r/homelab&lt;/a&gt; e guardato più o meno ogni video della serie &lt;a href=&#34;https://www.servethehome.com/introducing-project-tinyminimicro-home-lab-revolution/&#34; target=&#34;_blank&#34; rel=&#34;noopener noreffer &#34;&gt;TyniMiniMicro&lt;/a&gt; mi sono finalmente deciso.&lt;/p&gt;</description>
 			</item>
 			<item>
 				<title>From SSH to git push: how I automated deployments on my homelab</title>
-				<link>https://ciroluciotecce.it/en/posts/homelab-deploy-template/</link>
+				<link>http://localhost:1313/en/posts/homelab-deploy-template/</link>
 				<pubDate>Tue, 02 Jun 2026 00:00:00 +0000</pubDate>
-				<guid>https://ciroluciotecce.it/en/posts/homelab-deploy-template/</guid>
+				<guid>http://localhost:1313/en/posts/homelab-deploy-template/</guid>
 				<description>&lt;h2 id=&#34;introduction---why-having-a-home-server-is-a-good-idea-and-how-to-manage-it&#34;&gt;Introduction - Why having a home server is a good idea and how to manage it&lt;/h2&gt;&#xA;&lt;p&gt;A couple of years ago I fell down the homelab rabbit hole. Like any self-respecting nerd, I couldn&amp;rsquo;t resist the temptation of building my own little server. I&amp;rsquo;ve always been fascinated by compact, quiet setups — not necessarily the most powerful, but the ones best suited to the job. After reading dozens of posts on &lt;a href=&#34;https://www.reddit.com/r/homelab/&#34; target=&#34;_blank&#34; rel=&#34;noopener noreffer &#34;&gt;r/homelab&lt;/a&gt; and watching pretty much every video of the &lt;a href=&#34;https://www.servethehome.com/introducing-project-tinyminimicro-home-lab-revolution/&#34; target=&#34;_blank&#34; rel=&#34;noopener noreffer &#34;&gt;TinyMiniMicro&lt;/a&gt; series, I finally took the plunge.&lt;/p&gt;</description>
 			</item>
 	</channel>

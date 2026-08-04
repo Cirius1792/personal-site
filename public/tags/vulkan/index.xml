@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 	<channel>
 		<title>Vulkan on Ciro Lucio Tecce</title>
-		<link>https://ciroluciotecce.it/tags/vulkan/</link>
+		<link>http://localhost:1313/tags/vulkan/</link>
 		<description>Recent content in Vulkan on Ciro Lucio Tecce</description>
 		<generator>Hugo</generator>
 		<language>it</language>
@@ -12,13 +12,20 @@
 		
 			<lastBuildDate>Tue, 04 Aug 2026 00:00:00 +0000</lastBuildDate>
 		
-			<atom:link href="https://ciroluciotecce.it/tags/vulkan/index.xml" rel="self" type="application/rss+xml" />
+			<atom:link href="http://localhost:1313/tags/vulkan/index.xml" rel="self" type="application/rss+xml" />
 			<item>
-				<title>Inferenza locale su un cluster di Asrock BC250: tre nodi, meno di 1000 euro</title>
-				<link>https://ciroluciotecce.it/posts/bc250-cluster-inferenza-locale/</link>
+				<title>Inferenza locale su un cluster di Asrock BC250</title>
+				<link>http://localhost:1313/posts/bc250-cluster-inferenza-locale/</link>
 				<pubDate>Tue, 04 Aug 2026 00:00:00 +0000</pubDate>
-				<guid>https://ciroluciotecce.it/posts/bc250-cluster-inferenza-locale/</guid>
+				<guid>http://localhost:1313/posts/bc250-cluster-inferenza-locale/</guid>
 				<description>&lt;h2 id=&#34;intro&#34;&gt;Intro&lt;/h2&gt;&#xA;&lt;p&gt;Sono da sempre un appassionato di tecnologia e già qualche anno fa sono entrato nel rabbit hole dell’home labbing. Con tutto questo parlare di AI, sviluppare un interesse per l&amp;rsquo;inferenza locale credo fosse il prossimo passo naturale.&lt;/p&gt;&#xA;&lt;p&gt;Ma ancora prima delle sfide e dell’interesse tecnico che questo mondo porta con se, credo fortemente nel fatto che il futuro dell’AI sia locale. Sia per ragioni pratiche di sostenibilità dell’intero ecosistema AI, che oggi divora risorse in maniera decisamente non proporzionale ai ritorni effettivi che le aziende possono trarne in base al pricing, sia per un tema di democratizzazione dell’accesso a questo tipo di strumenti che non può e non dovrebbe rimanere in mano a grandi provider esterni.&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Local Inference on an Asrock BC250 Cluster</title>
+				<link>http://localhost:1313/en/posts/bc250-cluster-inferenza-locale/</link>
+				<pubDate>Tue, 04 Aug 2026 00:00:00 +0000</pubDate>
+				<guid>http://localhost:1313/en/posts/bc250-cluster-inferenza-locale/</guid>
+				<description>&lt;h2 id=&#34;intro&#34;&gt;Intro&lt;/h2&gt;&#xA;&lt;p&gt;I&amp;rsquo;ve always been a tech enthusiast, and a few years ago I fell into the homelabbing rabbit hole. With all the AI hype around, developing an interest in local inference felt like the next natural step.&lt;/p&gt;&#xA;&lt;p&gt;But even beyond the technical challenges and fascination this space brings, I strongly believe that the future of AI is local. This is both for practical reasons regarding the sustainability of the AI ecosystem as a whole—which currently consumes resources completely out of proportion to the actual returns companies get based on pricing—and for the democratization of access to these tools, which cannot and should not remain exclusively in the hands of big external providers.&lt;/p&gt;</description>
 			</item>
 	</channel>
 </rss>
