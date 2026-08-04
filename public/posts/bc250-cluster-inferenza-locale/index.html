@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="it">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Inferenza locale su un cluster di Asrock BC250: tre nodi, meno di 1000 euro - Ciro Lucio Tecce</title><meta name="Description" content="Come ho costruito un cluster di tre Asrock BC250 per l&#39;inferenza locale di LLM: hardware ex-mining da meno di 1000 euro, 45GB di VRAM distribuita via RPC e i risultati dei benchmark di llama.cpp."><meta property="og:url" content="https://ciroluciotecce.it/posts/bc250-cluster-inferenza-locale/">
+	<meta property="og:site_name" content="Ciro Lucio Tecce">
+	<meta property="og:title" content="Inferenza locale su un cluster di Asrock BC250: tre nodi, meno di 1000 euro">
+	<meta property="og:description" content="Come ho costruito un cluster di tre Asrock BC250 per l&#39;inferenza locale di LLM: hardware ex-mining da meno di 1000 euro, 45GB di VRAM distribuita via RPC e i risultati dei benchmark di llama.cpp.">
+	<meta property="og:locale" content="it">
+	<meta property="og:type" content="article">
+		<meta property="article:section" content="posts">
+		<meta property="article:published_time" content="2026-08-04T00:00:00+00:00">
+		<meta property="article:modified_time" content="2026-08-04T00:00:00+00:00">
+		<meta property="article:tag" content="Homelab">
+		<meta property="article:tag" content="Llm">
+		<meta property="article:tag" content="Llama.cpp">
+		<meta property="article:tag" content="Inferenza Locale">
+		<meta property="article:tag" content="Bc250">
+		<meta property="article:tag" content="Vulkan">
+
+	<meta name="twitter:card" content="summary">
+	<meta name="twitter:title" content="Inferenza locale su un cluster di Asrock BC250: tre nodi, meno di 1000 euro">
+	<meta name="twitter:description" content="Come ho costruito un cluster di tre Asrock BC250 per l&#39;inferenza locale di LLM: hardware ex-mining da meno di 1000 euro, 45GB di VRAM distribuita via RPC e i risultati dei benchmark di llama.cpp.">
+<meta name="application-name" content="My cool site">
+<meta name="apple-mobile-web-app-title" content="My cool site"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://ciroluciotecce.it/posts/bc250-cluster-inferenza-locale/" /><link rel="prev" href="https://ciroluciotecce.it/posts/monitoring-llm-homelab/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Inferenza locale su un cluster di Asrock BC250: tre nodi, meno di 1000 euro",
+        "inLanguage": "it",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/ciroluciotecce.it\/posts\/bc250-cluster-inferenza-locale\/"
+        },"genre": "posts","keywords": "homelab, llm, llama.cpp, inferenza locale, bc250, vulkan","wordcount":  5156 ,
+        "url": "https:\/\/ciroluciotecce.it\/posts\/bc250-cluster-inferenza-locale\/","datePublished": "2026-08-04T00:00:00+00:00","dateModified": "2026-08-04T00:00:00+00:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "Ciro Lucio Tecce"
+            },"description": "Come ho costruito un cluster di tre Asrock BC250 per l'inferenza locale di LLM: hardware ex-mining da meno di 1000 euro, 45GB di VRAM distribuita via RPC e i risultati dei benchmark di llama.cpp."
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Ciro Lucio Tecce">Ciro Lucio Tecce</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> Articoli </a><a class="menu-item" href="/tags/"> Tag </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Cambiare il tema">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a><a href="javascript:void(0);" class="menu-item language" title="Scegliere la lingua">
+                    <i class="fa fa-globe" aria-hidden="true"></i>                      
+                    <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/posts/bc250-cluster-inferenza-locale/" selected>Italiano</option></select>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Ciro Lucio Tecce">Ciro Lucio Tecce</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">Articoli</a><a class="menu-item" href="/tags/" title="">Tag</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Cambiare il tema">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="Scegliere la lingua">
+                    <i class="fa fa-globe fa-fw" aria-hidden="true"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/posts/bc250-cluster-inferenza-locale/" selected>Italiano</option></select>
+                </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contenuti</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Inferenza locale su un cluster di Asrock BC250: tre nodi, meno di 1000 euro</h1><h2 class="single-subtitle">45GB di VRAM distribuita e i compromessi dell&#39;inferenza distribuita su hardware ex-mining</h2><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://ciroluciotecce.it" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Ciro Lucio Tecce</a></span>&nbsp;<span class="post-category">incluso in <a href="/categories/homelab/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Homelab</a>&nbsp;<a href="/categories/llm/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>LLM</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2026-08-04">2026-08-04</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;5156 parole&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;25 minuti&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contenuti</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#intro">Intro</a></li>
+    <li><a href="#hardware-e-montaggio">Hardware e Montaggio</a>
+      <ul>
+        <li><a href="#temperature">Temperature</a></li>
+      </ul>
+    </li>
+    <li><a href="#software-e-configurazione">Software e Configurazione</a></li>
+    <li><a href="#prestazioni">Prestazioni</a>
+      <ul>
+        <li><a href="#la-profondità-del-contesto">La profondità del contesto</a></li>
+        <li><a href="#cosa-significa-in-pratica">Cosa significa in pratica</a></li>
+        <li><a href="#lo-script-di-benchmark">Lo script di benchmark</a></li>
+      </ul>
+    </li>
+    <li><a href="#conclusioni">Conclusioni</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="intro">Intro</h2>
+<p>Sono da sempre un appassionato di tecnologia e già qualche anno fa sono entrato nel rabbit hole dell’home labbing. Con tutto questo parlare di AI, sviluppare un interesse per l&rsquo;inferenza locale credo fosse il prossimo passo naturale.</p>
+<p>Ma ancora prima delle sfide e dell’interesse tecnico che questo mondo porta con se, credo fortemente nel fatto che il futuro dell’AI sia locale. Sia per ragioni pratiche di sostenibilità dell’intero ecosistema AI, che oggi divora risorse in maniera decisamente non proporzionale ai ritorni effettivi che le aziende possono trarne in base al pricing, sia per un tema di democratizzazione dell’accesso a questo tipo di strumenti che non può e non dovrebbe rimanere in mano a grandi provider esterni.</p>
+<p>Negli ultimi mesi credo inoltre sia in crescita la consapevolezza di essere sempre più dipendenti, in un modo o nell’altro, dall’intelligenza artificiale per il supporto e l’accelerazione che ci dà nello svolgimento di moltissimi compiti della vita quotidiana, oggi principalmente in campo lavorativo. Ma non credo che siamo troppo lontani da un’applicazione sempre più pervasiva anche in ambito personale.</p>
+<p>Per questo ho iniziato a cercare una soluzione economica che mi permettesse di muovere i primi passi nel mondo dell’inferenza locale, sperimentando e imparando qualcosa sul deploy di questo tipo di servizi su infrastruttura distribuita.
+La prima cosa che ho fatto è stata scegliere il mio target: almeno 50GB di VRAM per poter ospitare in parallelo almeno due modelli:</p>
+<ol>
+<li>un modello più forte, con discrete capacità di ragionamento per il design e la supervisione di task di coding quotidiani</li>
+<li>un modello &ldquo;esecutore&rdquo;, meno capace nel ragionamento ma più veloce nell&rsquo;esecuzione di piani già predefiniti dal modello principale</li>
+</ol>
+<p>La scelta è ricaduta su Qwen3.6 27B come modello &ldquo;smart&rdquo; e Qwen3.6 35B-A3B come esecutore.</p>
+<p>Impensabile orientarsi verso una scheda video unica con tutta questa VRAM: ho dovuto cercare soluzioni per dividere il carico su più schede/macchine.</p>
+<p>La priorità era comunque limitare il budget vista la situazione attuale del mercato per l’elettronica. Questo mi ha portato ad un primo sacrificio: niente vLLM.</p>
+<p>vLLM si sta orientando sempre di più al mondo enterprise e di fatto oggi è lo strumento open source, per mia conoscenza, maggiormente efficace ed efficiente per il serving di modelli per casi d’uso che richiedano il supporto a più utenti in parallelo.</p>
+<p>Purtroppo vLLM non supporta il backend Vulkan, che è anche quello che permette di accedere a questo mondo con una spesa relativamente contenuta, essendo supportato da praticamente qualsiasi GPU di qualsiasi fascia ed età. Inoltre, se è vero che vLLM è più efficiente quando si servono più utenti in parallelo, almeno al tempo in cui scrivo offre prestazioni leggermente inferiori a llama.cpp per utente singolo. Di conseguenza, dovendo già orientarmi verso hw non di frontiera ed essendo, di fatto, io l’unico utente del servizio, ho dovuto abbandonare l’idea di usare vLLM — anche se sarebbe stato più in linea con il mio obiettivo di imparare qualcosa da portare poi nel mondo professionale come skill acquisita.</p>
+<p>Sul fronte hw invece, mi sono dato un budget di circa 1000 euro e devo dire che non è stato facile trovare qualcosa che potesse soddisfare la mia necessità di VRAM in questa fascia di prezzo. Saltando per brevità tutte le opzioni che ho preso in considerazione durante il percorso, passiamo alle due finaliste:</p>
+<ol>
+<li>AMD Mi50 32GB: scheda di qualche anno fa, senza supporto o ottimizzazione per operazioni matriciali di cui gli LLM beneficiano immensamente, ma con una banda di memoria decisamente interessante</li>
+<li>un cluster di Asrock BC250: principalmente devo l&rsquo;idea a <a href="https://www.reddit.com/r/LocalLLaMA/comments/1tj4unp/amd_bc250_and_the_search_for_cheap_compute/" target="_blank" rel="noopener noreffer ">questo posto</a> che parlava dello sblocco della piena potenza di calcolo di questa scheda e del suo relativamente contenuto costo</li>
+</ol>
+<p>Dopo aver confrontato entrambe le opzioni, ho scelto la seconda, ben consapevole che le prestazioni ne avrebbero risentito: per raggiungere il mio budget di RAM sarei dovuto passare per quattro nodi separati connessi via ethernet, invece che per due schede potenzialmente installabili sulla stessa macchina come sarebbe stato con la Mi50. Questa opzione era anche la più economica fra le due, cosa che probabilmente ha avuto un impatto maggiore sulla mia decisione. Optare per due Mi50 mi sarebbe costato circa il 50% in più considerando anche l&rsquo;hardware a corredo che avrei dovuto acquistare.</p>
+<p>Infatti, l&rsquo;inferenza multi GPU su singola macchina avrebbe anche richiesto una scheda madre e un processore con abbastanza PCIe lanes da soddisfare il fabbisogno del setup — e la relativa RAM — e, visti i prezzi di oggi, mi avrebbe lasciato senza reni.</p>
+<h2 id="hardware-e-montaggio">Hardware e Montaggio</h2>
+<p>Prima di tutto, chiariamo di cosa stiamo parlando: la BC250 non è una GPU tradizionale da infilare in uno slot PCIe, ma una scheda madre compatta nata per il mining di criptovalute, costruita attorno all&rsquo;APU AMD Cyan Skillfish — una versione depotenziata di quella che si trova dentro la PlayStation 5. In pratica, dentro ogni scheda c&rsquo;è un computer completo: 6 core Zen 2 a 3.5GHz, una GPU RDNA 2 (più o meno) con 24 Compute Unit (sbloccabili fino a 40 con la mod di cui parlo nella sezione software) e 16GB di GDDR6. Quindi di fatto ogni scheda è un nodo a sé stante, con la sua CPU, la sua memoria e la sua porta di rete — non delle semplici GPU da collegare tra loro, e questo spiega molte delle scelte (e dei limiti) che vedremo.</p>
+<p>Il punto chiave per l&rsquo;inferenza è la memoria: condivisa tra CPU e GPU su un bus a 256 bit, con una banda di circa 448 GB/s. Gli LLM sono assetati di banda di memoria molto più che di pura potenza di calcolo, ed è proprio per questo che queste schede ex-mining sono diventate popolari come piattaforma economica per l&rsquo;inferenza locale. Il rovescio della medaglia: la memoria va partizionata nel BIOS (io uso 512MB dedicati alla GPU e il resto come memoria unificata via GTT), lo storage si riduce a un singolo slot M.2 con due sole lane PCIe 2.0, la rete è Gigabit Ethernet e il supporto software è solo Linux — su Windows la GPU non è supportata, la codifica e decodifica video è disabilitata e l&rsquo;IOMMU è rotto per costruzione. Per finire, il TDP arriva fino a 220W con un raffreddamento passivo pensato per un rack, non per un desktop: il che anticipa i problemi di temperatura di cui parlo più avanti.</p>
+<p>Ed eccoci qui:</p>
+<ol>
+<li>4 BC250</li>
+<li>4 SSD di seconda mano presi su vinted a 10 euro l&rsquo;uno</li>
+<li>un alimentatore da 1000W anch&rsquo;esso di seconda mano</li>
+<li>uno switch di rete unmanaged preso su aliexpress a circa 20 euro</li>
+<li>un rack custom stampato in 3D derivato modificando un labrax</li>
+<li>due ventole Arctic da 120mm, in cui ho lasciato un pezzo di falange durante il montaggio di prova, per raffreddare il tutto</li>
+</ol>
+<figure><a class="lightgallery" href="/rack_picture.jpg" title="/rack_picture.jpg" data-thumbnail="/rack_picture.jpg" data-sub-html="<h2>Il rack stampato in 3D con le quattro BC250</h2>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="/rack_picture.jpg"
+            data-srcset="/rack_picture.jpg, /rack_picture.jpg 1.5x, /rack_picture.jpg 2x"
+            data-sizes="auto"
+            alt="/rack_picture.jpg" />
+    </a><figcaption class="image-caption">Il rack stampato in 3D con le quattro BC250</figcaption>
+    </figure>
+<p>N.B.: Sfortunatamente, una delle quattro schede non ha mai dato segni di vita e, mea culpa, le ho provate troppo tardi dopo l&rsquo;arrivo per poter aprire una contestazione con il venditore, quindi i risultati riportati di seguito faranno riferimento ad una configurazione con soli tre nodi.</p>
+<p>Gli SSD non sono né particolarmente capienti né particolarmente performanti. Sulla capienza, prevedo di sostituirli tutti in futuro se questo setup sopravvivrà alla prova del tempo. Oggi, praticamente ad ogni cambio modello, la porzione deployata sul singolo nodo viene inviata sequenzialmente a tutti i nodi del cluster tramite Ethernet a 1Gb; con SSD più capienti potrei usare la cache di llama.cpp in modalità RPC ed evitare di rispedire i modelli sulla rete. Per i tempi di caricamento dei modelli dall&rsquo;SSD, invece, c&rsquo;è poco da fare: la BC250 offre uno slot M.2 2280 PCIe 2.0 con sole 2 lane dedicate, quindi non ci si possono aspettare miracoli.
+Insomma, il caricamento dei modelli non sarà un fulmine ed è qualcosa con cui dovrò convivere.</p>
+<p>Le quattro schede sono montate dentro un rack stampato in 3D, la cui struttura è quella di un LabRax <a href="https://makerworld.com/en/models/1464819-lab-rax-10-server-rack-bolted-version-5u" target="_blank" rel="noopener noreffer ">LabRax 10&quot; Server Rack - Bolted Version - 5U</a>. Ho modificato e stampato due traverse più lunghe per ospitarle: altrimenti non sarebbero mai entrate in un rack da 10&quot; tradizionale.
+Le schede sono state montate verticalmente una a fianco dell&rsquo;altra in gruppi da due, ospitate da due bracket custom disegnate da me con le mie terribili skill di modellazione 3D dopo diverse iterazioni (fallimentari) e misure sbagliate.</p>
+<p><figure><a class="lightgallery" href="/cad.png" title="/cad.png" data-thumbnail="/cad.png" data-sub-html="<h2>Il bracket custom per il montaggio verticale delle schede</h2>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="/cad.png"
+            data-srcset="/cad.png, /cad.png 1.5x, /cad.png 2x"
+            data-sizes="auto"
+            alt="/cad.png" />
+    </a><figcaption class="image-caption">Il bracket custom per il montaggio verticale delle schede</figcaption>
+    </figure>
+Il montaggio finale non è dei più semplici e deve avvenire in un preciso ordine: le schede, ad esempio, vanno montate prima di chiudere la parte superiore del rack, per avere margine di manovra nell&rsquo;inserimento e nel serraggio delle viti di fissaggio.
+<a href="https://www.printables.com/model/1799662-4-bc250-10-rack-mount" target="_blank" rel="noopener noreffer ">Qui</a> potete trovare tutto il necessario e le istruzioni di montaggio.</p>
+<h3 id="temperature">Temperature</h3>
+<p>La parte che mi spaventava di più erano le temperature: queste schede sono ben lungi dall&rsquo;essere energeticamente efficienti, dopotutto erano destinate all&rsquo;utilizzo in server veri e propri, con un raffreddamento degno di questo nome. Io, ingenuamente, speravo di poterne raffreddare due con una sola ventola Arctic da 120mm piazzata sul retro a metà fra una scheda e l&rsquo;altra.
+Povero sciocco.
+Ma nonostante questo — passando alla versione PRO della stessa ventola, che raggiunge 3000rpm contro i 1800 della precedente, e progettando e stampando un fan duct terribile ma, almeno in apparenza, minimamente efficace, disegnato al meglio delle mie possibilità — sono riuscito ad avere temperature abbastanza accettabili per il mio caso d&rsquo;uso.
+Quindi nel setup attuale una sola ventola al 100% riesce a raffreddare due schede. La scheda di destra (guardando frontalmente il rack) riceve probabilmente la maggior parte del flusso d&rsquo;aria e mantiene temperature di sei o sette gradi inferiori rispetto alla sinistra.
+Questo porta al seguente comportamento termico:</p>
+<ol>
+<li>Idle: scheda rx 47 gradi, scheda sx 55 gradi</li>
+<li>Load per inferenza distribuita: scheda rx 66 gradi, scheda sx 75 gradi</li>
+<li>Load per inferenza su singolo nodo: ~85 gradi</li>
+</ol>
+<figure><a class="lightgallery" href="/dashboard_1_node.png" title="/dashboard_1_node.png" data-thumbnail="/dashboard_1_node.png" data-sub-html="<h2>Dashboard temperature — singolo nodo</h2>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="/dashboard_1_node.png"
+            data-srcset="/dashboard_1_node.png, /dashboard_1_node.png 1.5x, /dashboard_1_node.png 2x"
+            data-sizes="auto"
+            alt="/dashboard_1_node.png" />
+    </a><figcaption class="image-caption">Dashboard temperature — singolo nodo</figcaption>
+    </figure>
+<figure><a class="lightgallery" href="/dashboard_2_nodes.png" title="/dashboard_2_nodes.png" data-thumbnail="/dashboard_2_nodes.png" data-sub-html="<h2>Dashboard temperature — due nodi</h2>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="/dashboard_2_nodes.png"
+            data-srcset="/dashboard_2_nodes.png, /dashboard_2_nodes.png 1.5x, /dashboard_2_nodes.png 2x"
+            data-sizes="auto"
+            alt="/dashboard_2_nodes.png" />
+    </a><figcaption class="image-caption">Dashboard temperature — due nodi</figcaption>
+    </figure>
+<p>Ho riportato i risultati sia nel caso dell&rsquo;inferenza distribuita che su singolo nodo perché nel primo caso, essendo il parallelismo implementato a livello di layer del modello in questa configurazione, le schede non rimangono attive in maniera continuativa durante tutto il tempo del task, ma si attivano a turno passando il carico da una scheda all&rsquo;altra in loop. Di fatto questo dà modo alle schede di raffreddarsi fra un turno e l&rsquo;altro e complessivamente le temperature sono mediamente più basse.
+Questo non succede per l&rsquo;inferenza su singolo nodo: il carico è continuativo e le schede arrivano decisamente al limite della capacità di dissipazione del mio piccolo rack.</p>
+<p>In sostanza: risultato non eccezionale, ma le schede non raggiungono la temperatura di fusione del nocciolo. Quindi, per il momento: Missione Compiuta! Ben consapevole che esiste ancora un significativo margine di miglioramento.</p>
+<h2 id="software-e-configurazione">Software e Configurazione</h2>
+<p>La maggior parte delle informazioni che mi sono state utili per mettere a punto la configurazione del cluster vengono da un&rsquo;ottima documentazione che raccoglie le principali guide e istruzioni per questa scheda: <a href="https://elektricm.github.io/amd-bc250-docs/" target="_blank" rel="noopener noreffer ">BC250</a></p>
+<p>Le principali configurazioni applicate sono:</p>
+<ol>
+<li>Installazione di Ubuntu server (non Fedora, che sarebbe stata la scelta migliore, ma io sono più familiare con Ubuntu) tramite custom iso headless preparata con Cubit</li>
+<li>Installazione del kernel 7.x (built-in con Ubuntu 26.04+)</li>
+<li>Sblocco dei 40 CU su tutte e tre le schede</li>
+<li>Impostazione VRAM a 512MB per lasciare quanta più RAM disponibile al sistema</li>
+<li>Configurazione del GTT a 15GB per permettere il massimo uso della memoria unificata da parte di llama.cpp</li>
+<li>Installazione dei driver MESA come indicato dalla documentazione menzionata sopra</li>
+<li>Installazione di Docker e deploy di llama.cpp compilato con i flag RPC e Vulkan attivi</li>
+</ol>
+<p>Tutti i nodi sono usati solo come worker: un&rsquo;istanza di llama-swap su una macchina dedicata orchestra l&rsquo;allocazione dei modelli e la distribuzione sui nodi.</p>
+<p>L&rsquo;inferenza distribuita viene realizzata tramite layer parallelism, meno oneroso in termini di overhead di rete quando la connessione avviene tramite una rete standard e senza l&rsquo;utilizzo di tecniche più sofisticate come, ad esempio schede RDMA dedicate.
+In modalità RPC con layer parallelism llama.cpp non replica il modello su tutti i nodi, ma lo taglia a fette: ogni nodo si occupa di un sottoinsieme dei layer della rete. Ad ogni passo di generazione i nodi devono però scambiarsi via rete i dati ai confini tra le fette, e questo traffico si paga a ogni token prodotto. Più nodi aggiungi, più coordinazione e sincronizzazione introduci — è il motivo per cui, come vedremo, la configurazione a due nodi risulta più veloce di quella a tre.</p>
+<p>Per semplificare il lavoro, tutta la configurazione sulle macchine è stata applicata tramite script Ansible.</p>
+<p>In particolare, il ruolo per lo sblocco delle 40 CU è stato riscritto integralmente (grazie AI!) perché lo script originale non funziona nativamente su Ubuntu.</p>
+ <details>
+ <summary>Ruolo Ansible per lo sblocco dei 40 CU</summary>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span>---
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 40 CU Unlock — Inference Cluster Worker Node</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Upstream-aligned build workflow, with Ansible-owned enable/reboot:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   ./scripts/bc250-enable-40cu.sh build</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   write /etc/modprobe.d/bc250-40cu.conf</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   ansible.builtin.reboot</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>- <span style="color:#f92672">name</span>: <span style="color:#ae81ff">40CU | Skip — role is disabled (cu40_enabled = false)</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">ansible.builtin.debug</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">msg</span>: <span style="color:#e6db74">&#34;40 CU Unlock is disabled. Set cu40_enabled=true to enable.&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">when</span>: <span style="color:#ae81ff">not (cu40_enabled | bool)</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">tags</span>: [<span style="color:#ae81ff">40cu]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>- <span style="color:#f92672">name</span>: <span style="color:#ae81ff">40CU | Converge unlock state</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">when</span>: <span style="color:#ae81ff">cu40_enabled | bool</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">tags</span>: [<span style="color:#ae81ff">40cu]</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">block</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">40CU | Compute kernel source paths</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">ansible.builtin.set_fact</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">_cu40_kernel_source_version</span>: <span style="color:#e6db74">&#34;{{ ansible_kernel | regex_replace(&#39;[-+].*$&#39;, &#39;&#39;) }}&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">_cu40_kernel_source_dir</span>: <span style="color:#e6db74">&#34;/usr/src/linux-source-{{ ansible_kernel | regex_replace(&#39;[-+].*$&#39;, &#39;&#39;) }}&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">_cu40_kernel_source_compat_link</span>: <span style="color:#e6db74">&#34;/usr/src/linux-{{ ansible_kernel | regex_replace(&#39;[-+].*$&#39;, &#39;&#39;) }}&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">_cu40_kernel_source_amdgpu_check</span>: <span style="color:#e6db74">&#34;/usr/src/linux-source-{{ ansible_kernel | regex_replace(&#39;[-+].*$&#39;, &#39;&#39;) }}/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">_cu40_kernel_source_tree_check</span>: <span style="color:#e6db74">&#34;/usr/src/linux-source-{{ ansible_kernel | regex_replace(&#39;[-+].*$&#39;, &#39;&#39;) }}/drivers/gpu/drm/amd/amdkfd/Makefile&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">40CU | Install role dependencies</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">ansible.builtin.apt</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">name</span>:
+</span></span><span style="display:flex;"><span>          - <span style="color:#ae81ff">build-essential</span>
+</span></span><span style="display:flex;"><span>          - <span style="color:#ae81ff">zstd</span>
+</span></span><span style="display:flex;"><span>          - <span style="color:#ae81ff">git</span>
+</span></span><span style="display:flex;"><span>          - <span style="color:#ae81ff">curl</span>
+</span></span><span style="display:flex;"><span>          - <span style="color:#ae81ff">pciutils</span>
+</span></span><span style="display:flex;"><span>          - <span style="color:#ae81ff">vulkan-tools</span>
+</span></span><span style="display:flex;"><span>          - <span style="color:#ae81ff">mesa-vulkan-drivers</span>
+</span></span><span style="display:flex;"><span>          - <span style="color:#e6db74">&#34;linux-headers-{{ ansible_kernel }}&#34;</span>
+</span></span><span style="display:flex;"><span>          - <span style="color:#e6db74">&#34;linux-source-{{ _cu40_kernel_source_version }}&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">state</span>: <span style="color:#ae81ff">present</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">update_cache</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">cache_valid_time</span>: <span style="color:#ae81ff">3600</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">become</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">40CU | Prepare kernel source tree for upstream build script</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">ansible.builtin.shell</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">cmd</span>: |<span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          set -euo pipefail
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          mkdir -p {{ _cu40_kernel_source_dir | quote }}
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          for tarball in \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            &#34;/usr/src/linux-source-{{ _cu40_kernel_source_version }}.tar.xz&#34; \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            &#34;/usr/src/linux-source-{{ _cu40_kernel_source_version }}.tar.bz2&#34; \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            &#34;/usr/src/linux-source-{{ _cu40_kernel_source_version }}.tar.gz&#34;; do
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            if [ -f &#34;$tarball&#34; ]; then
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">              tar xf &#34;$tarball&#34; \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                -C {{ _cu40_kernel_source_dir | quote }} \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                --strip-components=1 \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                --wildcards \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                &#39;*/drivers/gpu/drm/amd/*&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">              test -f {{ _cu40_kernel_source_amdgpu_check | quote }}
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">              test -f {{ _cu40_kernel_source_tree_check | quote }}
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">              exit 0
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            fi
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          done
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          echo &#34;Cannot find linux-source tarball for {{ _cu40_kernel_source_version }} under /usr/src&#34; &gt;&amp;2
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          exit 1</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">executable</span>: <span style="color:#ae81ff">/bin/bash</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">creates</span>: <span style="color:#e6db74">&#34;{{ _cu40_kernel_source_tree_check }}&#34;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">become</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">40CU | Check kernel source compatibility link</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">ansible.builtin.stat</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">path</span>: <span style="color:#e6db74">&#34;{{ _cu40_kernel_source_compat_link }}&#34;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">register</span>: <span style="color:#ae81ff">_cu40_kernel_source_compat_link_stat</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">become</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">40CU | Create kernel source compatibility link for upstream script</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">ansible.builtin.file</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">src</span>: <span style="color:#e6db74">&#34;{{ _cu40_kernel_source_dir }}&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">dest</span>: <span style="color:#e6db74">&#34;{{ _cu40_kernel_source_compat_link }}&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">state</span>: <span style="color:#ae81ff">link</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">force</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">become</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">when</span>: &gt;-<span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        (not _cu40_kernel_source_compat_link_stat.stat.exists)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        or (_cu40_kernel_source_compat_link_stat.stat.islnk | default(false))</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">40CU | Check existing non-link compatibility source tree</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">ansible.builtin.stat</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">path</span>: <span style="color:#e6db74">&#34;{{ _cu40_kernel_source_compat_link }}/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c&#34;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">register</span>: <span style="color:#ae81ff">_cu40_kernel_source_compat_tree_stat</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">become</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">when</span>:
+</span></span><span style="display:flex;"><span>        - <span style="color:#ae81ff">_cu40_kernel_source_compat_link_stat.stat.exists</span>
+</span></span><span style="display:flex;"><span>        - <span style="color:#ae81ff">not (_cu40_kernel_source_compat_link_stat.stat.islnk | default(false))</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">40CU | Assert existing compatibility path is a usable source tree</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">ansible.builtin.assert</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">that</span>:
+</span></span><span style="display:flex;"><span>          - <span style="color:#ae81ff">_cu40_kernel_source_compat_tree_stat.stat.exists</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">fail_msg</span>: &gt;-<span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          {{ _cu40_kernel_source_compat_link }} exists but is neither a symlink
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          managed by this role nor a usable kernel source tree containing
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c.</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">when</span>:
+</span></span><span style="display:flex;"><span>        - <span style="color:#ae81ff">_cu40_kernel_source_compat_link_stat.stat.exists</span>
+</span></span><span style="display:flex;"><span>        - <span style="color:#ae81ff">not (_cu40_kernel_source_compat_link_stat.stat.islnk | default(false))</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">40CU | Preflight — detect BC250 PCI device</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">ansible.builtin.command</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">cmd</span>: <span style="color:#ae81ff">lspci -nn</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">register</span>: <span style="color:#ae81ff">_cu40_lspci</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">changed_when</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">become</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">40CU | Assert BC250 PCI ID 13fe is present</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">ansible.builtin.assert</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">that</span>:
+</span></span><span style="display:flex;"><span>          - <span style="color:#ae81ff">_cu40_lspci.stdout is search(&#39;(?i)13fe&#39;)</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">fail_msg</span>: &gt;-<span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          BC250 PCI ID 13fe not found in lspci output. Aborting 40 CU unlock.</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">success_msg</span>: <span style="color:#e6db74">&#34;BC250 PCI ID detected (13fe).&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">40CU | Clone/update upstream repository</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">ansible.builtin.git</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">repo</span>: <span style="color:#e6db74">&#34;{{ cu40_repo }}&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">dest</span>: <span style="color:#e6db74">&#34;{{ cu40_clone_dir }}&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">version</span>: <span style="color:#e6db74">&#34;{{ cu40_repo_version }}&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">update</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">force</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">depth</span>: <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">become</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">40CU | Verify upstream script exists and is executable</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">ansible.builtin.stat</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">path</span>: <span style="color:#e6db74">&#34;{{ cu40_script_path }}&#34;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">register</span>: <span style="color:#ae81ff">_cu40_script_stat</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">become</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">40CU | Assert upstream script is ready</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">ansible.builtin.assert</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">that</span>:
+</span></span><span style="display:flex;"><span>          - <span style="color:#ae81ff">_cu40_script_stat.stat.exists</span>
+</span></span><span style="display:flex;"><span>          - <span style="color:#ae81ff">_cu40_script_stat.stat.executable</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">fail_msg</span>: <span style="color:#e6db74">&#34;Upstream script {{ cu40_script_path }} missing or not executable.&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">40CU | Apply upstream script sentinel compatibility fix</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">ansible.builtin.replace</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">path</span>: <span style="color:#e6db74">&#34;{{ cu40_script_path }}&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">regexp</span>: <span style="color:#e6db74">&#34;grep -q &#39;bc250-cc-clear&#39;&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">replace</span>: <span style="color:#e6db74">&#34;grep -q &#39;bc250-40cu-enable&#39;&#34;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">become</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">40CU | Check governor service is active</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">ansible.builtin.command</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">cmd</span>: <span style="color:#e6db74">&#34;systemctl is-active {{ cu40_governor_service }}&#34;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">register</span>: <span style="color:#ae81ff">_cu40_governor_active</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">changed_when</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">failed_when</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">become</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">40CU | Read governor config</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">ansible.builtin.slurp</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">src</span>: <span style="color:#e6db74">&#34;{{ cu40_governor_config_path }}&#34;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">register</span>: <span style="color:#ae81ff">_cu40_governor_config</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">become</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">40CU | Decode governor config</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">ansible.builtin.set_fact</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">_cu40_governor_config_content</span>: <span style="color:#e6db74">&#34;{{ _cu40_governor_config.content | b64decode }}&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">40CU | Assert governor profile is capped for 40 CU unlock</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">ansible.builtin.assert</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">that</span>:
+</span></span><span style="display:flex;"><span>          - <span style="color:#ae81ff">_cu40_governor_active.rc == 0</span>
+</span></span><span style="display:flex;"><span>          - <span style="color:#ae81ff">_cu40_governor_config_content is search(&#39;(?m)^max\s*=\s*1500\s*$&#39;)</span>
+</span></span><span style="display:flex;"><span>          - <span style="color:#ae81ff">(_cu40_governor_config_content | regex_findall(&#39;(?m)^\[\[safe-points\]\]\s*$&#39;) | length) == 3</span>
+</span></span><span style="display:flex;"><span>          - <span style="color:#ae81ff">_cu40_governor_config_content is search(&#39;(?ms)\[\[safe-points\]\]\s*frequency\s*=\s*350\s*\n\s*voltage\s*=\s*700&#39;)</span>
+</span></span><span style="display:flex;"><span>          - <span style="color:#ae81ff">_cu40_governor_config_content is search(&#39;(?ms)\[\[safe-points\]\]\s*frequency\s*=\s*1500\s*\n\s*voltage\s*=\s*900&#39;)</span>
+</span></span><span style="display:flex;"><span>          - <span style="color:#ae81ff">_cu40_governor_config_content is search(&#39;(?ms)\[\[safe-points\]\]\s*frequency\s*=\s*2000\s*\n\s*voltage\s*=\s*1000&#39;)</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">fail_msg</span>: &gt;-<span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          Governor safety profile is not in the required 40 CU state.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          Expected max=1500 and safe-points 350/700 + 1500/900 + 2000/1000.</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">40CU | Check if current-kernel amdgpu module is patched</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">ansible.builtin.shell</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">cmd</span>: <span style="color:#ae81ff">modinfo amdgpu 2&gt;/dev/null | grep -q bc250_cc_write_mode</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">register</span>: <span style="color:#ae81ff">_cu40_module_patched</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">changed_when</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">failed_when</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">become</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">40CU | Ensure build state directory exists</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">ansible.builtin.file</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">path</span>: <span style="color:#ae81ff">/var/lib/bc250-40cu-unlock</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">state</span>: <span style="color:#ae81ff">directory</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">owner</span>: <span style="color:#ae81ff">root</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">group</span>: <span style="color:#ae81ff">root</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">mode</span>: <span style="color:#e6db74">&#34;0755&#34;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">become</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">40CU | Check role build marker for current kernel</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">ansible.builtin.stat</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">path</span>: <span style="color:#e6db74">&#34;/var/lib/bc250-40cu-unlock/{{ ansible_kernel }}.build-ok&#34;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">register</span>: <span style="color:#ae81ff">_cu40_build_marker</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">become</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">40CU | Check persistent upstream config contains bc250_cc_write_mode=3</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">ansible.builtin.shell</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">cmd</span>: &gt;-<span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          test -f {{ cu40_conf_path | quote }}
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          &amp;&amp; grep -Eq &#39;bc250_cc_write_mode=3&#39; {{ cu40_conf_path | quote }}</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">register</span>: <span style="color:#ae81ff">_cu40_config_enabled</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">changed_when</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">failed_when</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">become</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">40CU | Check Vulkan/RADV reports num_cu = 40</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">ansible.builtin.shell</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">cmd</span>: <span style="color:#ae81ff">RADV_DEBUG=info vulkaninfo --summary 2&gt;&amp;1</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">register</span>: <span style="color:#ae81ff">_cu40_vulkan_summary</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">changed_when</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">failed_when</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">become</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">when</span>: <span style="color:#ae81ff">cu40_verify_vulkan | bool</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">40CU | Set Vulkan state fact</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">ansible.builtin.set_fact</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">_cu40_vulkan_num_cu_40</span>: &gt;-<span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          {{
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            (cu40_verify_vulkan | bool)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            | ternary(
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                ((_cu40_vulkan_summary.stdout | default(&#39;&#39;)) is search(&#39;num_cu\s*=\s*40&#39;)),
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                true
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">              )
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          }}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">40CU | Compute whether upstream build is required</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">ansible.builtin.set_fact</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">_cu40_build_required</span>: &gt;-<span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          {{
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            (_cu40_module_patched.rc != 0)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            or ((not (_cu40_build_marker.stat.exists | default(false)))
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                and (not (_cu40_vulkan_num_cu_40 | bool)))
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          }}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">40CU | Reset prepared kernel source tree before rebuild</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">ansible.builtin.shell</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">cmd</span>: |<span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          set -euo pipefail
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          for tarball in \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            &#34;/usr/src/linux-source-{{ _cu40_kernel_source_version }}.tar.xz&#34; \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            &#34;/usr/src/linux-source-{{ _cu40_kernel_source_version }}.tar.bz2&#34; \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            &#34;/usr/src/linux-source-{{ _cu40_kernel_source_version }}.tar.gz&#34;; do
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            if [ -f &#34;$tarball&#34; ]; then
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">              tar xf &#34;$tarball&#34; \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                -C {{ _cu40_kernel_source_dir | quote }} \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                --strip-components=1 \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                --wildcards \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                &#39;*/drivers/gpu/drm/amd/*&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">              test -f {{ _cu40_kernel_source_amdgpu_check | quote }}
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">              test -f {{ _cu40_kernel_source_tree_check | quote }}
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">              exit 0
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            fi
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          done
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          echo &#34;Cannot find linux-source tarball for {{ _cu40_kernel_source_version }} under /usr/src&#34; &gt;&amp;2
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          exit 1</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">executable</span>: <span style="color:#ae81ff">/bin/bash</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">become</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">when</span>: <span style="color:#ae81ff">_cu40_build_required | bool</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">40CU | Build patched module (upstream build)</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">ansible.builtin.command</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">cmd</span>: <span style="color:#e6db74">&#34;{{ cu40_script_path }} build&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">chdir</span>: <span style="color:#e6db74">&#34;{{ cu40_clone_dir }}&#34;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">environment</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">MAKEFLAGS</span>: <span style="color:#e6db74">&#34;-j{{ cu40_build_jobs }}&#34;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">register</span>: <span style="color:#ae81ff">_cu40_build</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">become</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">when</span>: <span style="color:#ae81ff">_cu40_build_required | bool</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">40CU | Mark whether build executed</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">ansible.builtin.set_fact</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">_cu40_build_ran</span>: <span style="color:#e6db74">&#34;{{ _cu40_build is defined and _cu40_build is changed }}&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">40CU | Compute whether enable/reboot is required</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">ansible.builtin.set_fact</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">_cu40_enable_required</span>: &gt;-<span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          {{
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            (_cu40_build_ran | bool)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            or (_cu40_config_enabled.rc != 0)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            or (not (_cu40_vulkan_num_cu_40 | bool))
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          }}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">40CU | Verify installed module is patched before enabling</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">ansible.builtin.shell</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">cmd</span>: <span style="color:#ae81ff">modinfo amdgpu 2&gt;/dev/null | grep -q bc250_cc_write_mode</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">register</span>: <span style="color:#ae81ff">_cu40_module_patched_before_enable</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">changed_when</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">become</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">when</span>: <span style="color:#ae81ff">_cu40_enable_required | bool</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">40CU | Assert installed module can accept 40 CU parameter</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">ansible.builtin.assert</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">that</span>:
+</span></span><span style="display:flex;"><span>          - <span style="color:#ae81ff">_cu40_module_patched_before_enable.rc == 0</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">fail_msg</span>: &gt;-<span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          Cannot enable 40 CU mode because the installed amdgpu module does not
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          expose bc250_cc_write_mode. The upstream build/install step did not
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          leave a usable patched module for the current kernel.</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">when</span>: <span style="color:#ae81ff">_cu40_enable_required | bool</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">40CU | Manage persistent 40 CU modprobe config</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">ansible.builtin.copy</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">dest</span>: <span style="color:#e6db74">&#34;{{ cu40_conf_path }}&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">content</span>: |<span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          # BC-250 40 CU re-enablement
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          # Managed by Ansible — 40cu-unlock role
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          options amdgpu bc250_cc_write_mode=3</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">owner</span>: <span style="color:#ae81ff">root</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">group</span>: <span style="color:#ae81ff">root</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">mode</span>: <span style="color:#e6db74">&#34;0644&#34;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">become</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">when</span>: <span style="color:#ae81ff">_cu40_enable_required | bool</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">40CU | Reboot to load patched amdgpu with 40 CU mode</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">ansible.builtin.reboot</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">msg</span>: <span style="color:#e6db74">&#34;Rebooting to load patched amdgpu with bc250_cc_write_mode=3.&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">pre_reboot_delay</span>: <span style="color:#e6db74">&#34;{{ cu40_reboot_pre_delay }}&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">reboot_timeout</span>: <span style="color:#e6db74">&#34;{{ cu40_reboot_wait_timeout }}&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">post_reboot_delay</span>: <span style="color:#e6db74">&#34;{{ cu40_reboot_wait_delay }}&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">reboot_command</span>: <span style="color:#e6db74">&#34;{{ (cu40_reboot_command | length &gt; 0) | ternary(cu40_reboot_command, omit) }}&#34;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">become</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">when</span>: <span style="color:#ae81ff">_cu40_enable_required | bool</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">40CU | Re-check module patched state (post-reconnect)</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">ansible.builtin.shell</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">cmd</span>: <span style="color:#ae81ff">modinfo amdgpu 2&gt;/dev/null | grep -q bc250_cc_write_mode</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">register</span>: <span style="color:#ae81ff">_cu40_module_patched_post</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">changed_when</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">failed_when</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">become</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">40CU | Re-check persistent config (post-reconnect)</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">ansible.builtin.shell</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">cmd</span>: &gt;-<span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          test -f {{ cu40_conf_path | quote }}
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          &amp;&amp; grep -Eq &#39;bc250_cc_write_mode=3&#39; {{ cu40_conf_path | quote }}</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">register</span>: <span style="color:#ae81ff">_cu40_config_enabled_post</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">changed_when</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">failed_when</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">become</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">40CU | Re-check Vulkan/RADV state (post-reconnect)</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">ansible.builtin.shell</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">cmd</span>: <span style="color:#ae81ff">RADV_DEBUG=info vulkaninfo --summary 2&gt;&amp;1</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">register</span>: <span style="color:#ae81ff">_cu40_vulkan_summary_post</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">changed_when</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">failed_when</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">become</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">when</span>: <span style="color:#ae81ff">cu40_verify_vulkan | bool</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">40CU | Re-check governor service state (post-reconnect)</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">ansible.builtin.command</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">cmd</span>: <span style="color:#e6db74">&#34;systemctl is-active {{ cu40_governor_service }}&#34;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">register</span>: <span style="color:#ae81ff">_cu40_governor_active_post</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">changed_when</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">failed_when</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">become</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">40CU | Re-read governor config (post-reconnect)</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">ansible.builtin.slurp</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">src</span>: <span style="color:#e6db74">&#34;{{ cu40_governor_config_path }}&#34;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">register</span>: <span style="color:#ae81ff">_cu40_governor_config_post</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">become</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">40CU | Decode governor config (post-reconnect)</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">ansible.builtin.set_fact</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">_cu40_governor_config_content_post</span>: <span style="color:#e6db74">&#34;{{ _cu40_governor_config_post.content | b64decode }}&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">_cu40_vulkan_num_cu_40_post</span>: &gt;-<span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          {{
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            (cu40_verify_vulkan | bool)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            | ternary(
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                ((_cu40_vulkan_summary_post.stdout | default(&#39;&#39;)) is search(&#39;num_cu\s*=\s*40&#39;)),
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                true
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">              )
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          }}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">40CU | Assert final desired state</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">ansible.builtin.assert</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">that</span>:
+</span></span><span style="display:flex;"><span>          - <span style="color:#ae81ff">_cu40_module_patched_post.rc == 0</span>
+</span></span><span style="display:flex;"><span>          - <span style="color:#ae81ff">_cu40_config_enabled_post.rc == 0</span>
+</span></span><span style="display:flex;"><span>          - <span style="color:#ae81ff">(not (cu40_strict_verify | bool)) or (_cu40_vulkan_num_cu_40_post | bool)</span>
+</span></span><span style="display:flex;"><span>          - <span style="color:#ae81ff">_cu40_governor_active_post.rc == 0</span>
+</span></span><span style="display:flex;"><span>          - <span style="color:#ae81ff">_cu40_governor_config_content_post is search(&#39;(?m)^max\s*=\s*1500\s*$&#39;)</span>
+</span></span><span style="display:flex;"><span>          - <span style="color:#ae81ff">(_cu40_governor_config_content_post | regex_findall(&#39;(?m)^\[\[safe-points\]\]\s*$&#39;) | length) == 3</span>
+</span></span><span style="display:flex;"><span>          - <span style="color:#ae81ff">_cu40_governor_config_content_post is search(&#39;(?ms)\[\[safe-points\]\]\s*frequency\s*=\s*350\s*\n\s*voltage\s*=\s*700&#39;)</span>
+</span></span><span style="display:flex;"><span>          - <span style="color:#ae81ff">_cu40_governor_config_content_post is search(&#39;(?ms)\[\[safe-points\]\]\s*frequency\s*=\s*1500\s*\n\s*voltage\s*=\s*900&#39;)</span>
+</span></span><span style="display:flex;"><span>          - <span style="color:#ae81ff">_cu40_governor_config_content_post is search(&#39;(?ms)\[\[safe-points\]\]\s*frequency\s*=\s*2000\s*\n\s*voltage\s*=\s*1000&#39;)</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">fail_msg</span>: &gt;-<span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          Final 40 CU verification failed.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          Required: persistent config bc250_cc_write_mode=3, Vulkan num_cu = 40,
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          governor service active and capped profile present.</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">40CU | Write role build marker for current kernel</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">ansible.builtin.copy</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">dest</span>: <span style="color:#e6db74">&#34;/var/lib/bc250-40cu-unlock/{{ ansible_kernel }}.build-ok&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">content</span>: |<span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          kernel={{ ansible_kernel }}
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          script={{ cu40_script_path }}
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          repo={{ cu40_repo }}
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          version={{ cu40_repo_version }}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">owner</span>: <span style="color:#ae81ff">root</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">group</span>: <span style="color:#ae81ff">root</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">mode</span>: <span style="color:#e6db74">&#34;0644&#34;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">become</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">when</span>: <span style="color:#ae81ff">_cu40_build is defined and _cu40_build is changed</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">40CU | Diagnostic — runtime bc250_cc_write_mode sysfs</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">ansible.builtin.shell</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">cmd</span>: <span style="color:#ae81ff">cat /sys/module/amdgpu/parameters/bc250_cc_write_mode 2&gt;/dev/null || echo unavailable</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">register</span>: <span style="color:#ae81ff">_cu40_diag_sysfs_mode</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">changed_when</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">failed_when</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">become</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">40CU | Diagnostic — last active_cu_number log line</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">ansible.builtin.shell</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">cmd</span>: <span style="color:#ae81ff">dmesg 2&gt;/dev/null | grep &#39;active_cu_number&#39; | tail -1 || true</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">register</span>: <span style="color:#ae81ff">_cu40_diag_active_cu</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">changed_when</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">failed_when</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">become</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">40CU | Diagnostic — recent bc250-40cu log lines</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">ansible.builtin.shell</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">cmd</span>: <span style="color:#ae81ff">dmesg 2&gt;/dev/null | grep &#39;bc250-40cu&#39; | tail -n 8 || true</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">register</span>: <span style="color:#ae81ff">_cu40_diag_patch_logs</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">changed_when</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">failed_when</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">become</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">40CU | Diagnostic — upstream status output</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">ansible.builtin.command</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">cmd</span>: <span style="color:#e6db74">&#34;{{ cu40_script_path }} status&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">chdir</span>: <span style="color:#e6db74">&#34;{{ cu40_clone_dir }}&#34;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">register</span>: <span style="color:#ae81ff">_cu40_diag_status</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">changed_when</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">failed_when</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">become</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">40CU | Show diagnostics summary</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">ansible.builtin.debug</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">msg</span>:
+</span></span><span style="display:flex;"><span>          - <span style="color:#e6db74">&#34;sysfs bc250_cc_write_mode: {{ _cu40_diag_sysfs_mode.stdout | default(&#39;n/a&#39;) | trim }}&#34;</span>
+</span></span><span style="display:flex;"><span>          - <span style="color:#e6db74">&#34;dmesg active_cu_number: {{ _cu40_diag_active_cu.stdout | default(&#39;n/a&#39;) | trim }}&#34;</span>
+</span></span><span style="display:flex;"><span>          - <span style="color:#e6db74">&#34;dmesg bc250-40cu lines:\n{{ _cu40_diag_patch_logs.stdout | default(&#39;n/a&#39;) }}&#34;</span>
+</span></span><span style="display:flex;"><span>          - <span style="color:#e6db74">&#34;upstream status:\n{{ _cu40_diag_status.stdout | default(&#39;n/a&#39;) }}&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">40CU | Warn when Vulkan verification is disabled (emergency mode)</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">ansible.builtin.debug</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">msg</span>: &gt;-<span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          WARNING: cu40_verify_vulkan=false. Vulkan/RADV num_cu verification is
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          skipped in this run. Use only for emergency diagnostics.</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">when</span>: <span style="color:#ae81ff">not (cu40_verify_vulkan | bool)</span>
+</span></span></code></pre></div> </details>
+<h2 id="prestazioni">Prestazioni</h2>
+<p>La domanda a cui tutto questo doveva rispondere è una sola: valeva la pena? Per capirlo ho fatto girare una serie di benchmark con llama-bench, confrontando la configurazione a due nodi con quella a tre su quattro modelli: Gemma 4 12B, Gemma 4 26B-A4B, Qwen 3.6 35B-A3B e Qwen 3.6 27B, tutti in quantizzazione UD-Q4_K_XL (la variante &ldquo;XL&rdquo; tiene i tensori di alto livello in precisione maggiore).</p>
+<p>Il setup di test: backend Vulkan con RPC per la distribuzione multi-nodo, tutti i layer offloadati sulle schede (<code>-ngl 99</code>), batch size 4096 e micro-batch 2048. Per ogni modello ho misurato due fasi — prompt processing (512 token) e generazione dei token (128 token) — ciascuna a due profondità di contesto: a freddo (nessun token prefillato, <code>-d 0</code>) e a contesto pieno (4096 token prefillati, <code>-d 4096</code>). Tutto tramite lo script <code>bench.sh</code>, riportato in fondo alla sezione.</p>
+<p>La configurazione attuale usa il <em>layer parallelism</em> gestito automaticamente da llama.cpp in base alla dimensione del modello e alla capacità dei nodi: ogni GPU elabora un sottoinsieme dei layer del modello, comunicando con gli altri nodi ad ogni passo. Questo è un dettaglio importante perché spiega il risultato principale: <strong>la configurazione a due nodi è più veloce di quella a tre in tutte le 16 comparazioni</strong>, ma questo era un risultato atteso. L&rsquo;inferenza distribuita aggiunge strutturalmente un overhead di rete — ogni coordinazione tra i nodi costa — e il terzo nodo porta più parallelismo ma anche più traffico RPC e più sincronizzazione. Il fatto che il degrado sia più marcato sulla generazione dei token che sul prompt processing è dovuto alla natura autoregressiva dell&rsquo;inferenza: il prompt viene valutato tutto in una singola run di calcolo (quindi l&rsquo;overhead di rete si paga una volta sola), mentre la generazione produce un token alla volta, richiedendo coordinazione continua tra i nodi ad ogni passo.</p>
+<h3 id="la-profondità-del-contesto">La profondità del contesto</h3>
+<p>Il primo risultato riguarda la profondità del contesto, che ha un effetto opposto sulle due fasi. Elaborare un prompt con la cache già piena a 4096 token è più lento — normale, l&rsquo;attenzione deve lavorare su una finestra già popolata — ma la generazione dei token a profondità 4096 diventa più veloce, probabilmente per via del beneficio della potenza di calcolo aggiuntiva rispetto all&rsquo;overhead introdotto. I grafici sotto mostrano la variazione percentuale rispetto alla profondità 0.</p>
+<figure><a class="lightgallery" href="/three-node-depth-comparison.png" title="/three-node-depth-comparison.png" data-thumbnail="/three-node-depth-comparison.png" data-sub-html="<h2>Effetto della profondità del contesto su tre nodi</h2>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="/three-node-depth-comparison.png"
+            data-srcset="/three-node-depth-comparison.png, /three-node-depth-comparison.png 1.5x, /three-node-depth-comparison.png 2x"
+            data-sizes="auto"
+            alt="/three-node-depth-comparison.png" />
+    </a><figcaption class="image-caption">Effetto della profondità del contesto su tre nodi</figcaption>
+    </figure>
+<figure><a class="lightgallery" href="/two-node-depth-comparison.png" title="/two-node-depth-comparison.png" data-thumbnail="/two-node-depth-comparison.png" data-sub-html="<h2>Effetto della profondità del contesto su due nodi</h2>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="/two-node-depth-comparison.png"
+            data-srcset="/two-node-depth-comparison.png, /two-node-depth-comparison.png 1.5x, /two-node-depth-comparison.png 2x"
+            data-sizes="auto"
+            alt="/two-node-depth-comparison.png" />
+    </a><figcaption class="image-caption">Effetto della profondità del contesto su due nodi</figcaption>
+    </figure>
+<table>
+	<thead>
+			<tr>
+					<th>Modello</th>
+					<th>pp512 (3 nodi)</th>
+					<th>tg128 (3 nodi)</th>
+					<th>pp512 (2 nodi)</th>
+					<th>tg128 (2 nodi)</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>Gemma 4 12B</td>
+					<td>-14.0%</td>
+					<td>+0.7%</td>
+					<td>-14.2%</td>
+					<td>+22.6%</td>
+			</tr>
+			<tr>
+					<td>Gemma 4 26B-A4B</td>
+					<td>-22.3%</td>
+					<td>-1.9%</td>
+					<td>-24.8%</td>
+					<td>+13.0%</td>
+			</tr>
+			<tr>
+					<td>Qwen 3.6 35B-A3B</td>
+					<td>-19.8%</td>
+					<td>+16.2%</td>
+					<td>-18.8%</td>
+					<td>+28.9%</td>
+			</tr>
+			<tr>
+					<td>Qwen 3.6 27B</td>
+					<td>-10.0%</td>
+					<td>+10.8%</td>
+					<td>-10.3%</td>
+					<td>+12.4%</td>
+			</tr>
+			<tr>
+					<td><strong>Media</strong></td>
+					<td><strong>-16.5%</strong></td>
+					<td><strong>+6.5%</strong></td>
+					<td><strong>-17.0%</strong></td>
+					<td><strong>+19.2%</strong></td>
+			</tr>
+	</tbody>
+</table>
+<p>In media il prompt processing perde circa il 16-17% con il contesto pieno su entrambe le configurazioni, mentre la generazione ne beneficia: +19.2% su due nodi, ma solo +6.5% su tre. E su tre nodi il comportamento non è nemmeno uniforme: Gemma 4 12B resta praticamente invariata, Gemma 4 26B-A4B diventa addirittura più lenta.</p>
+<figure><a class="lightgallery" href="/long_run.png" title="/long_run.png" data-thumbnail="/long_run.png" data-sub-html="<h2>Scaling delle prestazioni al crescere della profondità di contesto</h2>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="/long_run.png"
+            data-srcset="/long_run.png, /long_run.png 1.5x, /long_run.png 2x"
+            data-sizes="auto"
+            alt="/long_run.png" />
+    </a><figcaption class="image-caption">Scaling delle prestazioni al crescere della profondità di contesto</figcaption>
+    </figure>
+<p>Il risultato non è una sorpresa, ma la conferma di quanto ci si poteva aspettare dal layer parallelism su Ethernet a 1 Gb: aggiungere un terzo nodo non ha portato throughput, ha portato overhead. I grafici e la tabella seguenti lo mostrano in dettaglio.</p>
+<figure><a class="lightgallery" href="/two-vs-three-node-comparison.png" title="/two-vs-three-node-comparison.png" data-thumbnail="/two-vs-three-node-comparison.png" data-sub-html="<h2>Confronto due vs tre nodi</h2>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="/two-vs-three-node-comparison.png"
+            data-srcset="/two-vs-three-node-comparison.png, /two-vs-three-node-comparison.png 1.5x, /two-vs-three-node-comparison.png 2x"
+            data-sizes="auto"
+            alt="/two-vs-three-node-comparison.png" />
+    </a><figcaption class="image-caption">Confronto due vs tre nodi</figcaption>
+    </figure>
+<p>La tabella seguente mostra la variazione percentuale passando da due a tre nodi (valori negativi = tre nodi più lenti).</p>
+<table>
+	<thead>
+			<tr>
+					<th>Modello</th>
+					<th>Profondità</th>
+					<th>pp512</th>
+					<th>tg128</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>Gemma 4 12B</td>
+					<td>0</td>
+					<td>-9.4%</td>
+					<td>-8.1%</td>
+			</tr>
+			<tr>
+					<td>Gemma 4 12B</td>
+					<td>4096</td>
+					<td>-9.1%</td>
+					<td>-24.5%</td>
+			</tr>
+			<tr>
+					<td>Gemma 4 26B-A4B</td>
+					<td>0</td>
+					<td>-9.8%</td>
+					<td>-32.7%</td>
+			</tr>
+			<tr>
+					<td>Gemma 4 26B-A4B</td>
+					<td>4096</td>
+					<td>-6.9%</td>
+					<td>-41.6%</td>
+			</tr>
+			<tr>
+					<td>Qwen 3.6 35B-A3B</td>
+					<td>0</td>
+					<td>-8.7%</td>
+					<td>-18.2%</td>
+			</tr>
+			<tr>
+					<td>Qwen 3.6 35B-A3B</td>
+					<td>4096</td>
+					<td>-9.8%</td>
+					<td>-26.2%</td>
+			</tr>
+			<tr>
+					<td>Qwen 3.6 27B</td>
+					<td>0</td>
+					<td>-3.3%</td>
+					<td>-4.6%</td>
+			</tr>
+			<tr>
+					<td>Qwen 3.6 27B</td>
+					<td>4096</td>
+					<td>-3.0%</td>
+					<td>-6.0%</td>
+			</tr>
+			<tr>
+					<td><strong>Media</strong></td>
+					<td></td>
+					<td><strong>-7.5%</strong></td>
+					<td><strong>-20.2%</strong></td>
+			</tr>
+	</tbody>
+</table>
+<p>In media il prompt processing perde il 7.5% e la generazione il 20.2%, con un picco del -41.6% per la generazione di Gemma 4 26B-A4B a contesto pieno.</p>
+<h3 id="cosa-significa-in-pratica">Cosa significa in pratica</h3>
+<p>Con questo hardware e questa configurazione, la distribuzione su due nodi di <strong>Qwen 3.6 35B-A3B</strong> ha prestazioni sufficienti per l&rsquo;utilizzo quotidiano come piccoli task di coding, soprattutto grazie alla velocità di prompt processing — che in questo tipo di task, a mio avviso, ha un ruolo particolarmente importante. Ricordiamo che l&rsquo;obiettivo di questo cluster era proprio quello di poter deployare Qwen 3.6 35B su due delle quattro schede e Qwen 3.6 27B sulle altre due: direi che il primo obiettivo può dirsi raggiunto.</p>
+<p>Purtroppo i risultati meno rosei sono quelli della variante densa da 27B. La velocità di generazione dei token è a mio avviso sufficiente per l&rsquo;utilizzo quotidiano, ma la velocità di prompt processing non può dirsi soddisfacente. Basti pensare che solo il primo messaggio di un coding agent può arrivare a contenere fra gli 8K e i 30K token, e ovviamente al crescere del contesto la velocità di processing decade in maniera considerevole, portando ad attese non tollerabili per un utilizzo quotidiano.</p>
+<p>Per non parlare del fatto che il deploy di questi due modelli con una finestra di contesto soddisfacente (fra i 60 e gli 80K token) non è possibile sulle sole tre schede rimaste per il mio setup.</p>
+<h3 id="lo-script-di-benchmark">Lo script di benchmark</h3>
+<p>Ecco <code>bench.sh</code>, lo script con cui ho estratto i valori: lancia llama-bench dentro il container dell&rsquo;inference engine, con i worker del cluster raggiunti via RPC.</p>
+<details>
+<summary>bench.sh</summary>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">#!/bin/bash
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>set -o pipefail
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>LOGFILE<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;llama-bench-</span><span style="color:#66d9ef">$(</span>date +%Y%m%d-%H%M%S<span style="color:#66d9ef">)</span><span style="color:#e6db74">.log&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>docker run --rm <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>  --network host <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>  --user <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>id -u<span style="color:#66d9ef">)</span><span style="color:#e6db74">:</span><span style="color:#66d9ef">$(</span>id -g<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>  -v <span style="color:#e6db74">&#34;/opt/data/llm/models:/models:ro&#34;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>  --entrypoint /app/llama-bench <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>  my-gitea-host/clt/llama-cpp-rpc:latest <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>  -rpc 192.168.31.50:50052,192.168.31.52:50052,192.168.31.53:50052 <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>  -m /models/gemma/qat/gemma-4-12B-it-qat-UD-Q4_K_XL.gguf <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>  -m /models/gemma/qat/gemma-4-26B-A4B-it-qat-UD-Q4_K_XL.gguf <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>  -m /models/qwen/3.6/Qwen3.6-35B-A3B-UD-Q4_K_XL.gguf <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>  -m /models/qwen/3.6/Qwen3.6-27B-UD-Q4_K_XL.gguf <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>  -d 0,4096 <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>  -ngl <span style="color:#ae81ff">99</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>  -b <span style="color:#ae81ff">4096</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>  -ub <span style="color:#ae81ff">2048</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>  --progress <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>  2&gt;&amp;<span style="color:#ae81ff">1</span> | tee <span style="color:#e6db74">&#34;</span>$LOGFILE<span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>exit <span style="color:#e6db74">${</span>PIPESTATUS[0]<span style="color:#e6db74">}</span>
+</span></span></code></pre></div></details>
+<h2 id="conclusioni">Conclusioni</h2>
+<p>L&rsquo;obiettivo del progetto era semplice ma non scontato da raggiungere: con un budget intorno ai 1000 euro, portarsi a casa almeno 50GB di VRAM distribuita per servire in parallelo due modelli — uno &ldquo;smart&rdquo; con discrete capacità di ragionamento per i task di coding ed un esecutore più veloce — e nel farlo imparare qualcosa sul deploy di servizi di inferenza su infrastruttura distribuita. La scelta di un cluster di Asrock BC250 si è rivelata l&rsquo;opzione più economica fra quelle in grado di soddisfare il requisito di memoria, ma non la migliore in termini di prestazioni.</p>
+<p><strong>Cosa ha funzionato.</strong> Purtroppo, a causa del nodo prematuramente scomparso, ho raggiunto solo 45GB di VRAM invece dei 60 teoricamente possibili. Qwen 3.6 35B-A3B distribuito su due nodi ha prestazioni sufficienti per l&rsquo;utilizzo quotidiano, soprattutto grazie alla velocità di prompt processing, fondamentale nei task di coding. Hanno funzionato anche lo sblocco delle 40 CU, la gestione delle temperature (accettabile, seppur vicina al limite) e la riproducibilità dell&rsquo;intero setup tramite Ansible, che rende ogni nodo ricostruibile dallo stato del repository.</p>
+<p><strong>Cosa ha funzionato meno.</strong> La variante densa Qwen 3.6 27B delude sul prompt processing: con i contesti reali di un coding agent, che possono superare i 30K token, l&rsquo;attesa diventa intollerabile. E sulle tre schede rimaste dopo la scheda morta all&rsquo;arrivo non è possibile ospitare entrambi i modelli con una finestra di contesto soddisfacente. Si confermano poi i limiti strutturali emersi nei benchmark: la rete fa sì che il terzo nodo aggiunga overhead invece di throughput, e il caricamento dei modelli resta lento per via dello storage.
+Inoltre, lo stack software attuale — llama-swap davanti a llama.cpp — non sfrutta la VRAM nel migliore dei modi: l&rsquo;hosting parallelo di due modelli che teoricamente ci starebbero, anche se un po&rsquo; stretti, diventa difficile. Spesso mi sono imbattuto in problemi di OOM durante i test più intensivi di parallelismo.</p>
+<p>Valeva la pena? Non ne sono sicuro: onestamente non so se terrò questo setup. Per meno di 1000 euro ho un cluster di tre nodi che, anche se non per l&rsquo;inferenza distribuita, potrebbe sempre essere riutilizzato per altri calcoli distribuiti — parliamo di tre Single Board Computer, non di tre schede video. Non so ancora bene cosa farci in futuro; per il momento è un&rsquo;aggiunta anche esteticamente piacevole al mio setup. È stata l&rsquo;occasione per un&rsquo;esperienza diretta sui compromessi dell&rsquo;inferenza distribuita che non avrei potuto ottenere altrimenti, e ho comunque imparato qualcosa durante il percorso: per il momento, sono soddisfatto.</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Aggiornato il 2026-08-04</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Condividi su Twitter" data-sharer="twitter" data-url="https://ciroluciotecce.it/posts/bc250-cluster-inferenza-locale/" data-title="Inferenza locale su un cluster di Asrock BC250: tre nodi, meno di 1000 euro" data-hashtags="homelab,llm,llama.cpp,inferenza locale,bc250,vulkan"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Condividi su Facebook" data-sharer="facebook" data-url="https://ciroluciotecce.it/posts/bc250-cluster-inferenza-locale/" data-hashtag="homelab"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Condividi su Hacker News" data-sharer="hackernews" data-url="https://ciroluciotecce.it/posts/bc250-cluster-inferenza-locale/" data-title="Inferenza locale su un cluster di Asrock BC250: tre nodi, meno di 1000 euro"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Condividi su Line" data-sharer="line" data-url="https://ciroluciotecce.it/posts/bc250-cluster-inferenza-locale/" data-title="Inferenza locale su un cluster di Asrock BC250: tre nodi, meno di 1000 euro"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Condividi su 微博" data-sharer="weibo" data-url="https://ciroluciotecce.it/posts/bc250-cluster-inferenza-locale/" data-title="Inferenza locale su un cluster di Asrock BC250: tre nodi, meno di 1000 euro"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/homelab/">Homelab</a>,&nbsp;<a href="/tags/llm/">Llm</a>,&nbsp;<a href="/tags/llama.cpp/">Llama.cpp</a>,&nbsp;<a href="/tags/inferenza-locale/">Inferenza Locale</a>,&nbsp;<a href="/tags/bc250/">Bc250</a>,&nbsp;<a href="/tags/vulkan/">Vulkan</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Indietro</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/monitoring-llm-homelab/" class="prev" rel="prev" title="Monitoring di llama.cpp con Prometheus e Grafana..."><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Monitoring di llama.cpp con Prometheus e Grafana...</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Realizzato da <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.163.3">Hugo</a> | Tema - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2026</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://ciroluciotecce.it" target="_blank">Ciro Lucio Tecce</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Torna all&#39;inizio">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="Vedi commenti">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copia negli appunti","maxShownLines":50},"comment":{},"lightgallery":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

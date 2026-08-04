@@ -1,33 +1,38 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Categories on Ciro Lucio Tecce</title>
-    <link>https://ciroluciotecce.it/en/categories/</link>
-    <description>Recent content in Categories on Ciro Lucio Tecce</description>
-    <generator>Hugo</generator>
-    <language>en</language>
-    <lastBuildDate>Wed, 03 Jun 2026 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://ciroluciotecce.it/en/categories/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>DevOps</title>
-      <link>https://ciroluciotecce.it/en/categories/devops/</link>
-      <pubDate>Wed, 03 Jun 2026 00:00:00 +0000</pubDate>
-      <guid>https://ciroluciotecce.it/en/categories/devops/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Homelab</title>
-      <link>https://ciroluciotecce.it/en/categories/homelab/</link>
-      <pubDate>Wed, 03 Jun 2026 00:00:00 +0000</pubDate>
-      <guid>https://ciroluciotecce.it/en/categories/homelab/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>LLM</title>
-      <link>https://ciroluciotecce.it/en/categories/llm/</link>
-      <pubDate>Wed, 03 Jun 2026 00:00:00 +0000</pubDate>
-      <guid>https://ciroluciotecce.it/en/categories/llm/</guid>
-      <description></description>
-    </item>
-  </channel>
+	<channel>
+		<title>Categories on Ciro Lucio Tecce</title>
+		<link>https://ciroluciotecce.it/en/categories/</link>
+		<description>Recent content in Categories on Ciro Lucio Tecce</description>
+		<generator>Hugo</generator>
+		<language>en</language>
+		
+		
+		
+		
+			<lastBuildDate>Wed, 03 Jun 2026 00:00:00 +0000</lastBuildDate>
+		
+			<atom:link href="https://ciroluciotecce.it/en/categories/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>DevOps</title>
+				<link>https://ciroluciotecce.it/en/categories/devops/</link>
+				<pubDate>Wed, 03 Jun 2026 00:00:00 +0000</pubDate>
+				<guid>https://ciroluciotecce.it/en/categories/devops/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Homelab</title>
+				<link>https://ciroluciotecce.it/en/categories/homelab/</link>
+				<pubDate>Wed, 03 Jun 2026 00:00:00 +0000</pubDate>
+				<guid>https://ciroluciotecce.it/en/categories/homelab/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>LLM</title>
+				<link>https://ciroluciotecce.it/en/categories/llm/</link>
+				<pubDate>Wed, 03 Jun 2026 00:00:00 +0000</pubDate>
+				<guid>https://ciroluciotecce.it/en/categories/llm/</guid>
+				<description></description>
+			</item>
+	</channel>
 </rss>

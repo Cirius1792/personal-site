@@ -6,6 +6,13 @@ theme = 'LoveIt'
 [outputs]
   home = ["HTML"]
 
+# Allow raw HTML in Markdown content (e.g. <details>/<summary> collapsible blocks).
+# Without this, Goldmark strips raw HTML tags from content.
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+
 # Shared params — inherited by all languages unless overridden
 [params.author]
   name = "Ciro Lucio Tecce"

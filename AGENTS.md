@@ -53,6 +53,11 @@ baseURL = 'https://ciroluciotecce.it'          # ← change if migrating domains
 defaultContentLanguage = "it"                   # Italian is default
 theme = 'LoveIt'
 
+# Raw HTML in Markdown content allowed (needed for <details>/<summary> collapsible blocks)
+[markup]
+  [markup.goldmark.renderer]
+    unsafe = true
+
 # Shared params — inherited by all languages
 [params.author]
   name = "Ciro Lucio Tecce"
@@ -111,6 +116,7 @@ theme = 'LoveIt'
 | Social links | `[params.social]` (shared across languages) |
 | Domain | `baseURL` |
 | Subtitle animation | `typeit = true` per-language |
+| Collapsible blocks (`<details>`/`<summary>` in posts) | `[markup.goldmark.renderer].unsafe = true` (already enabled) |
 
 ## File conventions
 
